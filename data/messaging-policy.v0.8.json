@@ -1,0 +1,192 @@
+{
+  "schema_version": "0.8.0",
+  "description": "Messaging safety policy. The app is text-only: no profile photos, no images or files in chat, and messages that smuggle images in (image links, data URIs, markup) are rejected. Message text is checked only for Terms-of-Service violations (adaptation.content_exception = tos_violations_only); nothing else about a conversation is analysed. The seed patterns are English; a global launch must add maintained per-locale lists under `locale_rules` and the external lists before release.",
+  "media": {
+    "profile_photos": false,
+    "images_in_chat": false,
+    "attachments": false,
+    "block_image_links": true,
+    "image_extensions": [
+      "jpg",
+      "jpeg",
+      "png",
+      "gif",
+      "webp",
+      "heic",
+      "heif",
+      "bmp",
+      "tiff",
+      "svg",
+      "avif"
+    ],
+    "image_hosts": [
+      "imgur.com",
+      "i.imgur.com",
+      "i.redd.it",
+      "postimg.cc",
+      "ibb.co",
+      "imgbb.com",
+      "tinypic.com",
+      "photobucket.com",
+      "flickr.com",
+      "snapchat.com",
+      "onlyfans.com",
+      "fansly.com"
+    ]
+  },
+  "links": { "allowed_after_messages": 20 },
+  "contact_info": { "allowed_after_messages": 10 },
+  "max_length": 2000,
+  "explicit_talk": {
+    "requires_mutual_opt_in": true,
+    "note": "Both people must switch on explicit talk for the conversation before sexual language is delivered. Image requests stay blocked either way because images are not allowed."
+  },
+  "strikes": {
+    "suspend_messaging_at": 3,
+    "review_account_at": 5,
+    "decay_days": 90,
+    "note": "A strike is recorded when a message is blocked for a rule with strike=true. At suspend_messaging_at active strikes the sender cannot start or send messages until review."
+  },
+  "rules": [
+    {
+      "id": "image_request",
+      "category": "unsolicited_sexual",
+      "action": "block",
+      "strike": true,
+      "strike_even_with_consent": false,
+      "patterns": [
+        "\\bsend (me )?(a |some |ur |your )?(pic|pics|picture|pictures|photo|photos|selfie|selfies|nudes?)\\b",
+        "\\bnudes?\\b",
+        "\\bshow me (your |ur )?(body|tits|boobs|ass|butt|pussy|dick|cock)\\b",
+        "\\bdick ?pics?\\b"
+      ]
+    },
+    {
+      "id": "sexual_explicit",
+      "category": "unsolicited_sexual",
+      "action": "block",
+      "strike": true,
+      "allowed_with_explicit_consent": true,
+      "patterns": [
+        "\\bdick\\b",
+        "\\bcock\\b",
+        "\\bpussy\\b",
+        "\\btits\\b",
+        "\\bboobs\\b",
+        "\\bhorny\\b",
+        "\\bcum\\b",
+        "\\bdtf\\b",
+        "\\bblow ?jobs?\\b",
+        "\\bsuck (my|it|me)\\b",
+        "\\bfuck (me|you|u)\\b",
+        "\\bsit on my face\\b"
+      ]
+    },
+    {
+      "id": "harassment",
+      "category": "harassment",
+      "action": "block",
+      "strike": true,
+      "patterns": [
+        "\\b(bitch|slut|whore|skank)\\b",
+        "\\b(ugly|fat|stupid|worthless|dumb) (cow|pig|loser)\\b",
+        "\\bkys\\b",
+        "\\bkill yourself\\b",
+        "\\bnobody (will|would) (ever )?(love|want|date) you\\b"
+      ]
+    },
+    {
+      "id": "threat",
+      "category": "threat",
+      "action": "hold_for_review",
+      "strike": true,
+      "patterns": [
+        "\\bi ?('ll|will|am going to|gonna) (kill|hurt|find|rape|stab|shoot) (you|u)\\b",
+        "\\bi know where you live\\b",
+        "\\brape\\b"
+      ]
+    },
+    {
+      "id": "scam",
+      "category": "scam",
+      "action": "hold_for_review",
+      "strike": false,
+      "patterns": [
+        "\\b(send|wire|lend|loan|transfer) (me )?(some )?(money|cash|funds)\\b",
+        "\\bgift ?cards?\\b",
+        "\\b(bitcoin|btc|crypto|usdt|ethereum|forex)\\b",
+        "\\binvest(ment|ing)? (opportunity|platform|with me)\\b",
+        "\\bwestern union\\b",
+        "\\bmoneygram\\b",
+        "\\bcash ?app\\b"
+      ]
+    },
+    {
+      "id": "commercial_sex",
+      "category": "exploitation",
+      "action": "hold_for_review",
+      "strike": true,
+      "patterns": [
+        "\\b(incall|outcall|gfe|pse)\\b",
+        "\\b(escort|escorting) (service|services|rates?)\\b",
+        "\\b(rates?|price|prices|donation|roses) (per|for|an?) (hour|hr|night|session)\\b",
+        "\\b\\d+ ?roses\\b",
+        "\\bnew (girl |girls )?in town\\b",
+        "\\bsugar (daddy|baby|mommy|arrangement)\\b",
+        "\\bpay (you|me) for (sex|time|company|a date)\\b"
+      ]
+    },
+    {
+      "id": "trafficking_recruitment",
+      "category": "exploitation",
+      "action": "hold_for_review",
+      "strike": true,
+      "patterns": [
+        "\\b(job|work|modell?ing|nanny|dancer|hostess) (offer|opportunity|position) (abroad|overseas|in another country)\\b",
+        "\\b(i|we) (will|can|'ll) (pay for|arrange|handle) (your )?(ticket|flight|visa|passport|travel)\\b",
+        "\\b(give|send) me your passport\\b",
+        "\\b(keep|hold) your passport\\b",
+        "\\bdebt (to|you owe) (me|us|the agency)\\b",
+        "\\bdon'?t tell (your )?(family|anyone|parents)\\b"
+      ]
+    }
+  ],
+  "account_trust": {
+    "messaging_requires_verification": true,
+    "verification_method": "government_id_with_liveness",
+    "verification_note": "Handled by a verification vendor. The ID image and liveness selfie are used only for the check, never shown to users, and deleted after the vendor retention window; the app stores status, date, provider and a salted hash of the document number for one-account-per-person.",
+    "first_messages_per_day": 20,
+    "identical_first_messages_threshold": 5,
+    "max_accounts_per_device": 1,
+    "new_account_days": 7,
+    "new_account_first_messages_per_day": 5,
+    "report_reasons": [
+      "fake_profile",
+      "scam_or_money_request",
+      "sexual_harassment",
+      "harassment_or_threats",
+      "underage",
+      "trafficking_or_exploitation",
+      "hate",
+      "other"
+    ],
+    "escalate_immediately": ["underage", "trafficking_or_exploitation", "harassment_or_threats"]
+  },
+  "contact_patterns": {
+    "email": "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}",
+    "phone": "\\+?\\d[\\d\\s().-]{7,}\\d",
+    "handle": "(^|\\s)@[a-z0-9_.]{3,}",
+    "platforms": "\\b(whatsapp|telegram|snap ?chat|snap|kik|insta(gram)?|wechat|line id|signal|discord)\\b"
+  },
+  "url_pattern": "(https?://|www\\.)\\S+|\\b[a-z0-9-]+\\.(com|net|org|io|me|ly|app|link|co|xyz|cc|to)\\b(/\\S*)?",
+  "external_lists": {
+    "slurs": {
+      "category": "hate",
+      "action": "block",
+      "strike": true,
+      "source": "Load a maintained multilingual slur list at deploy time (vendor or open dataset reviewed by trust-and-safety). Kept out of the repo.",
+      "terms": []
+    }
+  },
+  "locale_rules": {}
+}

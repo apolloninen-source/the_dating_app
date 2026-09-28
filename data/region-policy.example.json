@@ -1,0 +1,32 @@
+{
+  "schema_version": "0.8.0",
+  "description": "Per-country rules for a global launch. EXAMPLE STRUCTURE ONLY: the real file must be maintained by legal/trust-and-safety and reviewed on a schedule, because laws change. Do not ship this file's example entries as policy.",
+  "default": {
+    "min_age": 18,
+    "hide_fields": [],
+    "disabled_questions": [],
+    "special_category_consent_required": true,
+    "safety_resources": {
+      "emergency_number": "TO_BE_FILLED_BY_LEGAL",
+      "trafficking_hotline": "TO_BE_FILLED_BY_LEGAL",
+      "note": "Shown in the report flow and when a message is held for exploitation. Fill per region from official sources; verify before launch."
+    }
+  },
+  "regions": {
+    "XA": {
+      "note": "Example: a country where same-sex relationships are criminalised. Hide orientation and same-gender seeking from everyone, and never reveal them in exports visible to other users.",
+      "min_age": 18,
+      "hide_fields": ["sexual_orientation", "seeking.genders"],
+      "disabled_questions": ["cannabis", "recreational_drugs"]
+    },
+    "XB": {
+      "note": "Example: a country with a higher age of majority.",
+      "min_age": 20
+    },
+    "XC": {
+      "note": "Example: a country where political or religious answers carry legal risk.",
+      "disabled_questions": ["political_leaning"],
+      "hide_fields": ["dealbreakers.religion"]
+    }
+  }
+}
