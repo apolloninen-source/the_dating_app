@@ -1,0 +1,82 @@
+{
+  "schema_version": "0.8.0",
+  "description": "EU Digital Services Act duties for moderation decisions. Every decision that restricts someone gets a statement of reasons (Art. 17): what was restricted, the facts, whether it was detected or decided automatically, the terms-of-service ground, and how to seek redress. Anyone affected, including people who reported, can file a free internal complaint for at least six months (Art. 20); complaints are decided by people, never solely by automation. Reporters get a receipt and a decision notice (Art. 16). Statements of reasons are submitted to the Commission's transparency database without personal data (Art. 24(5)). Section keys point into the Terms of Service, which legal must draft.",
+  "decision_types": {
+    "message_blocked": { "restriction": "content_not_delivered" },
+    "content_held_for_review": { "restriction": "content_delayed_pending_human_review" },
+    "photo_rejected": { "restriction": "content_not_published" },
+    "profile_text_blocked": { "restriction": "content_not_published" },
+    "strike_recorded": { "restriction": "warning" },
+    "messaging_suspended": { "restriction": "service_partially_suspended" },
+    "account_suspended": { "restriction": "account_suspended" },
+    "account_terminated": { "restriction": "account_terminated" }
+  },
+  "grounds": {
+    "unsolicited_sexual": {
+      "section": "tos.sexual_content",
+      "explanation": "Sexual content and requests for pictures are not allowed unless both people turned on explicit talk; pictures are never allowed in chat."
+    },
+    "harassment": {
+      "section": "tos.harassment",
+      "explanation": "Insults, degrading language and encouraging self-harm are not allowed."
+    },
+    "threat": {
+      "section": "tos.threats",
+      "explanation": "Threats of violence are not allowed and are reviewed by a person."
+    },
+    "scam": {
+      "section": "tos.fraud",
+      "explanation": "Requests for money, gift cards, crypto or investments are not allowed."
+    },
+    "exploitation": {
+      "section": "tos.exploitation",
+      "explanation": "Commercial sex, trafficking-related recruitment and similar content are not allowed and are reviewed by a person."
+    },
+    "hate": {
+      "section": "tos.hate",
+      "explanation": "Slurs and hateful content are not allowed."
+    },
+    "off_platform": {
+      "section": "tos.contact_and_links",
+      "explanation": "Links and contact details are only allowed after enough messages, and never in a profile."
+    },
+    "media": {
+      "section": "tos.no_images_in_chat",
+      "explanation": "Images, files and image links cannot be sent in chat."
+    },
+    "profile_photo": {
+      "section": "tos.profile_photo",
+      "explanation": "The profile photo must show only you, match your photo check, and contain no nudity or violence."
+    },
+    "enforcement": {
+      "section": "tos.enforcement",
+      "explanation": "Repeated violations lead to strikes, then suspension of messaging, then account review."
+    }
+  },
+  "photo_reason_grounds": {
+    "nudity": "profile_photo",
+    "possible_nudity": "profile_photo",
+    "violence": "profile_photo",
+    "needs_exactly_one_face": "profile_photo",
+    "does_not_match_photo_check": "profile_photo",
+    "uncertain_face_match": "profile_photo",
+    "possible_minor": "profile_photo",
+    "text_in_image": "profile_photo"
+  },
+  "redress": {
+    "internal_complaint_days": 183,
+    "complaint_max_length": 2000,
+    "response_target_days": 14,
+    "out_of_court": "A certified out-of-court dispute settlement body under Art. 21 DSA (list to be published by the Digital Services Coordinator).",
+    "judicial": "The courts of the person's country of residence."
+  },
+  "misuse": {
+    "unfounded_reports_warning_at": 5,
+    "unfounded_reports_suspend_at": 10,
+    "reporting_suspension_days": 30
+  },
+  "transparency_database": {
+    "submit": true,
+    "personal_data": false
+  }
+}

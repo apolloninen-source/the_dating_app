@@ -1,1 +1,334 @@
 # the_dating_app
+
+The matching foundation for a dating app built to end its own use: it finds people a lasting
+partner and counts two people leaving together as success.
+
+It is deliberately **not** a swipe platform. Swipe apps are social feeds tuned for engagement
+(time in app, return visits, endless profiles, photo-first snap judgements). This is a
+**matcher**: people describe who they are and what they need, the algorithm finds the few people
+they are most likely to build something lasting with, and it gets out of the way.
+
+|                      | Swipe / social platform            | This matcher                                          |
+| -------------------- | ---------------------------------- | ----------------------------------------------------- |
+| Optimizes for        | engagement: sessions, swipes, time | lasting relationships; engagement is never optimized  |
+| Discovery            | endless feed                       | a few strong candidates a day, only "good" or better  |
+| Basis for a match    | photos, snap judgement             | 264 items: traits, values, social expectations        |
+| Best matches         | rationed to bring people back      | always shown first                                    |
+| Many open chats      | encouraged                         | capped, to focus on the people you're talking to      |
+| Success              | the user keeps coming back         | the couple leaves together and is hidden from matching |
+| Pictures             | galleries, photo-first swiping     | one screened photo, shown after mutual interest       |
+| Advanced features    | paid tiers                         | all free; no paid tiers                               |
+| Ads                  | as many as engagement allows       | 2 video + 1 text per person per day, then nothing     |
+
+Status: **v0.8, data model and reference logic.** No app, API or database yet; this is the core
+the app will be built on. Everything is plain Node 22 ES modules with no runtime dependencies.
+
+## Layout
+
+```
+data/traits.v0.8.json            trait catalog, 264 items (generated from source/ by the migration)
+data/dealbreakers.v0.8.json      categorical dealbreaker questions (global option lists)
+data/profile.schema.json         JSON Schema for a profile: basics, answers, preferences, consents
+data/messaging-policy.v0.8.json  no-images rule, message rules, account-trust limits, report reasons
+data/region-policy.example.json  per-country rules (min age, hidden fields, disabled questions); example only
+data/features.v0.8.json          free features, and features deliberately not offered (with reasons)
+data/lifecycle-policy.v0.8.json  conversations, after-date check-in, relationship flow, launch density
+data/moderation-decisions.v0.8.json  DSA decision types, terms grounds, redress and complaint rules
+data/privacy.v0.8.json           data inventory: purpose of every field, what is never collected, retention
+data/ads-policy.v0.8.json        ad caps, placements, contextual-only targeting, prohibited categories
+i18n/en.json                     English source strings for translators (generated)
+source/core_traits_v0.7.json     the v0.7 input, kept for provenance
+lib/fuzzy.mjs                    fuzzy sets, hedges, fuzzy AND/OR, linguistic labels
+lib/constructs.mjs               scale groups -> constructs, reverse keying
+lib/match.mjs                    fuzzy constraints + preference/similarity/complement/friction scoring
+lib/rank.mjs                     daily ranking for lasting relationships (best first, few, focused)
+lib/response-quality.mjs         contradiction, social-desirability and straight-lining flags
+lib/validate.mjs                 catalog, dealbreaker and profile validation
+lib/moderation.mjs               pre-delivery message checks (ToS violations only)
+lib/trust.mjs                    account trust signals: photo check, mass messaging, reports
+lib/calibration.mjs              opt-in, de-identified outcome records for improving the matcher
+lib/retention.mjs                15-day message deletion, including backups (per-day key destruction)
+lib/conversations.mjs            closing kindly, one reply reminder, auto-close after inactivity
+lib/relationship.mjs             "we're together" confirmation, grace period, after-date check-in
+lib/candidates.mjs               sound database prefilter, "why am I seeing nobody?", area waitlist
+lib/questionnaire.mjs            adaptive next questions and progress
+lib/decisions.mjs                DSA statements of reasons, complaints, reporter notices, misuse
+lib/account-data.mjs             GDPR export and deletion plan
+lib/ads.mjs                      daily ad cap, video viability, contextual ad requests
+scripts/migrate-v0.7-to-v0.8.mjs the v0.7 -> v0.8 migration (see CHANGELOG.md)
+scripts/extract-i18n.mjs         regenerates i18n/en.json
+scripts/validate.mjs             validates the data files
+tests/*.test.mjs                 unit tests
+```
+
+## Commands
+
+```sh
+npm install
+npm test            # unit tests
+npm run lint        # prettier + eslint
+npm run validate    # validate the data files
+npm run migrate     # regenerate the catalog and i18n/en.json from source/
+```
+
+## Onboarding flow
+
+1. **Profile basics** (`profile.schema.json`): birth month (18+, higher where region policy says
+   so), gender, who they seek, location (country + coarse coordinates), languages, UI locale.
+   No name, phone number or ID.
+2. **Live photo check**: a selfie with a random pose prompt, compared with the profile photo and
+   used for an age estimate, then deleted immediately. Only passed/failed is stored. Required to
+   message.
+3. **Dealbreakers** (`dealbreakers.v0.8.json`): relationship goal and structure, children,
+   smoking, alcohol, drugs, religion, diet, pets, politics, shared language, location, and
+   who pays (first dates, and shared costs later on).
+4. **Initial 60** blind personality items, balanced across 11 domains.
+5. **Mate preferences**: up to 25 items, importance 0–3, optional desired score and
+   tolerance, at most 10 mandatory.
+6. **Social expectations of a partner** (30 items, recommended right after): what you expect
+   a partner to do socially, paired with what you are willing to do yourself.
+7. **Refining** and **relationship-core** items, available after the initial block.
+
+## Social expectations of a partner
+
+Unmet social expectations are a classic reason relationships end, so they get their own
+section. Every **expectation** is paired with the **willingness** items that fulfil it:
+
+| Area                        | I expect a partner to…                                    | I am willing to…                                   |
+| --------------------------- | --------------------------------------------------------- | -------------------------------------------------- |
+| Family                      | take part in my family gatherings; spend holidays together | take part in a partner's family gatherings          |
+| Friends and home            | become part of my social world; welcome my people at home | spend time with a partner's friends; host           |
+| Events                      | go to weddings and parties with me; stay close there       | go to events as a couple; stay close                |
+| Affection and acknowledgement | show affection in public; acknowledge us openly; introduce me early | show affection in public; introduce a partner early; share publicly |
+| Exes and friendships        | keep little contact with exes; avoid close attraction-risk friendships | limit ex contact; adjust close friendships    |
+| Time and contact            | spend most free time with me; stay in touch during the day; be open about phone and whereabouts | prefer couple time; check in often; be open about my phone |
+| Courtship                   | court me                                                   | court a partner                                     |
+| Customs and loyalty         | respect my family's customs; back me up in public; mark occasions | adapt to a partner's customs; back a partner up; make thoughtful gestures |
+
+The matcher checks the candidate's willingness against the viewer's expectation, **one-sided**
+(more willing than expected is never penalized), weighted by how strongly the viewer holds the
+expectation (`matching_config.expectation_weight`). Expectations a candidate may not meet show
+up in "why you matched" as **things to talk about early**, not as hidden penalties.
+
+**Who pays** is a categorical choice, not a conservative–progressive scale: the inviter pays,
+traditional roles, split, take turns, the higher earner pays, or flexible (and, later on:
+split evenly, in proportion to income, pooled, one main provider, or flexible). Each question
+has a symmetric **compatibility table**: traditional matches traditional, split matches split or
+take turns, flexible matches everyone. Unless someone sets their own accepted answers, the table
+is a soft default; they can also make it strict. The app takes no side.
+
+## What the algorithm optimizes
+
+**Lasting relationships, not engagement.** This is part of the data (`objective`, `ranking` in
+the catalog) and checked by the validator:
+
+- weights may only be re-tuned against long-term outcomes (both confirm they're together at 3
+  and 12 months, left together, met in person), never time in app, sessions, swipes or messages
+- best matches are always shown first; good matches are never held back to bring people back
+- a few strong candidates a day (`daily_candidates`), only those at least "good"; no filler,
+  no infinite feed
+- no new candidates while `max_active_conversations` are open: focus on the people you're
+  talking to
+- people who confirm they're together (`matching_status: in_relationship`) are hidden
+
+## How matching works (`lib/match.mjs`, `lib/fuzzy.mjs`)
+
+Matching uses **fuzzy logic**: no crisp cut-offs, everything is a degree in [0, 1].
+
+- **Ratings** belong to `low` / `medium` / `high` by degree (trapezoids in
+  `matching_config.fuzzy.rating_sets`): a 7 is "high" to degree 0.6, not simply high or not.
+- **Closeness** of two ratings: differences within `rating_spread` (1 point) count as identical,
+  because self-ratings are imprecise; then it falls smoothly with distance.
+
+For viewer → candidate:
+
+1. **Crisp gates** (legal or safety facts only): gender sought, 18+, photo-checked-only.
+2. **Fuzzy constraints**, each a satisfaction degree:
+   - age range and distance fade out over a margin (2 years, 50 % of the distance)
+   - dealbreakers: strictness = degree to which the viewer's linked hard-constraint rating is
+     "high" (e.g. `children_non_negotiable` → `children_want`, `children_have`), at least 0.3
+     for any stated preference; explicit `strict: true` = 1. "Prefer not to say" = mostly a
+     mismatch (0.85). Questions disabled in either person's region are skipped.
+   - mandatory preferences fade out over 2 points past the tolerance
+   - degrees combine with algebraic AND (product); below the **α-cut 0.2** the candidate is
+     excluded, so several near-misses together can exclude, but one near-miss never does
+3. **Compatibility**: explicit preferences and implicit similarity as weighted means of
+   closeness; complements count in proportion to how "high" the viewer is on the trait.
+4. **Friction**: each conflict fires to degree `min(high(a), high(b))`; conflicts accumulate by
+   probabilistic OR. The mode applies a hedge: `safe` = _somewhat_ (mild friction weighs more),
+   `curious` = _very_ (only strong friction counts).
+5. **Score** = compatibility × (1 − friction) × constraint satisfaction. **Mutual score** =
+   geometric mean of both directions, with a label: poor / fair / good / excellent.
+
+**Constructs.** Near-duplicate items form a scale group (e.g. `sg_solitude_need`), averaged
+into one score so they are not counted twice. Reverse-keyed items (e.g. `promises_slip` in
+`sg_follow_through`) are flipped before averaging; they also counter "agree with everything"
+answering.
+
+**Partner effects.** For traits where a partner's level matters in itself (patience, anger,
+jealousy, contempt, …), only the worse side counts: a candidate more patient than you is never
+penalized for it.
+
+## Free features (`data/features.v0.8.json`)
+
+Every advanced feature dating apps commonly sell that fits a matcher is **free for everyone**;
+there are no paid tiers:
+
+- see who's interested in you · unlimited messaging with matches · all dealbreakers and
+  preferences · **why you matched** (`explainMatch`: shared strengths, friction, unmet limits)
+- **incognito** (only people you showed interest in see you) · **travel mode** (match at a
+  destination for set dates) · undo a pass (24 h) · interest with a note (moderated)
+- read receipts (mutual) · pause · photo-checked badge and checked-only matching · in-app voice
+  calls (mutual opt-in) · date safety tools (share plan, check-in timer) · update answers any
+  time · safety support by severity, never by payment
+
+Deliberately **not offered**, because they conflict with best-first ranking or the
+lasting-relationships objective: paid visibility (boosts, spotlight), scarcity currencies
+(super-likes, roses), a swipe feed, photo galleries and pictures in chat, video calls (deferred
+for safety), and profile-view
+analytics.
+
+## Ads (`data/ads-policy.v0.8.json`, `lib/ads.mjs`)
+
+Ads are the only revenue, and they are **capped per person per day**, so more time in the app
+never earns more; `ad_impressions` is on the objective's never-optimize list.
+
+- at most **two video ads** (only when viable) and **one small text ad** in any 24 hours, then
+  nothing until 24 hours after the first ad, across all sessions
+- video is viable only in the foreground, online, not on cellular with data saver, not on low
+  battery, not with reduced motion, not during a call; ≤ 30 s, skippable after 5 s, muted,
+  at least 10 minutes apart
+- only at natural breaks (after the daily candidates, after a questionnaire block, footers);
+  never in onboarding, the photo check, consent, conversations, the match moment, reports, safety
+  tools or the in-a-relationship farewell
+- **contextual only**: the same ad for anyone with the same country, language and placement;
+  no profile answers, matches or messages are ever used; no tracking SDKs
+- prohibited: dating services, adult, escort, gambling, alcohol, tobacco, drugs, weapons,
+  political, religious, crypto, predatory loans, weight loss/cosmetic surgery, prescription
+  medicine, job offers abroad or travel sponsorship
+
+## Conversations and relationships (`lib/conversations.mjs`, `lib/relationship.mjs`)
+
+- **No ghosting slots**: the person whose turn it is gets **one** reminder after 4 days to reply
+  or close kindly (ready-made kind closing messages); after 10 days of silence the conversation
+  closes itself, so open-conversation slots never fill with dead chats.
+- **Blocking** is two-way and permanent in ranking.
+- **Fair exposure**: nobody is shown to more than 25 people a day, and nobody with 10 unanswered
+  interests keeps being shown, so broadly compatible people aren't flooded and everyone gets
+  a fair chance.
+- **After a date**: a private check-in (met? see again? felt safe?). Answers are never shown to
+  the other person; they only suggest closing kindly, offer support and reporting, and give the
+  "met in person" outcome signal.
+- **"We're together"**: both confirm within 14 days → both hidden at once, deleted after a
+  30-day grace period unless one comes back. With calibration opt-in they get an **anonymous
+  check-in link** to report later whether they are still together, without any account.
+
+## Candidate generation and the questionnaire (`lib/candidates.mjs`, `lib/questionnaire.mjs`)
+
+- **Scale**: a database query narrows the pool with `prefilterSpec`, then only the shortlist is
+  fuzzy-scored. The prefilter is **sound**: it only drops people the matcher would certainly
+  exclude, which a test checks on a synthetic population.
+- **"Why am I seeing nobody?"**: which of your own settings exclude the most people; other
+  people's settings only as one total, and counts under 5 shown as "<5".
+- **Launch density**: below 150 active people within reach, people join the area's waitlist.
+- **Adaptive questionnaire**: after the fixed initial 60 (matching starts then), the next
+  questions are the most informative ones: strong research priors, many links, completing an
+  expectation–willingness pair, not repeating an answered scale group.
+
+## Legal: DSA and GDPR (`lib/decisions.mjs`, `lib/account-data.mjs`)
+
+- **Statement of reasons** (DSA Art. 17) for every restriction: what was restricted, the facts,
+  whether detection and decision were automated, the terms-of-service ground, and redress
+  (internal complaint, out-of-court settlement, courts). Submitted to the transparency database
+  without personal data.
+- **Complaints** (Art. 20): free, in the app, open for six months, **decided by a person**, with
+  a reasoned answer. **Reporters** get a receipt and the decision (Art. 16), without details about
+  the reported person; repeated unfounded reports lead to a warning, then a pause (Art. 23).
+- **Export** (GDPR Art. 15/20): everything held about a person as JSON; others appear only as
+  "them". **Deletion** (Art. 17): everything at once, except open report cases and complaints
+  until closed, and unlinked banned-photo hashes. Answered within 30 days.
+
+## Profile photo and text (`data/profile-content-policy.v0.8.json`, `lib/profile-content.mjs`)
+
+Each profile has **one photo and one text** (up to 500 characters). Nothing is visible to anyone
+else until it passes the checks:
+
+- **Photo**: JPEG, PNG or WebP up to 5 MB; all metadata (including GPS location) stripped and the
+  image re-encoded server-side. Screening rejects nudity (with a strike) and violence, requires
+  **exactly one face that matches the live photo check** (the main catfishing guard, with no
+  identity involved), escalates a possibly under-18 face to trust-and-safety immediately, and
+  sends borderline results and text-in-image to human review. Until the photo check is done,
+  the photo waits (`pending_photo_check`).
+- **Visibility**: by default the photo is shown **only after mutual interest**, so matching and
+  first impressions stay trait-first. Set `photo.visibility` to `with_daily_candidates` to show it
+  on candidate cards instead.
+- **Text**: moderated as if it were a first message to a stranger, so explicit content, links,
+  contact details and social handles are never allowed in a profile.
+
+## Platform: web first
+
+Start as a responsive web app: no app-store fees or review cycles, and the same backend serves
+iOS and Android apps later (Apple and Google both require moderation, reporting and blocking for
+user content, which this design already has). Cheapest photo storage today is object storage with
+no download fees (for example Cloudflare R2) and direct browser uploads to a signed URL, then
+server-side metadata stripping and screening before the photo is marked approved. Log in with
+passkeys (or an email used only for login and recovery); no analytics or tracking scripts.
+
+## Privacy: anonymous by design (`data/privacy.v0.8.json`)
+
+**No data about users is collected beyond what abuse prevention and matching need.** There is
+no identity verification: people stay anonymous to the service and to each other.
+
+- **Never collected**: real names, ID documents, phone numbers, exact birth dates (birth month
+  only), precise or continuous location, face templates or check selfies, device fingerprints,
+  stored IP addresses, contacts, third-party analytics or tracking, advertising profiles.
+- **Every profile field declares its purpose** (matching, abuse prevention, service, consent
+  record, calibration); the tests fail if a field is added without one.
+- **Transient only**: the check selfie, the sign-in country and photo metadata are used on the
+  spot and discarded.
+- **Improving the matcher** (`lib/calibration.mjs`): only when both people in a couple opt in,
+  their answers and the relationship outcome are stored **de-identified**: no ids, age,
+  location, photos, texts or messages, and never sensitive or legally risky answers.
+- **Messages disappear after 15 days**, permanently: each day's messages are encrypted with a
+  key that is destroyed after 15 days, so backups become unreadable too. Only messages in an
+  open report or waiting for review are kept, and only until the case is closed.
+- **Deletion**: deleting the account deletes everything; a couple leaving together is deleted too.
+
+## Safety
+
+- **One screened profile photo, no pictures in chat.** See *Profile photo and text* above. No
+  chat images or files; messages with image
+  links, image hosts, data-URI or markup images are rejected (`lib/moderation.mjs`).
+- **Message checks, ToS violations only**, before delivery:
+  - unsolicited sexual content is blocked (with a strike) unless both people switched on
+    explicit talk for the conversation; requests for pictures are always blocked
+  - harassment is blocked; threats, scams, commercial-sex and trafficking-recruitment
+    language is held for trust-and-safety review
+  - links and contact details are blocked early in a conversation, which stops scammers and
+    traffickers moving people off the platform quickly
+  - evasions (spaced letters, l33t, accents, zero-width characters) are normalized first
+  - 3 active strikes suspend messaging; 5 trigger an account review
+- **Catfishing / scams** (`lib/trust.mjs`): a passed live photo check is required to message;
+  a banned person's photo can't be reused (perceptual hash only); a flag when the declared
+  country doesn't match where the person connects from (computed at sign-in, the country itself
+  is not kept); limits on first messages per day (stricter for new accounts); a flag for the
+  same opener sent to many people.
+- **Trafficking / exploitation**: age estimated from the live check selfie, and possibly
+  under-18 photos escalated; exploitation language held for review;
+  reports for `underage`, `trafficking_or_exploitation` or threats suspend the account
+  immediately pending review; region policy lists local hotlines in the report flow.
+- **Sensitive data**: religion, sex life/orientation, politics, ethnicity and health answers
+  need explicit consent (`profile.consents`) and default to `match_only` or `private`.
+  Region policy can hide fields (e.g. orientation where it is criminalized) or disable
+  questions (e.g. drug use).
+
+## Before launch
+
+- The English message rules are a seed. Add maintained per-locale rules (`locale_rules`) and
+  the external slur list; consider a classifier for languages without lists.
+- Fill `region-policy` from legal review (ages, hidden fields, hotlines). The shipped file is
+  an example structure with placeholder country codes.
+- Research priors and weights are informed defaults; recalibrate them against real outcomes
+  (confirmed lasting couples), never engagement.
+- Translate item wording with cultural review, not literally: some items (dating pace,
+  gender roles, family approval) read differently across cultures.

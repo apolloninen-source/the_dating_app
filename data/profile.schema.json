@@ -1,0 +1,425 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/the_dating_app/profile.schema.json",
+  "title": "Dating profile (v0.8)",
+  "description": "Profile basics, questionnaire answers, mate preferences, dealbreakers and consents for one person. Structural rules live here; cross-file rules (trait ids, option ids, mandatory limits, age by region, consent coverage) are enforced by lib/validate.mjs validateProfile().",
+  "type": "object",
+  "required": [
+    "id",
+    "schema_version",
+    "birth_month",
+    "gender",
+    "seeking",
+    "location",
+    "languages",
+    "ui_locale"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "const": "0.8.0"
+    },
+    "birth_month": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$",
+      "description": "Year and month only (YYYY-MM); the exact date is never collected. Age checks assume the birthday is at the end of the month, so age is never overestimated. Minimum age is 18 everywhere, higher where region-policy sets min_age."
+    },
+    "gender": {
+      "type": "object",
+      "required": ["identity"],
+      "additionalProperties": false,
+      "properties": {
+        "identity": {
+          "enum": ["woman", "man", "non_binary", "self_described"]
+        },
+        "self_description": {
+          "type": "string",
+          "maxLength": 60
+        }
+      }
+    },
+    "sexual_orientation": {
+      "description": "Optional; special-category data (sex_life). Hidden automatically where region-policy lists it in hide_fields.",
+      "enum": [
+        "straight",
+        "gay",
+        "lesbian",
+        "bisexual",
+        "pansexual",
+        "asexual",
+        "queer",
+        "questioning",
+        "self_described",
+        "prefer_not_to_say"
+      ]
+    },
+    "seeking": {
+      "type": "object",
+      "required": ["genders", "age_min", "age_max"],
+      "additionalProperties": false,
+      "properties": {
+        "genders": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["woman", "man", "non_binary", "self_described"]
+          }
+        },
+        "age_min": {
+          "type": "integer",
+          "minimum": 18,
+          "maximum": 120
+        },
+        "age_max": {
+          "type": "integer",
+          "minimum": 18,
+          "maximum": 120
+        }
+      }
+    },
+    "location": {
+      "type": "object",
+      "required": ["country", "timezone"],
+      "additionalProperties": false,
+      "properties": {
+        "country": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "ISO 3166-1 alpha-2."
+        },
+        "region": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90,
+          "description": "Coarse only: store rounded to 2 decimals (about 1 km) to protect location privacy."
+        },
+        "lng": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "timezone": {
+          "type": "string",
+          "description": "IANA time zone, e.g. Europe/Helsinki."
+        }
+      }
+    },
+    "max_distance_km": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 20000
+    },
+    "open_to_long_distance": {
+      "type": "boolean"
+    },
+    "countries_open": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z]{2}$"
+      },
+      "description": "Other countries the person would date in or move to; empty means home country only unless open_to_long_distance."
+    },
+    "languages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["code", "proficiency"],
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$",
+            "description": "BCP 47 language tag."
+          },
+          "proficiency": {
+            "enum": ["native", "fluent", "conversational", "basic"]
+          }
+        }
+      }
+    },
+    "ui_locale": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$",
+      "description": "BCP 47 tag for the app language."
+    },
+    "units": {
+      "enum": ["metric", "imperial"]
+    },
+    "relationship_status": {
+      "enum": [
+        "single",
+        "separated",
+        "divorced",
+        "widowed",
+        "in_ethically_non_monogamous_relationship"
+      ]
+    },
+    "mode": {
+      "enum": ["safe", "curious"]
+    },
+    "matching_status": {
+      "enum": ["active", "paused", "in_relationship"],
+      "description": "in_relationship is set when both people confirm they are together; both are then hidden from matching. Leaving together is the app's success outcome."
+    },
+    "photo_check": {
+      "type": "object",
+      "description": "Server-managed result of the live photo check (anti-catfishing and age). The check selfie is compared with the profile photo, used for an age estimate, and deleted immediately; only this result is stored. No ID documents, names, phone numbers or face templates are ever collected.",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": ["unchecked", "pending", "passed", "failed"]
+        },
+        "checked_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "only_photo_checked_matches": {
+      "type": "boolean",
+      "description": "Only show and match with people who passed the live photo check."
+    },
+    "incognito": {
+      "type": "boolean",
+      "description": "Free feature: only shown to people this person has already shown interest in."
+    },
+    "expressed_interest_in": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "description": "Server-managed: ids of people this person has shown interest in (used by incognito)."
+    },
+    "blocked_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "description": "Server-managed: people this person blocked. Blocked pairs never see each other again, in either direction."
+    },
+    "travel": {
+      "type": "object",
+      "description": "Free feature (travel mode): match at a destination during a planned trip or move.",
+      "required": ["location", "from", "to"],
+      "additionalProperties": false,
+      "properties": {
+        "location": {
+          "type": "object",
+          "required": ["country"],
+          "additionalProperties": false,
+          "properties": {
+            "country": {
+              "type": "string",
+              "pattern": "^[A-Z]{2}$"
+            },
+            "city": {
+              "type": "string"
+            },
+            "lat": {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "lng": {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "timezone": {
+              "type": "string"
+            }
+          }
+        },
+        "from": {
+          "type": "string",
+          "format": "date"
+        },
+        "to": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "read_receipts": {
+      "type": "boolean",
+      "description": "Free feature: read receipts show in a conversation only when both people turned them on."
+    },
+    "profile_text": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "The one profile text. Published only after moderateProfileText allows it."
+    },
+    "photo": {
+      "type": "object",
+      "description": "Server-managed: the one profile photo (a single object, so there can never be more than one). Visible to others only when approved; see profile-content-policy.v0.8.json.",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "pending_screening",
+            "pending_photo_check",
+            "hold_for_review",
+            "approved",
+            "rejected"
+          ]
+        },
+        "storage_key": {
+          "type": "string"
+        },
+        "width": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "approved_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ratings": {
+      "type": "object",
+      "description": "trait id -> self rating on rating_scale (1-10).",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10
+      }
+    },
+    "preferences": {
+      "type": "object",
+      "description": "trait id -> mate preference. At most mate_preference_max_items entries and max_mandatory mandatory ones.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["importance"],
+        "additionalProperties": false,
+        "properties": {
+          "importance": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          },
+          "desired": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "mandatory": {
+            "type": "boolean"
+          },
+          "tolerance": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9
+          }
+        }
+      }
+    },
+    "dealbreakers": {
+      "type": "object",
+      "description": "dealbreaker question id -> answer and filter.",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "self": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1
+              }
+            ]
+          },
+          "accept": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "For language_overlap and location questions."
+          },
+          "strict": {
+            "type": "boolean"
+          },
+          "visibility": {
+            "enum": ["profile", "match_only", "private"]
+          }
+        }
+      }
+    },
+    "consents": {
+      "type": "object",
+      "description": "Explicit consent per special-category class (GDPR Art. 9 and equivalents). Answers in a class without consent must not be stored.",
+      "additionalProperties": false,
+      "properties": {
+        "religion": {
+          "$ref": "#/$defs/consent"
+        },
+        "sex_life": {
+          "$ref": "#/$defs/consent"
+        },
+        "political": {
+          "$ref": "#/$defs/consent"
+        },
+        "ethnic": {
+          "$ref": "#/$defs/consent"
+        },
+        "health": {
+          "$ref": "#/$defs/consent"
+        }
+      }
+    },
+    "calibration_opt_in": {
+      "type": "boolean",
+      "description": "Opt-in: when both people in a couple opted in, their answers may be stored de-identified with the relationship outcome to improve the matcher (lib/calibration.mjs). Default off."
+    }
+  },
+  "$defs": {
+    "consent": {
+      "type": "object",
+      "required": ["granted_at", "policy_version"],
+      "additionalProperties": false,
+      "properties": {
+        "granted_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "policy_version": {
+          "type": "string"
+        },
+        "withdrawn_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

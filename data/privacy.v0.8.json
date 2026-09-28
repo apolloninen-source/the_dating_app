@@ -1,0 +1,78 @@
+{
+  "schema_version": "0.8.0",
+  "principle": "No data about users is collected beyond what abuse prevention and matching need. No identity verification: people stay anonymous to the service and to each other. Tests fail if a profile field is added without a declared purpose here.",
+  "purposes": {
+    "matching": "Needed to find and rank compatible people.",
+    "abuse_prevention": "Needed to keep people safe: age, catfishing, scams, harassment, exploitation.",
+    "service": "Needed for a feature the person uses (login, language, their own profile shown to matches).",
+    "consent_record": "Proof that the person agreed to optional sensitive answers.",
+    "calibration": "Opt-in, de-identified improvement of the matcher (lib/calibration.mjs)."
+  },
+  "profile_fields": {
+    "id": "service",
+    "schema_version": "service",
+    "birth_month": "abuse_prevention",
+    "gender": "matching",
+    "sexual_orientation": "matching",
+    "seeking": "matching",
+    "location": "matching",
+    "max_distance_km": "matching",
+    "open_to_long_distance": "matching",
+    "countries_open": "matching",
+    "languages": "matching",
+    "ui_locale": "service",
+    "units": "service",
+    "relationship_status": "matching",
+    "mode": "matching",
+    "matching_status": "matching",
+    "photo_check": "abuse_prevention",
+    "only_photo_checked_matches": "matching",
+    "incognito": "service",
+    "expressed_interest_in": "service",
+    "blocked_ids": "abuse_prevention",
+    "travel": "matching",
+    "read_receipts": "service",
+    "profile_text": "service",
+    "photo": "service",
+    "ratings": "matching",
+    "preferences": "matching",
+    "dealbreakers": "matching",
+    "consents": "consent_record",
+    "calibration_opt_in": "calibration"
+  },
+  "never_collected": [
+    "real_name",
+    "identity_documents",
+    "phone_number",
+    "exact_birth_date",
+    "precise_or_continuous_location",
+    "face_templates_or_check_selfies",
+    "device_fingerprints",
+    "stored_ip_addresses",
+    "contacts_or_address_book",
+    "third_party_analytics_or_tracking",
+    "advertising_profiles",
+    "message_content_for_anything_but_delivery_and_abuse_checks"
+  ],
+  "transient_only": {
+    "check_selfie": "Compared with the profile photo and used for an age estimate, then deleted immediately.",
+    "connection_country": "Compared with the declared country at sign-in; only the mismatch flag is kept.",
+    "photo_metadata": "Stripped (including GPS) before screening and storage."
+  },
+  "retention": {
+    "account": "Deleted completely when the person deletes the account or both people in a couple leave together.",
+    "messages": "Deleted permanently 15 days after sending (messaging-policy retention), including from backups via per-day key destruction; reported or held messages only until the case is closed.",
+    "reports": "Only the reported messages and the decision, deleted after the case is closed and any legal hold has ended.",
+    "first_message_hashes": "24 hours.",
+    "strikes": "90 days (messaging-policy strikes.decay_days).",
+    "banned_photo_hashes": "Perceptual hash only, kept to stop the same photo being reused after a ban.",
+    "calibration_records": "De-identified; no link back to any account."
+  },
+  "login": "Passkeys, or an email address used only for login and recovery; never shown, shared or used for anything else.",
+  "data_subject_requests": {
+    "respond_within_days": 30,
+    "export": "lib/account-data.mjs exportAccountData: JSON with the profile, conversations (others shown as \"them\"), moderation decisions, complaints, reports made, strikes.",
+    "deletion": "lib/account-data.mjs deletionPlan: everything deleted at once, except open report cases and complaints until closed, and banned-photo hashes not linked to the account.",
+    "channel": "in_app"
+  }
+}

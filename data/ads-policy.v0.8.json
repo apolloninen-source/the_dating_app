@@ -1,0 +1,72 @@
+{
+  "schema_version": "0.8.0",
+  "description": "Ads are the only revenue, and they are capped per person per day so that more time in the app never means more revenue: at most two video ads (only when viable) and one small text ad in any 24 hours, then nothing until 24 hours after the first ad. Ads are contextual only and never use anything a person told the app.",
+  "frequency": {
+    "window_hours": 24,
+    "window_starts": "first_ad_shown",
+    "max_video": 2,
+    "max_text": 1,
+    "min_minutes_between_videos": 10
+  },
+  "video": {
+    "max_duration_seconds": 30,
+    "skippable_after_seconds": 5,
+    "sound_default": "off",
+    "autoplay": "muted_only",
+    "viability": {
+      "requires_foreground": true,
+      "block_when_offline": true,
+      "block_on_cellular_with_data_saver": true,
+      "min_battery_level_unless_charging": 0.15,
+      "block_when_reduced_motion": true,
+      "block_during_call": true
+    }
+  },
+  "text": {
+    "max_characters": 90,
+    "format": "single line, clearly labelled as an ad, no images"
+  },
+  "placements": {
+    "video": ["after_daily_candidates", "after_questionnaire_block"],
+    "text": ["daily_candidates_footer", "settings_footer"],
+    "never": [
+      "onboarding",
+      "photo_check",
+      "dealbreakers",
+      "consent",
+      "conversation",
+      "match_moment",
+      "report_flow",
+      "safety_center",
+      "date_safety",
+      "in_relationship_farewell"
+    ]
+  },
+  "targeting": {
+    "mode": "contextual_only",
+    "uses_profile_data": false,
+    "uses_questionnaire_answers": false,
+    "uses_special_category_data": false,
+    "uses_messages": false,
+    "uses_matches": false,
+    "allowed_signals": ["country", "ui_locale", "placement"],
+    "note": "Ads must be the same for anyone in the same country, language and placement. No ad profiling, no data sale, no third-party tracking SDKs."
+  },
+  "prohibited_categories": [
+    "dating_services",
+    "adult_or_sexual",
+    "escort_or_companionship",
+    "gambling",
+    "alcohol",
+    "tobacco_or_vaping",
+    "cannabis_or_drugs",
+    "weapons",
+    "political",
+    "religious",
+    "crypto_or_speculative_investments",
+    "payday_or_predatory_loans",
+    "weight_loss_or_cosmetic_surgery",
+    "prescription_medicine",
+    "job_offers_abroad_or_travel_sponsorship"
+  ]
+}

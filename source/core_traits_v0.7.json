@@ -1,0 +1,3344 @@
+{
+  "version": "0.7-beta-core-110-ordered",
+  "description": "110 first-person traits. First 60 = initial blind questionnaire (balanced across 11 domains). Remaining 50 = refining questions available after the first 60. Mate-preference step follows. Preference matching only.",
+  "matching_config": {
+    "max_mandatory": 10,
+    "allowed_divergence_range": [1, 9],
+    "default_divergence_tolerance": 4,
+    "modes": {
+      "safe": {
+        "similarity_boost": 1.2,
+        "complementarity_boost": 0.8
+      },
+      "curious": {
+        "similarity_boost": 0.9,
+        "complementarity_boost": 1.3
+      }
+    }
+  },
+  "questionnaire": {
+    "self_rating": true,
+    "initial_block_size": 60,
+    "refining_block": true,
+    "refining_available_after": 60,
+    "mate_preference": true,
+    "mate_preference_timing": "next_step_after_self",
+    "mate_preference_shows_own_rating": true,
+    "mate_preference_style": "importance_and_or_desired_score",
+    "mate_preference_max_items": 25
+  },
+  "adaptation": {
+    "communication_length": true,
+    "content_analysis": false,
+    "content_exception": "tos_violations_only"
+  },
+  "domains_internal": [
+    "emotional_regulation",
+    "structure_reliability",
+    "social_energy",
+    "openness_curiosity",
+    "warmth_empathy",
+    "assertiveness_boundaries",
+    "values_integrity",
+    "playfulness_lightness",
+    "conflict_communication",
+    "independence_interdependence",
+    "existentialism"
+  ],
+  "traits": [
+    {
+      "id": "calm_under_pressure",
+      "definition": "I usually stay composed and steady when things become stressful or uncertain.",
+      "domain_internal": "emotional_regulation",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.4,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [2, 5]
+      },
+      "seed_complements": ["highly_reactive"],
+      "seed_conflicts": ["quick_to_anger", "highly_reactive"],
+      "block": "initial"
+    },
+    {
+      "id": "emotionally_steady",
+      "definition": "My mood tends to stay even; I do not swing rapidly between emotional highs and lows.",
+      "domain_internal": "emotional_regulation",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.5,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["highly_reactive", "easily_upset"],
+      "block": "initial"
+    },
+    {
+      "id": "highly_reactive",
+      "definition": "I feel emotions strongly and quickly; small events can produce large emotional responses.",
+      "domain_internal": "emotional_regulation",
+      "valence": "context_sensitive",
+      "weights": {
+        "research_prior": 1.3,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": ["calm_under_pressure"],
+      "seed_conflicts": ["emotionally_steady"],
+      "block": "initial"
+    },
+    {
+      "id": "easily_upset",
+      "definition": "I am easily bothered or distressed by criticism, setbacks, or tense situations.",
+      "domain_internal": "emotional_regulation",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.3,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["emotionally_steady", "calm_under_pressure"],
+      "block": "initial"
+    },
+    {
+      "id": "quick_to_anger",
+      "definition": "I tend to become irritated or angry more quickly than most people.",
+      "domain_internal": "emotional_regulation",
+      "valence": "challenging",
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["calm_under_pressure", "patient"],
+      "block": "initial"
+    },
+    {
+      "id": "optimistic",
+      "definition": "I generally expect things to work out well and look for the positive side of situations.",
+      "domain_internal": "emotional_regulation",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "reliable_follow_through",
+      "definition": "When I say I will do something, I almost always follow through.",
+      "domain_internal": "structure_reliability",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.5,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["spontaneous_unstructured"],
+      "block": "initial"
+    },
+    {
+      "id": "organized_planner",
+      "definition": "I like to plan ahead and keep my responsibilities and surroundings in order.",
+      "domain_internal": "structure_reliability",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.3,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["spontaneous_unstructured"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "spontaneous_unstructured",
+      "definition": "I prefer to keep plans flexible and decide things in the moment rather than sticking to fixed schedules.",
+      "domain_internal": "structure_reliability",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": ["organized_planner"],
+      "seed_conflicts": ["reliable_follow_through"],
+      "block": "initial"
+    },
+    {
+      "id": "detail_oriented",
+      "definition": "I notice and care about small details that many people overlook.",
+      "domain_internal": "structure_reliability",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "disciplined",
+      "definition": "I can stick to routines and long-term goals even when motivation dips.",
+      "domain_internal": "structure_reliability",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.3,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "ambitious",
+      "definition": "I have strong goals and push myself to achieve and improve over time.",
+      "domain_internal": "structure_reliability",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "warm_and_affectionate",
+      "definition": "I naturally express warmth and affection toward people I care about.",
+      "domain_internal": "warmth_empathy",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.4,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["emotionally_reserved"],
+      "block": "initial"
+    },
+    {
+      "id": "empathetic",
+      "definition": "I easily sense and feel what others are feeling and am moved by their experiences.",
+      "domain_internal": "warmth_empathy",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.4,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "supportive",
+      "definition": "People close to me generally find me a reliable source of emotional support.",
+      "domain_internal": "warmth_empathy",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.3,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "emotionally_reserved",
+      "definition": "I keep my feelings more private and do not readily show affection or strong emotion.",
+      "domain_internal": "warmth_empathy",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["warm_and_affectionate"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "compassionate",
+      "definition": "I feel a strong desire to help when I see someone suffering or in need.",
+      "domain_internal": "warmth_empathy",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.3,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "trusting",
+      "definition": "I tend to give people the benefit of the doubt and expect good intentions.",
+      "domain_internal": "warmth_empathy",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["guarded_skeptical"],
+      "block": "initial"
+    },
+    {
+      "id": "assertive",
+      "definition": "I am comfortable stating my needs and opinions clearly, even when others disagree.",
+      "domain_internal": "assertiveness_boundaries",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["accommodating"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "accommodating",
+      "definition": "I often adjust my own preferences to keep harmony or meet others' needs.",
+      "domain_internal": "assertiveness_boundaries",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["assertive"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "clear_boundaries",
+      "definition": "I am good at setting and maintaining personal boundaries with others.",
+      "domain_internal": "assertiveness_boundaries",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "dominant_in_decisions",
+      "definition": "In joint decisions I tend to take the lead and push for my preferred direction.",
+      "domain_internal": "assertiveness_boundaries",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["prefers_to_follow"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "prefers_to_follow",
+      "definition": "I am often content to let someone else take the lead on plans and decisions.",
+      "domain_internal": "assertiveness_boundaries",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["dominant_in_decisions"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "says_no_easily",
+      "definition": "I can say no to requests without feeling excessive guilt or needing long explanations.",
+      "domain_internal": "assertiveness_boundaries",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "direct_communicator",
+      "definition": "I prefer to address issues head-on and say what I mean without much softening.",
+      "domain_internal": "conflict_communication",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["diplomatic_softener"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "diplomatic_softener",
+      "definition": "I carefully choose words to avoid unnecessary conflict or hurt feelings.",
+      "domain_internal": "conflict_communication",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["direct_communicator"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "conflict_avoidant",
+      "definition": "I go out of my way to avoid arguments or tense confrontations.",
+      "domain_internal": "conflict_communication",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "patient",
+      "definition": "I can wait and stay calm when progress is slow or others are difficult.",
+      "domain_internal": "conflict_communication",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["quick_to_anger"],
+      "block": "initial"
+    },
+    {
+      "id": "forgiving",
+      "definition": "I am able to let go of past hurts and move forward without holding lasting grudges.",
+      "domain_internal": "conflict_communication",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "raises_issues_early",
+      "definition": "I tend to bring up small irritations before they grow into bigger problems.",
+      "domain_internal": "conflict_communication",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "honest_direct",
+      "definition": "I value honesty highly and prefer to speak the truth even when it is uncomfortable.",
+      "domain_internal": "values_integrity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.3,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "principled",
+      "definition": "I have strong personal principles and try to live by them consistently.",
+      "domain_internal": "values_integrity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "fair_minded",
+      "definition": "I try to treat people impartially and consider different sides before judging.",
+      "domain_internal": "values_integrity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "loyal",
+      "definition": "Once I commit to a person or cause, I stay steadfast through difficulties.",
+      "domain_internal": "values_integrity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.3,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "keeps_promises",
+      "definition": "When I make a commitment I treat it as binding even if circumstances become inconvenient.",
+      "domain_internal": "values_integrity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.4,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "self_reliant",
+      "definition": "I prefer to handle most things myself and do not easily ask for help.",
+      "domain_internal": "independence_interdependence",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["enjoys_interdependence"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "enjoys_interdependence",
+      "definition": "I like building a shared life where we rely on and support each other daily.",
+      "domain_internal": "independence_interdependence",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["self_reliant"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "needs_personal_space",
+      "definition": "I need a clear sense of personal space and autonomy even inside a close relationship.",
+      "domain_internal": "independence_interdependence",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "relationship_centered",
+      "definition": "My close relationships are a central source of meaning and priority in my life.",
+      "domain_internal": "independence_interdependence",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "enjoys_solo_time",
+      "definition": "I genuinely enjoy and look forward to stretches of time spent completely alone.",
+      "domain_internal": "independence_interdependence",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "energized_by_people",
+      "definition": "Being around other people usually leaves me feeling more energetic and alive.",
+      "domain_internal": "social_energy",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": ["needs_solitude"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "needs_solitude",
+      "definition": "I need regular time alone to feel restored; too much social contact drains me.",
+      "domain_internal": "social_energy",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": ["energized_by_people"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "comfortable_in_groups",
+      "definition": "I feel at ease and can be myself in group settings and social gatherings.",
+      "domain_internal": "social_energy",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.8,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "prefers_deep_one_on_one",
+      "definition": "I much prefer deep conversation with one or two people over large group interaction.",
+      "domain_internal": "social_energy",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "recharges_alone",
+      "definition": "After social time I need solitude to feel restored before I want more interaction.",
+      "domain_internal": "social_energy",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "curious_explorer",
+      "definition": "I am driven to explore new ideas, places, or experiences and get bored with too much routine.",
+      "domain_internal": "openness_curiosity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": ["prefers_familiarity"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "prefers_familiarity",
+      "definition": "I am most comfortable with familiar routines, known environments, and proven ways of doing things.",
+      "domain_internal": "openness_curiosity",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": ["curious_explorer"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "intellectually_curious",
+      "definition": "I enjoy thinking about complex ideas and learning for its own sake.",
+      "domain_internal": "openness_curiosity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "open_to_change",
+      "definition": "I adapt relatively easily when plans, environments, or expectations shift.",
+      "domain_internal": "openness_curiosity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "loves_learning",
+      "definition": "I actively seek out new knowledge or skills even when there is no immediate practical need.",
+      "domain_internal": "openness_curiosity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "playful",
+      "definition": "I enjoy teasing, joking, and bringing a light or playful spirit into interactions.",
+      "domain_internal": "playfulness_lightness",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "humorous",
+      "definition": "I often notice and share the funny side of situations.",
+      "domain_internal": "playfulness_lightness",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "serious_minded",
+      "definition": "I tend to approach life and conversations in a serious, earnest way.",
+      "domain_internal": "playfulness_lightness",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": ["playful"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "laughs_easily",
+      "definition": "I find humor in everyday situations and laugh more readily than many people.",
+      "domain_internal": "playfulness_lightness",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "teases_affectionately",
+      "definition": "I use light teasing as a way of showing fondness and creating connection.",
+      "domain_internal": "playfulness_lightness",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "meaning_seeking",
+      "definition": "I feel a strong need to understand the deeper purpose or significance of my life and choices.",
+      "domain_internal": "existentialism",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["present_focused", "experience_first", "light_on_planning"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "present_focused",
+      "definition": "I prefer to live in the moment and do not spend much time questioning the larger meaning of existence.",
+      "domain_internal": "existentialism",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": ["meaning_seeking", "adventure_oriented"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "mortality_aware",
+      "definition": "Awareness of life’s limits and impermanence often influences how I make decisions or set priorities.",
+      "domain_internal": "existentialism",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "spiritually_oriented",
+      "definition": "I feel drawn to spiritual, philosophical, or transcendent questions beyond everyday practical concerns.",
+      "domain_internal": "existentialism",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": ["secular_practical"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "secular_practical",
+      "definition": "I focus mainly on practical, this-world matters and am not strongly drawn to spiritual or ultimate questions.",
+      "domain_internal": "existentialism",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": ["spiritually_oriented"],
+      "seed_conflicts": [],
+      "block": "initial"
+    },
+    {
+      "id": "realistic_cautious",
+      "definition": "I tend to focus on practical risks and prefer not to assume the best outcome.",
+      "domain_internal": "emotional_regulation",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["optimistic"],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "recovers_quickly",
+      "definition": "After a setback or upset I tend to bounce back fairly quickly.",
+      "domain_internal": "emotional_regulation",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "ruminates",
+      "definition": "I often replay past events or worries in my mind long after they have happened.",
+      "domain_internal": "emotional_regulation",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["recovers_quickly", "emotionally_steady"],
+      "block": "refining"
+    },
+    {
+      "id": "emotionally_self_aware",
+      "definition": "I can usually name what I am feeling and why while the feeling is still present.",
+      "domain_internal": "emotional_regulation",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "content_with_enough",
+      "definition": "I am satisfied with a moderate level of achievement and do not feel driven to constantly climb higher.",
+      "domain_internal": "structure_reliability",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": ["ambitious"],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "deadline_driven",
+      "definition": "I work best when there is a clear deadline and can lose focus without one.",
+      "domain_internal": "structure_reliability",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "procrastinates",
+      "definition": "I often put off starting or finishing tasks even when I know they matter.",
+      "domain_internal": "structure_reliability",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["disciplined", "reliable_follow_through"],
+      "block": "refining"
+    },
+    {
+      "id": "systems_oriented",
+      "definition": "I like creating systems, lists, or habits that make daily life run more smoothly.",
+      "domain_internal": "structure_reliability",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "guarded_skeptical",
+      "definition": "I am cautious about trusting others until they have clearly earned it.",
+      "domain_internal": "warmth_empathy",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["trusting"],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "physically_affectionate",
+      "definition": "I naturally express care through touch, closeness, or physical warmth.",
+      "domain_internal": "warmth_empathy",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "listens_deeply",
+      "definition": "When someone is talking I focus fully and try to understand before responding.",
+      "domain_internal": "warmth_empathy",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.3,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "emotionally_distant",
+      "definition": "I often keep an emotional distance even with people I care about.",
+      "domain_internal": "warmth_empathy",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["warm_and_affectionate", "supportive"],
+      "block": "refining"
+    },
+    {
+      "id": "conflict_engaged",
+      "definition": "I am willing to stay in a difficult conversation until the issue is clearer.",
+      "domain_internal": "assertiveness_boundaries",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "defers_to_others",
+      "definition": "In group or pair decisions I often let others take the lead rather than push my view.",
+      "domain_internal": "assertiveness_boundaries",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["dominant_in_decisions"],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "protective_of_time",
+      "definition": "I guard my time and energy and am selective about what I commit to.",
+      "domain_internal": "assertiveness_boundaries",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "over_explains",
+      "definition": "When I set a limit I often feel the need to justify it at length.",
+      "domain_internal": "assertiveness_boundaries",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["says_no_easily", "clear_boundaries"],
+      "block": "refining"
+    },
+    {
+      "id": "withdraws_under_stress",
+      "definition": "When tension rises I am more likely to pull away than to engage.",
+      "domain_internal": "conflict_communication",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["direct_communicator", "raises_issues_early"],
+      "block": "refining"
+    },
+    {
+      "id": "apologizes_readily",
+      "definition": "I find it relatively easy to apologize when I have hurt or inconvenienced someone.",
+      "domain_internal": "conflict_communication",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "keeps_score",
+      "definition": "I notice and remember imbalances in effort or fairness over time.",
+      "domain_internal": "conflict_communication",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["forgiving"],
+      "block": "refining"
+    },
+    {
+      "id": "seeks_clarity",
+      "definition": "In disagreements I push for clear understanding of what each person actually means.",
+      "domain_internal": "conflict_communication",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "transparent",
+      "definition": "I prefer to be open about my motives and feelings rather than strategic or hidden.",
+      "domain_internal": "values_integrity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "situational_ethics",
+      "definition": "I judge right and wrong partly by the specific situation rather than fixed rules alone.",
+      "domain_internal": "values_integrity",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "values_loyalty_highly",
+      "definition": "Loyalty from and to the people close to me is one of my highest priorities.",
+      "domain_internal": "values_integrity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.3,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "challenges_unfairness",
+      "definition": "I speak up when I see something I consider unfair, even if it creates friction.",
+      "domain_internal": "values_integrity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "private_about_values",
+      "definition": "I hold strong values but rarely discuss or display them unless asked.",
+      "domain_internal": "values_integrity",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "checks_in_often",
+      "definition": "In a close relationship I naturally want frequent contact and updates.",
+      "domain_internal": "independence_interdependence",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["needs_personal_space"],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "shared_decision_maker",
+      "definition": "I prefer major life decisions to be made together rather than by one person alone.",
+      "domain_internal": "independence_interdependence",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "self_sufficient_emotionally",
+      "definition": "I can regulate my own mood and do not rely heavily on a partner to feel okay.",
+      "domain_internal": "independence_interdependence",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "merges_easily",
+      "definition": "I tend to blend my routines, plans, and preferences with a partner’s quite readily.",
+      "domain_internal": "independence_interdependence",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["self_reliant", "needs_personal_space"],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "maintains_separate_worlds",
+      "definition": "Even in a close relationship I keep distinct hobbies, friendships, or projects of my own.",
+      "domain_internal": "independence_interdependence",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "talkative",
+      "definition": "In conversation I tend to speak more than I listen and enjoy keeping the talk going.",
+      "domain_internal": "social_energy",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "selective_social",
+      "definition": "I am social with a small circle and prefer not to expand it much.",
+      "domain_internal": "social_energy",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "enjoys_hosting",
+      "definition": "I like bringing people together and creating shared social experiences.",
+      "domain_internal": "social_energy",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "low_key_presence",
+      "definition": "In groups I am content to be present without needing to perform or stand out.",
+      "domain_internal": "social_energy",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "initiates_plans",
+      "definition": "I am usually the one who suggests getting together or making social plans.",
+      "domain_internal": "social_energy",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "prefers_known_methods",
+      "definition": "I trust methods and ideas that have already been proven more than experimental ones.",
+      "domain_internal": "openness_curiosity",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": ["curious_explorer"],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "aesthetically_sensitive",
+      "definition": "I notice and care about beauty, atmosphere, or sensory quality in my surroundings.",
+      "domain_internal": "openness_curiosity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "idea_oriented",
+      "definition": "I enjoy discussing abstract ideas, possibilities, and ‘what if’ scenarios.",
+      "domain_internal": "openness_curiosity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "practical_thinker",
+      "definition": "I prefer concrete, useful thinking over abstract or theoretical discussion.",
+      "domain_internal": "openness_curiosity",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["idea_oriented"],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "open_to_feedback",
+      "definition": "I can hear constructive criticism without becoming defensive most of the time.",
+      "domain_internal": "openness_curiosity",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "prefers_serious_tone",
+      "definition": "I am more comfortable with serious or sincere conversation than with banter or silliness.",
+      "domain_internal": "playfulness_lightness",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": ["playful"],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "spontaneous_fun",
+      "definition": "I am happy to drop plans or change direction if a more fun opportunity appears.",
+      "domain_internal": "playfulness_lightness",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "dry_humor",
+      "definition": "My sense of humor tends to be understated, ironic, or dry rather than loud or physical.",
+      "domain_internal": "playfulness_lightness",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "brings_levity",
+      "definition": "In tense or heavy moments I often try to lighten the mood.",
+      "domain_internal": "playfulness_lightness",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "takes_things_literally",
+      "definition": "I often take statements at face value and can miss playful or sarcastic intent.",
+      "domain_internal": "playfulness_lightness",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["humorous", "playful"],
+      "block": "refining"
+    },
+    {
+      "id": "experience_first",
+      "definition": "I learn and decide best by doing and experiencing things directly rather than by thinking them through first.",
+      "domain_internal": "existentialism",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": ["meaning_seeking"],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "savoring_the_moment",
+      "definition": "I actively try to notice and enjoy ordinary moments as they happen instead of rushing past them.",
+      "domain_internal": "existentialism",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "adventure_oriented",
+      "definition": "I feel most alive when I am trying something new, uncertain, or physically engaging.",
+      "domain_internal": "existentialism",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": ["present_focused"],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "embodied_living",
+      "definition": "I trust my body and senses as important guides for how to live, not only my thoughts or plans.",
+      "domain_internal": "existentialism",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "light_on_planning",
+      "definition": "I prefer to keep life open and respond to what arises rather than mapping out a detailed long-term life plan.",
+      "domain_internal": "existentialism",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 5,
+        "suggested_range": [3, 7]
+      },
+      "seed_complements": ["meaning_seeking"],
+      "seed_conflicts": [],
+      "block": "refining"
+    },
+    {
+      "id": "relationship_intent_long_term",
+      "definition": "I am primarily looking for a committed long-term relationship.",
+      "domain_internal": "relationship_objective",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "relationship_intent_marriage",
+      "definition": "Marriage is an important possible endpoint for my relationship.",
+      "domain_internal": "relationship_objective",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "relationship_intent_casual",
+      "definition": "I am comfortable keeping dating casual without aiming quickly toward commitment.",
+      "domain_internal": "relationship_objective",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "exclusivity_important",
+      "definition": "I want an exclusive romantic relationship.",
+      "domain_internal": "relationship_objective",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "open_relationship_receptive",
+      "definition": "I am genuinely open to consensual non-monogamy.",
+      "domain_internal": "relationship_objective",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "slow_relationship_pace",
+      "definition": "I prefer relationships to develop slowly before major commitments.",
+      "domain_internal": "relationship_objective",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "fast_relationship_pace",
+      "definition": "I prefer relationships to become serious relatively quickly.",
+      "domain_internal": "relationship_objective",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "wants_children",
+      "definition": "I want to have children in the future.",
+      "domain_internal": "family_children",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "does_not_want_children",
+      "definition": "I do not want to have children.",
+      "domain_internal": "family_children",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "open_to_adoption",
+      "definition": "I would seriously consider adoption as a way of becoming a parent.",
+      "domain_internal": "family_children",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "open_to_partner_children",
+      "definition": "I am comfortable becoming a parent to a partner's existing children.",
+      "domain_internal": "family_children",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "large_family",
+      "definition": "I would ideally like to have a relatively large family.",
+      "domain_internal": "family_children",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "parenthood_high_priority",
+      "definition": "Becoming a parent is important enough to strongly influence my choice of partner.",
+      "domain_internal": "family_children",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "extended_family_involved",
+      "definition": "I want extended family to play a significant role in our shared life.",
+      "domain_internal": "family_children",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "sex_high_importance",
+      "definition": "Sexual compatibility is a major part of a satisfying relationship for me.",
+      "domain_internal": "sexual_romantic_compatibility",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "physical_affection_high",
+      "definition": "I want frequent physical affection in a relationship.",
+      "domain_internal": "sexual_romantic_compatibility",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "romance_high",
+      "definition": "Romantic gestures and deliberate romance matter substantially to me.",
+      "domain_internal": "sexual_romantic_compatibility",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "high_sexual_frequency",
+      "definition": "I generally want sex relatively frequently in a relationship.",
+      "domain_internal": "sexual_romantic_compatibility",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "sexual_openness",
+      "definition": "I am comfortable discussing sexual preferences and boundaries openly.",
+      "domain_internal": "sexual_romantic_compatibility",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "monogamy_sexual_expectation",
+      "definition": "I expect sexual exclusivity in a committed relationship.",
+      "domain_internal": "sexual_romantic_compatibility",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "sexual_chemistry_essential",
+      "definition": "Strong sexual chemistry is necessary for me to pursue a serious relationship.",
+      "domain_internal": "sexual_romantic_compatibility",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "early_riser",
+      "definition": "I naturally prefer an early daily schedule.",
+      "domain_internal": "lifestyle",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "night_owl",
+      "definition": "I naturally prefer a late daily schedule.",
+      "domain_internal": "lifestyle",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "homebody",
+      "definition": "I am happiest spending much of my free time at home.",
+      "domain_internal": "lifestyle",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "social_lifestyle",
+      "definition": "I want an active social life with frequent outings and events.",
+      "domain_internal": "lifestyle",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "travel_oriented",
+      "definition": "Travel and experiencing different places are important parts of the life I want.",
+      "domain_internal": "lifestyle",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "rooted_lifestyle",
+      "definition": "I strongly prefer building a stable life in one place.",
+      "domain_internal": "lifestyle",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "urban_lifestyle",
+      "definition": "I prefer living in a city with substantial services and activity nearby.",
+      "domain_internal": "lifestyle",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "rural_lifestyle",
+      "definition": "I prefer a rural or low-density environment.",
+      "domain_internal": "lifestyle",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "spontaneous_lifestyle",
+      "definition": "I prefer leaving room for spontaneous changes rather than planning everything.",
+      "domain_internal": "lifestyle",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "structured_lifestyle",
+      "definition": "I prefer a predictable, planned daily life.",
+      "domain_internal": "lifestyle",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "active_lifestyle",
+      "definition": "Physical activity and an active lifestyle are important to me.",
+      "domain_internal": "lifestyle",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "financial_security_priority",
+      "definition": "Financial security is a major priority in how I structure my life.",
+      "domain_internal": "financial_life",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "saver",
+      "definition": "I naturally prioritize saving money over discretionary spending.",
+      "domain_internal": "financial_life",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "spender",
+      "definition": "I am comfortable spending money on experiences, interests, or enjoyment.",
+      "domain_internal": "financial_life",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "career_priority",
+      "definition": "Career achievement is an important part of the life I want.",
+      "domain_internal": "financial_life",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "work_life_balance",
+      "definition": "Protecting time outside work is more important to me than maximizing career achievement.",
+      "domain_internal": "financial_life",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "financial_independence",
+      "definition": "I strongly value maintaining financial independence within a relationship.",
+      "domain_internal": "financial_life",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "shared_finances",
+      "definition": "I prefer committed partners to combine a substantial part of their finances.",
+      "domain_internal": "financial_life",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "financial_risk_tolerance",
+      "definition": "I am comfortable taking substantial financial risks for potentially greater returns.",
+      "domain_internal": "financial_life",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "religious_practice_important",
+      "definition": "Religious belief or practice is an important part of my life.",
+      "domain_internal": "worldview_religion",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "shared_worldview_important",
+      "definition": "I strongly prefer a partner who shares my fundamental worldview.",
+      "domain_internal": "worldview_religion",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "shared_religious_practice",
+      "definition": "I would want my partner to participate with me in religious or spiritual practice.",
+      "domain_internal": "worldview_religion",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "metaphysical_openness",
+      "definition": "I am open to serious questions about realities beyond what can be empirically measured.",
+      "domain_internal": "worldview_religion",
+      "valence": "neutral",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "worldview_tolerance",
+      "definition": "I can build a close relationship with someone whose fundamental worldview differs from mine.",
+      "domain_internal": "worldview_religion",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "willing_to_relocate",
+      "definition": "I would seriously consider relocating for the right long-term relationship.",
+      "domain_internal": "geography_mobility",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "geographic_rootedness",
+      "definition": "I have strong reasons to remain in my current region or country.",
+      "domain_internal": "geography_mobility",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "long_distance_tolerant",
+      "definition": "I could sustain a serious relationship across substantial geographic distance.",
+      "domain_internal": "geography_mobility",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "international_life_open",
+      "definition": "I am open to building my life in another country.",
+      "domain_internal": "geography_mobility",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "family_proximity_important",
+      "definition": "Living reasonably close to family is important to me.",
+      "domain_internal": "geography_mobility",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "friendship_central",
+      "definition": "Close friendships are a major part of the life I want to maintain.",
+      "domain_internal": "social_family_ecosystem",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "partner_social_integration",
+      "definition": "I want my partner to become integrated into my existing social world.",
+      "domain_internal": "social_family_ecosystem",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "private_couple",
+      "definition": "I prefer a relationship that preserves a strong private world between the partners.",
+      "domain_internal": "social_family_ecosystem",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "host_frequently",
+      "definition": "I enjoy having friends or family regularly visit our home.",
+      "domain_internal": "social_family_ecosystem",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "family_obligations_high",
+      "definition": "I expect substantial involvement in caring for or supporting extended family.",
+      "domain_internal": "social_family_ecosystem",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "physical_attraction_essential",
+      "definition": "Physical attraction is necessary for me to pursue a serious romantic relationship.",
+      "domain_internal": "attraction",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "intellectual_attraction",
+      "definition": "I am strongly attracted to a partner's way of thinking and understanding.",
+      "domain_internal": "attraction",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "emotional_attraction",
+      "definition": "Emotional connection is a major source of romantic attraction for me.",
+      "domain_internal": "attraction",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "voice_mannerisms_attraction",
+      "definition": "Voice, mannerisms, and presence can strongly affect my attraction to someone.",
+      "domain_internal": "attraction",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "children_non_negotiable",
+      "definition": "Whether we have children is a relationship-level non-negotiable for me.",
+      "domain_internal": "hard_constraints",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "monogamy_non_negotiable",
+      "definition": "The relationship structure must be monogamous for me.",
+      "domain_internal": "hard_constraints",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "religion_non_negotiable",
+      "definition": "My partner's religious or worldview compatibility is non-negotiable.",
+      "domain_internal": "hard_constraints",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "location_non_negotiable",
+      "definition": "There are geographic constraints that a serious relationship cannot realistically overcome.",
+      "domain_internal": "hard_constraints",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "lifestyle_non_negotiable",
+      "definition": "Certain fundamental lifestyle differences would make a relationship unworkable for me.",
+      "domain_internal": "hard_constraints",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "sexual_compatibility_non_negotiable",
+      "definition": "A major sexual-compatibility mismatch would make a serious relationship unworkable for me.",
+      "domain_internal": "hard_constraints",
+      "valence": "mixed",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "shared_household_fairness",
+      "definition": "In a shared household, I expect responsibilities to be divided explicitly and fairly.",
+      "domain_internal": "relationship_scenarios",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "caregiving_reciprocity",
+      "definition": "I expect partners to support each other substantially during illness or difficult periods.",
+      "domain_internal": "relationship_scenarios",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "career_tradeoffs",
+      "definition": "I am willing to make significant career compromises for a partner's opportunities.",
+      "domain_internal": "relationship_scenarios",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "financial_crisis_teamwork",
+      "definition": "When finances become difficult, I naturally approach the problem as a shared challenge.",
+      "domain_internal": "relationship_scenarios",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "partner_change_tolerance",
+      "definition": "I can remain committed when a partner's interests, priorities, or identity develop substantially over time.",
+      "domain_internal": "relationship_scenarios",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "aging_family_support",
+      "definition": "I am willing to take on substantial responsibilities for an aging partner or family member.",
+      "domain_internal": "relationship_scenarios",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "sacrifice_for_relationship",
+      "definition": "A serious relationship should sometimes take priority over individual convenience or plans.",
+      "domain_internal": "relationship_scenarios",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    },
+    {
+      "id": "repair_after_conflict",
+      "definition": "After serious conflict, I actively want to repair the relationship rather than simply move on.",
+      "domain_internal": "relationship_scenarios",
+      "valence": "positive",
+      "weights": {
+        "research_prior": 1.0,
+        "similarity_weight": 1.0,
+        "complementarity_weight": 1.0
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "block": "expanded_relationship_core"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "the-dating-app",
+  "private": true,
+  "version": "0.8.0",
+  "description": "Trait-based matching for lasting relationships: trait catalog, fuzzy matcher, and safety layer",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "lint": "prettier --check . && eslint .",
+    "format": "prettier --write .",
+    "validate": "node scripts/validate.mjs",
+    "migrate": "node scripts/migrate-v0.7-to-v0.8.mjs && node scripts/extract-i18n.mjs && prettier --write data/traits.v0.8.json i18n/en.json"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.14.0",
+    "eslint": "^9.14.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.3",
+    "vitest": "^3.0.0"
+  }
+}

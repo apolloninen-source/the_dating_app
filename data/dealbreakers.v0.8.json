@@ -1,0 +1,328 @@
+{
+  "schema_version": "0.8.0",
+  "description": "Categorical dealbreaker and social-expectation questions. Each person answers `self` and may set `accept` (the partner answers they accept). Strictness is fuzzy: 1 when the person marks the question strict, otherwise the degree to which their linked hard-constraint rating is high, and at least matching_config.fuzzy.baseline_strictness; a mismatch lowers the constraint satisfaction by that degree. Questions with `compatibility` use it as a soft default `accept` when the person set none. `prefer_not_to_say` and unanswered count as mostly unknown (fuzzy.unknown_mismatch).",
+  "question_types": {
+    "single_choice": "Exactly one option for `self`; `accept` is a list of option ids.",
+    "multi_choice": "One or more options for `self`; passes when any of them is in `accept`.",
+    "language_overlap": "Uses profile.languages; when enabled, passes only if the two people share at least one language at conversational level or better.",
+    "location": "Uses profile.location, max_distance_km, open_to_long_distance and countries_open."
+  },
+  "visibility_levels": {
+    "profile": "Shown on the profile.",
+    "match_only": "Shown only after a mutual match.",
+    "private": "Never shown to anyone; used for filtering only."
+  },
+  "prefer_not_to_say_option": "prefer_not_to_say",
+  "questions": [
+    {
+      "id": "relationship_goal",
+      "i18n_key": "dealbreaker.relationship_goal",
+      "question": "What are you looking for right now?",
+      "type": "single_choice",
+      "options": [
+        { "id": "long_term", "label": "A long-term relationship" },
+        { "id": "marriage", "label": "Marriage or a lifelong partnership" },
+        { "id": "casual", "label": "Something casual" },
+        { "id": "not_sure_yet", "label": "Not sure yet" },
+        { "id": "friendship_first", "label": "Friendship first" }
+      ],
+      "allow_prefer_not_to_say": false,
+      "visibility_default": "profile",
+      "special_category": null
+    },
+    {
+      "id": "relationship_structure",
+      "i18n_key": "dealbreaker.relationship_structure",
+      "question": "Which relationship structure do you want?",
+      "type": "single_choice",
+      "options": [
+        { "id": "monogamous", "label": "Monogamous" },
+        { "id": "ethically_non_monogamous", "label": "Ethically non-monogamous" },
+        { "id": "open_to_either", "label": "Open to either" }
+      ],
+      "allow_prefer_not_to_say": true,
+      "visibility_default": "match_only",
+      "special_category": "sex_life"
+    },
+    {
+      "id": "children_have",
+      "i18n_key": "dealbreaker.children_have",
+      "question": "Do you have children?",
+      "type": "single_choice",
+      "options": [
+        { "id": "no", "label": "No" },
+        { "id": "yes_living_with_me", "label": "Yes, they live with me" },
+        { "id": "yes_shared_custody", "label": "Yes, part of the time" },
+        { "id": "yes_adult_or_independent", "label": "Yes, they are grown up or independent" }
+      ],
+      "allow_prefer_not_to_say": false,
+      "visibility_default": "profile",
+      "special_category": null
+    },
+    {
+      "id": "children_want",
+      "i18n_key": "dealbreaker.children_want",
+      "question": "Do you want (more) children?",
+      "type": "single_choice",
+      "options": [
+        { "id": "want", "label": "I want children" },
+        { "id": "do_not_want", "label": "I do not want children" },
+        { "id": "unsure", "label": "Not sure yet" },
+        { "id": "open_to_partner_preference", "label": "Open, depending on my partner" }
+      ],
+      "allow_prefer_not_to_say": false,
+      "visibility_default": "profile",
+      "special_category": null
+    },
+    {
+      "id": "smoking",
+      "i18n_key": "dealbreaker.smoking",
+      "question": "Do you smoke tobacco or vape?",
+      "type": "single_choice",
+      "options": [
+        { "id": "never", "label": "Never" },
+        { "id": "occasionally", "label": "Occasionally" },
+        { "id": "regularly", "label": "Regularly" },
+        { "id": "trying_to_quit", "label": "Trying to quit" }
+      ],
+      "allow_prefer_not_to_say": false,
+      "visibility_default": "profile",
+      "special_category": null
+    },
+    {
+      "id": "alcohol",
+      "i18n_key": "dealbreaker.alcohol",
+      "question": "How often do you drink alcohol?",
+      "type": "single_choice",
+      "options": [
+        { "id": "never", "label": "Never" },
+        { "id": "rarely", "label": "Rarely" },
+        { "id": "socially", "label": "Socially" },
+        { "id": "frequently", "label": "Frequently" }
+      ],
+      "allow_prefer_not_to_say": false,
+      "visibility_default": "profile",
+      "special_category": null
+    },
+    {
+      "id": "cannabis",
+      "i18n_key": "dealbreaker.cannabis",
+      "question": "Do you use cannabis?",
+      "type": "single_choice",
+      "options": [
+        { "id": "never", "label": "Never" },
+        { "id": "occasionally", "label": "Occasionally" },
+        { "id": "regularly", "label": "Regularly" }
+      ],
+      "allow_prefer_not_to_say": true,
+      "visibility_default": "private",
+      "special_category": null,
+      "legal_risk": true
+    },
+    {
+      "id": "recreational_drugs",
+      "i18n_key": "dealbreaker.recreational_drugs",
+      "question": "Do you use other recreational drugs?",
+      "type": "single_choice",
+      "options": [
+        { "id": "never", "label": "Never" },
+        { "id": "occasionally", "label": "Occasionally" },
+        { "id": "regularly", "label": "Regularly" }
+      ],
+      "allow_prefer_not_to_say": true,
+      "visibility_default": "private",
+      "special_category": null,
+      "legal_risk": true
+    },
+    {
+      "id": "religion",
+      "i18n_key": "dealbreaker.religion",
+      "question": "What is your religion or worldview?",
+      "type": "single_choice",
+      "options": [
+        { "id": "none_atheist", "label": "None / atheist" },
+        { "id": "agnostic", "label": "Agnostic" },
+        { "id": "spiritual_not_religious", "label": "Spiritual but not religious" },
+        { "id": "bahai", "label": "Baháʼí" },
+        { "id": "buddhist", "label": "Buddhist" },
+        { "id": "christian_catholic", "label": "Christian – Catholic" },
+        { "id": "christian_orthodox", "label": "Christian – Orthodox" },
+        { "id": "christian_protestant", "label": "Christian – Protestant" },
+        { "id": "christian_other", "label": "Christian – other" },
+        { "id": "hindu", "label": "Hindu" },
+        { "id": "jain", "label": "Jain" },
+        { "id": "jewish", "label": "Jewish" },
+        { "id": "muslim_sunni", "label": "Muslim – Sunni" },
+        { "id": "muslim_shia", "label": "Muslim – Shia" },
+        { "id": "muslim_other", "label": "Muslim – other" },
+        { "id": "shinto", "label": "Shinto" },
+        { "id": "sikh", "label": "Sikh" },
+        { "id": "taoist", "label": "Taoist" },
+        { "id": "traditional_or_indigenous", "label": "Traditional or Indigenous religion" },
+        { "id": "other", "label": "Other" }
+      ],
+      "allow_prefer_not_to_say": true,
+      "visibility_default": "match_only",
+      "special_category": "religion"
+    },
+    {
+      "id": "religious_practice_level",
+      "i18n_key": "dealbreaker.religious_practice_level",
+      "question": "How actively do you practise your religion or worldview?",
+      "type": "single_choice",
+      "options": [
+        { "id": "not_practising", "label": "Not practising" },
+        { "id": "occasionally", "label": "Occasionally" },
+        { "id": "regularly", "label": "Regularly" },
+        { "id": "devoutly", "label": "Devoutly" }
+      ],
+      "allow_prefer_not_to_say": true,
+      "visibility_default": "match_only",
+      "special_category": "religion"
+    },
+    {
+      "id": "diet",
+      "i18n_key": "dealbreaker.diet",
+      "question": "Which of these describe how you eat?",
+      "type": "multi_choice",
+      "options": [
+        { "id": "no_restrictions", "label": "No restrictions" },
+        { "id": "flexitarian", "label": "Flexitarian" },
+        { "id": "pescatarian", "label": "Pescatarian" },
+        { "id": "vegetarian", "label": "Vegetarian" },
+        { "id": "vegan", "label": "Vegan" },
+        { "id": "halal", "label": "Halal" },
+        { "id": "kosher", "label": "Kosher" },
+        { "id": "jain_diet", "label": "Jain diet" },
+        { "id": "other", "label": "Other" }
+      ],
+      "allow_prefer_not_to_say": false,
+      "visibility_default": "profile",
+      "special_category": null
+    },
+    {
+      "id": "pets_have",
+      "i18n_key": "dealbreaker.pets_have",
+      "question": "Do you have pets?",
+      "type": "multi_choice",
+      "options": [
+        { "id": "none", "label": "No pets" },
+        { "id": "dog", "label": "Dog" },
+        { "id": "cat", "label": "Cat" },
+        { "id": "other", "label": "Other" }
+      ],
+      "allow_prefer_not_to_say": false,
+      "visibility_default": "profile",
+      "special_category": null
+    },
+    {
+      "id": "pet_allergy",
+      "i18n_key": "dealbreaker.pet_allergy",
+      "question": "Are you allergic to pets?",
+      "type": "single_choice",
+      "options": [
+        { "id": "no", "label": "No" },
+        { "id": "mild", "label": "Mildly" },
+        { "id": "severe", "label": "Severely" }
+      ],
+      "allow_prefer_not_to_say": true,
+      "visibility_default": "match_only",
+      "special_category": "health"
+    },
+    {
+      "id": "political_leaning",
+      "i18n_key": "dealbreaker.political_leaning",
+      "question": "Where do you place yourself politically, relative to your own country?",
+      "type": "single_choice",
+      "options": [
+        { "id": "left", "label": "Left" },
+        { "id": "centre_left", "label": "Centre-left" },
+        { "id": "centre", "label": "Centre" },
+        { "id": "centre_right", "label": "Centre-right" },
+        { "id": "right", "label": "Right" },
+        { "id": "apolitical", "label": "Not political" },
+        { "id": "other", "label": "Other" }
+      ],
+      "allow_prefer_not_to_say": true,
+      "visibility_default": "match_only",
+      "special_category": "political"
+    },
+    {
+      "id": "date_payment",
+      "i18n_key": "dealbreaker.date_payment",
+      "section": "social_expectations",
+      "question": "Who do you expect to pay on the first dates?",
+      "type": "single_choice",
+      "options": [
+        { "id": "inviter_pays", "label": "Whoever asked the other out" },
+        { "id": "traditional_roles", "label": "Traditional roles, for example the man pays" },
+        { "id": "split_evenly", "label": "We split the bill" },
+        { "id": "take_turns", "label": "We take turns" },
+        { "id": "higher_earner_pays", "label": "Whoever earns more" },
+        { "id": "flexible", "label": "Flexible, we'll figure it out" }
+      ],
+      "compatibility": {
+        "inviter_pays": ["inviter_pays", "take_turns", "flexible"],
+        "traditional_roles": ["traditional_roles", "flexible"],
+        "split_evenly": ["split_evenly", "take_turns", "flexible"],
+        "take_turns": ["take_turns", "inviter_pays", "split_evenly", "flexible"],
+        "higher_earner_pays": ["higher_earner_pays", "flexible"],
+        "flexible": [
+          "inviter_pays",
+          "traditional_roles",
+          "split_evenly",
+          "take_turns",
+          "higher_earner_pays",
+          "flexible"
+        ]
+      },
+      "allow_prefer_not_to_say": false,
+      "visibility_default": "match_only",
+      "special_category": null
+    },
+    {
+      "id": "shared_costs",
+      "i18n_key": "dealbreaker.shared_costs",
+      "section": "social_expectations",
+      "question": "How should a couple share costs once they are serious or living together?",
+      "type": "single_choice",
+      "options": [
+        { "id": "split_evenly", "label": "Split evenly" },
+        { "id": "proportional_to_income", "label": "In proportion to income" },
+        { "id": "pooled", "label": "Pool everything together" },
+        { "id": "one_provider", "label": "Traditional: one partner is the main provider" },
+        { "id": "flexible", "label": "Flexible, we'll figure it out" }
+      ],
+      "compatibility": {
+        "split_evenly": ["split_evenly", "proportional_to_income", "flexible"],
+        "proportional_to_income": ["proportional_to_income", "split_evenly", "pooled", "flexible"],
+        "pooled": ["pooled", "proportional_to_income", "flexible"],
+        "one_provider": ["one_provider", "flexible"],
+        "flexible": ["split_evenly", "proportional_to_income", "pooled", "one_provider", "flexible"]
+      },
+      "allow_prefer_not_to_say": false,
+      "visibility_default": "match_only",
+      "special_category": null
+    },
+    {
+      "id": "shared_language",
+      "i18n_key": "dealbreaker.shared_language",
+      "question": "Only match with people who share a language with me.",
+      "type": "language_overlap",
+      "options": [],
+      "allow_prefer_not_to_say": false,
+      "visibility_default": "private",
+      "special_category": null
+    },
+    {
+      "id": "location",
+      "i18n_key": "dealbreaker.location",
+      "question": "Only match within my distance and country settings.",
+      "type": "location",
+      "options": [],
+      "allow_prefer_not_to_say": false,
+      "visibility_default": "private",
+      "special_category": null
+    }
+  ]
+}
