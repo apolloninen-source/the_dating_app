@@ -1,0 +1,37 @@
+{
+  "schema_version": "0.8.0",
+  "description": "Each profile has at most one photo and one short text. Nothing is visible to anyone else until it passes screening. The photo must show exactly one face that matches the person's verified ID face, and by default it is only shown after mutual interest, so matching stays trait-first. Pictures in chat remain forbidden (messaging-policy.v0.8.json).",
+  "photo": {
+    "max_count": 1,
+    "required": false,
+    "accepted_types": ["image/jpeg", "image/png", "image/webp"],
+    "max_bytes": 5242880,
+    "min_dimension_px": 400,
+    "max_dimension_px": 8000,
+    "stored_dimension_px": 1080,
+    "strip_metadata": true,
+    "strip_metadata_note": "Remove EXIF and all other metadata (including GPS location) server-side before screening and storage; re-encode the image.",
+    "visibility": "after_mutual_interest",
+    "visibility_options": {
+      "after_mutual_interest": "Shown only once both people have shown interest; matching and first impressions stay trait-first.",
+      "with_daily_candidates": "Shown on the daily candidate cards."
+    },
+    "screening": {
+      "nudity_reject_at": 0.8,
+      "nudity_review_at": 0.4,
+      "violence_reject_at": 0.8,
+      "faces_required": 1,
+      "face_match_min": 0.85,
+      "face_match_reject_below": 0.6,
+      "minimum_estimated_age": 18,
+      "text_in_image_review": true,
+      "note": "Scores come from the screening provider (nudity/violence 0-1, face count, similarity to the verified ID face 0-1, estimated age, whether the image contains text). Borderline results go to human review, never straight to publication."
+    }
+  },
+  "text": {
+    "max_length": 500,
+    "i18n_prompt_key": "profile.text.prompt",
+    "prompt": "A few words about you, in your own voice.",
+    "rules": "Checked with message moderation as if it were a first message to a stranger: no explicit content, no links, no contact details or social handles, no scams or exploitation."
+  }
+}

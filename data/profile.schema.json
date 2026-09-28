@@ -193,6 +193,32 @@
       "type": "boolean",
       "description": "Free feature: read receipts show in a conversation only when both people turned them on."
     },
+    "profile_text": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "The one profile text. Published only after moderateProfileText allows it."
+    },
+    "photo": {
+      "type": "object",
+      "description": "Server-managed: the one profile photo (a single object, so there can never be more than one). Visible to others only when approved; see profile-content-policy.v0.8.json.",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "pending_screening",
+            "pending_verification",
+            "hold_for_review",
+            "approved",
+            "rejected"
+          ]
+        },
+        "storage_key": { "type": "string" },
+        "width": { "type": "integer" },
+        "height": { "type": "integer" },
+        "approved_at": { "type": "string", "format": "date-time" }
+      }
+    },
     "ratings": {
       "type": "object",
       "description": "trait id -> self rating on rating_scale (1-10).",

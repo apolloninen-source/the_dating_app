@@ -1,8 +1,8 @@
 {
   "schema_version": "0.8.0",
-  "description": "Messaging safety policy. The app is text-only: no profile photos, no images or files in chat, and messages that smuggle images in (image links, data URIs, markup) are rejected. Message text is checked only for Terms-of-Service violations (adaptation.content_exception = tos_violations_only); nothing else about a conversation is analysed. The seed patterns are English; a global launch must add maintained per-locale lists under `locale_rules` and the external lists before release.",
+  "description": "Messaging safety policy. Chat is text-only: no images or files in chat (the one screened profile photo is governed by profile-content-policy.v0.8.json), and messages that smuggle images in (image links, data URIs, markup) are rejected. Message text is checked only for Terms-of-Service violations (adaptation.content_exception = tos_violations_only); nothing else about a conversation is analysed. The seed patterns are English; a global launch must add maintained per-locale lists under `locale_rules` and the external lists before release.",
   "media": {
-    "profile_photos": false,
+    "profile_photos": "see profile-content-policy.v0.8.json",
     "images_in_chat": false,
     "attachments": false,
     "block_image_links": true,
@@ -34,8 +34,12 @@
       "fansly.com"
     ]
   },
-  "links": { "allowed_after_messages": 20 },
-  "contact_info": { "allowed_after_messages": 10 },
+  "links": {
+    "allowed_after_messages": 20
+  },
+  "contact_info": {
+    "allowed_after_messages": 10
+  },
   "max_length": 2000,
   "explicit_talk": {
     "requires_mutual_opt_in": true,

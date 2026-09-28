@@ -16,7 +16,7 @@ they are most likely to build something lasting with, and it gets out of the way
 | Best matches         | rationed to bring people back      | always shown first                                    |
 | Many open chats      | encouraged                         | capped, to focus on the people you're talking to      |
 | Success              | the user keeps coming back         | the couple leaves together and is hidden from matching |
-| Pictures             | central                            | none at all                                           |
+| Pictures             | galleries, photo-first swiping     | one screened photo, shown after mutual interest       |
 | Advanced features    | paid tiers                         | all free; no paid tiers                               |
 | Ads                  | as many as engagement allows       | 2 video + 1 text per person per day, then nothing     |
 
@@ -171,7 +171,8 @@ there are no paid tiers:
 
 Deliberately **not offered**, because they conflict with best-first ranking or the
 lasting-relationships objective: paid visibility (boosts, spotlight), scarcity currencies
-(super-likes, roses), a swipe feed, photos, video calls (deferred for safety), and profile-view
+(super-likes, roses), a swipe feed, photo galleries and pictures in chat, video calls (deferred
+for safety), and profile-view
 analytics.
 
 ## Ads (`data/ads-policy.v0.8.json`, `lib/ads.mjs`)
@@ -193,9 +194,36 @@ never earns more; `ad_impressions` is on the objective's never-optimize list.
   political, religious, crypto, predatory loans, weight loss/cosmetic surgery, prescription
   medicine, job offers abroad or travel sponsorship
 
+## Profile photo and text (`data/profile-content-policy.v0.8.json`, `lib/profile-content.mjs`)
+
+Each profile has **one photo and one text** (up to 500 characters). Nothing is visible to anyone
+else until it passes the checks:
+
+- **Photo**: JPEG, PNG or WebP up to 5 MB; all metadata (including GPS location) stripped and the
+  image re-encoded server-side. Screening rejects nudity (with a strike) and violence, requires
+  **exactly one face that matches the person's verified ID face** (the main catfishing guard),
+  escalates a possibly under-18 face to trust-and-safety immediately, and sends borderline
+  results and text-in-image to human review. Until identity verification is done, the photo
+  waits (`pending_verification`).
+- **Visibility**: by default the photo is shown **only after mutual interest**, so matching and
+  first impressions stay trait-first. Set `photo.visibility` to `with_daily_candidates` to show it
+  on candidate cards instead.
+- **Text**: moderated as if it were a first message to a stranger, so explicit content, links,
+  contact details and social handles are never allowed in a profile.
+
+## Platform: web first
+
+Start as a responsive web app: no app-store fees or review cycles, and the same backend serves
+iOS and Android apps later (Apple and Google both require moderation, reporting and blocking for
+user content, which this design already has). Cheapest photo storage today is object storage with
+no download fees (for example Cloudflare R2) and direct browser uploads to a signed URL, then
+server-side metadata stripping and screening before the photo is marked approved. The per-user
+cost that matters most is identity verification; budget for it first.
+
 ## Safety
 
-- **No pictures anywhere.** No profile photos, no chat images or files. Messages with image
+- **One screened profile photo, no pictures in chat.** See *Profile photo and text* above. No
+  chat images or files; messages with image
   links, image hosts, data-URI or markup images are rejected (`lib/moderation.mjs`).
 - **Message checks, ToS violations only**, before delivery:
   - unsolicited sexual content is blocked (with a strike) unless both people switched on

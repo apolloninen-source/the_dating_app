@@ -63,6 +63,12 @@ Everything below is applied by `scripts/migrate-v0.7-to-v0.8.mjs` to
 
 ### Added
 
+- **One profile photo and one profile text** (`data/profile-content-policy.v0.8.json`,
+  `lib/profile-content.mjs`): the photo is metadata-stripped and screened (nudity, violence,
+  exactly one face matching the verified ID face, possible minors escalated) and shown after
+  mutual interest by default; the text is moderated like a first message to a stranger.
+  Pictures in chat remain forbidden. Web-first platform notes in the README.
+
 - **Social expectations of a partner** (new `social_expectations` block and domain, 30 items):
   expectations (family, friends, events, affection in public, acknowledgement, exes, close
   friendships, couple time, daily contact, phone openness, courtship, hospitality, customs,

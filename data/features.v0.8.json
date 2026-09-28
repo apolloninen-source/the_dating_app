@@ -7,6 +7,12 @@
   },
   "free": [
     {
+      "id": "profile_photo_and_text",
+      "name": "One profile photo and one profile text",
+      "description": "Screened before anyone sees it; the photo must match your verified face and is shown after mutual interest by default.",
+      "implemented_in": "lib/profile-content.mjs"
+    },
+    {
       "id": "see_whos_interested",
       "name": "See who's interested in you",
       "description": "Everyone who has shown interest in you, not hidden behind a paywall or blurred.",
@@ -47,14 +53,18 @@
       "name": "Undo a pass",
       "description": "Bring back a candidate you passed on within the last 24 hours.",
       "implemented_in": "app",
-      "limits": { "window_hours": 24 }
+      "limits": {
+        "window_hours": 24
+      }
     },
     {
       "id": "interest_with_note",
       "name": "Interest with a note",
       "description": "Say why you're interested when you show interest. Every note goes through message moderation.",
       "implemented_in": "app + lib/moderation.mjs",
-      "limits": { "max_length": 300 }
+      "limits": {
+        "max_length": 300
+      }
     },
     {
       "id": "read_receipts",
@@ -79,7 +89,10 @@
       "name": "In-app voice calls",
       "description": "Call a match without sharing a phone number. Both people must opt in, and only after enough messages.",
       "implemented_in": "app",
-      "limits": { "requires_mutual_opt_in": true, "allowed_after_messages": 10 }
+      "limits": {
+        "requires_mutual_opt_in": true,
+        "allowed_after_messages": 10
+      }
     },
     {
       "id": "date_safety",
@@ -117,13 +130,13 @@
       "reason": "There is no feed: a few strong candidates a day, only those that are at least good."
     },
     {
-      "id": "photo_features",
+      "id": "photo_galleries_and_chat_pictures",
       "examples": [
-        "profile photos",
-        "photo verification selfies shown to others",
-        "sending pictures"
+        "multiple photos or galleries",
+        "sending pictures in chat",
+        "photo-first swiping"
       ],
-      "reason": "The app is text-only to prevent unsolicited explicit images and photo-first judgement."
+      "reason": "One screened profile photo is enough to put a face to a person; galleries invite photo-first judgement, and pictures in chat invite unsolicited explicit images."
     },
     {
       "id": "video_calls",
