@@ -17,6 +17,8 @@ they are most likely to build something lasting with, and it gets out of the way
 | Many open chats      | encouraged                         | capped, to focus on the people you're talking to      |
 | Success              | the user keeps coming back         | the couple leaves together and is hidden from matching |
 | Pictures             | central                            | none at all                                           |
+| Advanced features    | paid tiers                         | all free; no paid tiers                               |
+| Ads                  | as many as engagement allows       | 2 video + 1 text per person per day, then nothing     |
 
 Status: **v0.8, data model and reference logic.** No app, API or database yet; this is the core
 the app will be built on. Everything is plain Node 22 ES modules with no runtime dependencies.
@@ -29,6 +31,8 @@ data/dealbreakers.v0.8.json      categorical dealbreaker questions (global optio
 data/profile.schema.json         JSON Schema for a profile: basics, answers, preferences, consents
 data/messaging-policy.v0.8.json  no-images rule, message rules, account-trust limits, report reasons
 data/region-policy.example.json  per-country rules (min age, hidden fields, disabled questions); example only
+data/features.v0.8.json          free features, and features deliberately not offered (with reasons)
+data/ads-policy.v0.8.json        ad caps, placements, contextual-only targeting, prohibited categories
 i18n/en.json                     English source strings for translators (generated)
 source/core_traits_v0.7.json     the v0.7 input, kept for provenance
 lib/fuzzy.mjs                    fuzzy sets, hedges, fuzzy AND/OR, linguistic labels
@@ -39,10 +43,11 @@ lib/response-quality.mjs         contradiction, social-desirability and straight
 lib/validate.mjs                 catalog, dealbreaker and profile validation
 lib/moderation.mjs               pre-delivery message checks (ToS violations only)
 lib/trust.mjs                    account trust signals: verification, mass messaging, reports
+lib/ads.mjs                      daily ad cap, video viability, contextual ad requests
 scripts/migrate-v0.7-to-v0.8.mjs the v0.7 -> v0.8 migration (see CHANGELOG.md)
 scripts/extract-i18n.mjs         regenerates i18n/en.json
 scripts/validate.mjs             validates the data files
-tests/dating.test.mjs            unit tests
+tests/*.test.mjs                 unit tests
 ```
 
 ## Commands
@@ -119,6 +124,43 @@ answering.
 **Partner effects.** For traits where a partner's level matters in itself (patience, anger,
 jealousy, contempt, …), only the worse side counts: a candidate more patient than you is never
 penalized for it.
+
+## Free features (`data/features.v0.8.json`)
+
+Every advanced feature dating apps commonly sell that fits a matcher is **free for everyone**;
+there are no paid tiers:
+
+- see who's interested in you · unlimited messaging with matches · all dealbreakers and
+  preferences · **why you matched** (`explainMatch`: shared strengths, friction, unmet limits)
+- **incognito** (only people you showed interest in see you) · **travel mode** (match at a
+  destination for set dates) · undo a pass (24 h) · interest with a note (moderated)
+- read receipts (mutual) · pause · verified badge and verified-only matching · in-app voice
+  calls (mutual opt-in) · date safety tools (share plan, check-in timer) · update answers any
+  time · safety support by severity, never by payment
+
+Deliberately **not offered**, because they conflict with best-first ranking or the
+lasting-relationships objective: paid visibility (boosts, spotlight), scarcity currencies
+(super-likes, roses), a swipe feed, photos, video calls (deferred for safety), and profile-view
+analytics.
+
+## Ads (`data/ads-policy.v0.8.json`, `lib/ads.mjs`)
+
+Ads are the only revenue, and they are **capped per person per day**, so more time in the app
+never earns more; `ad_impressions` is on the objective's never-optimize list.
+
+- at most **two video ads** (only when viable) and **one small text ad** in any 24 hours, then
+  nothing until 24 hours after the first ad, across all sessions
+- video is viable only in the foreground, online, not on cellular with data saver, not on low
+  battery, not with reduced motion, not during a call; ≤ 30 s, skippable after 5 s, muted,
+  at least 10 minutes apart
+- only at natural breaks (after the daily candidates, after a questionnaire block, footers);
+  never in onboarding, verification, consent, conversations, the match moment, reports, safety
+  tools or the in-a-relationship farewell
+- **contextual only**: the same ad for anyone with the same country, language and placement;
+  no profile answers, matches or messages are ever used; no tracking SDKs
+- prohibited: dating services, adult, escort, gambling, alcohol, tobacco, drugs, weapons,
+  political, religious, crypto, predatory loans, weight loss/cosmetic surgery, prescription
+  medicine, job offers abroad or travel sponsorship
 
 ## Safety
 

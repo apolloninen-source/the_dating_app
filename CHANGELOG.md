@@ -63,6 +63,14 @@ Everything below is applied by `scripts/migrate-v0.7-to-v0.8.mjs` to
 
 ### Added
 
+- **Free features, no paid tiers** (`data/features.v0.8.json`): match explanations
+  (`explainMatch`), incognito, travel mode, and the other features dating apps commonly sell,
+  plus a list of features deliberately not offered (paid visibility, scarcity currencies,
+  swipe feed, photos, video calls, profile-view analytics) with reasons.
+- **Daily-capped ads** (`data/ads-policy.v0.8.json`, `lib/ads.mjs`): two video ads when viable
+  and one text ad per person per 24 hours, then nothing; contextual targeting only;
+  `ad_impressions` added to the objective's never-optimize list.
+
 - **Objective: lasting relationships.** `objective` and `ranking` in the catalog: best first,
   a few "good or better" candidates a day, a cap on open conversations, couples hidden once
   together, tuning only against long-term outcomes, never engagement.

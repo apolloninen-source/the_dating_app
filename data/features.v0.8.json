@@ -1,0 +1,139 @@
+{
+  "schema_version": "0.8.0",
+  "description": "Every advanced feature dating apps commonly sell in paid tiers that fits a matcher for lasting relationships is free for everyone. There are no paid tiers. Features that exist to sell visibility, manufacture scarcity or increase time in app are not offered, because they conflict with best-first ranking and the lasting-relationships objective.",
+  "pricing": {
+    "paid_tiers": false,
+    "revenue": "ads (see ads-policy.v0.8.json): at most two video ads and one text ad per person per 24 hours"
+  },
+  "free": [
+    {
+      "id": "see_whos_interested",
+      "name": "See who's interested in you",
+      "description": "Everyone who has shown interest in you, not hidden behind a paywall or blurred.",
+      "implemented_in": "app"
+    },
+    {
+      "id": "unlimited_messaging",
+      "name": "Unlimited messaging with matches",
+      "description": "No message quotas. The only limit is max_active_conversations, which exists to keep focus, not to sell.",
+      "implemented_in": "app"
+    },
+    {
+      "id": "advanced_filters",
+      "name": "All dealbreakers and preferences",
+      "description": "Every dealbreaker question and up to 25 mate preferences with importance, desired score, tolerance and up to 10 mandatory items.",
+      "implemented_in": "lib/match.mjs"
+    },
+    {
+      "id": "match_explanations",
+      "name": "Why you matched",
+      "description": "The strongest shared ground, likely friction points, and any limits the match only partly meets.",
+      "implemented_in": "lib/match.mjs#explainMatch"
+    },
+    {
+      "id": "incognito_mode",
+      "name": "Incognito mode",
+      "description": "Only people you have shown interest in can see you.",
+      "implemented_in": "lib/rank.mjs"
+    },
+    {
+      "id": "travel_mode",
+      "name": "Travel mode",
+      "description": "Match at a destination during a planned trip or move, with dates.",
+      "implemented_in": "lib/match.mjs#effectiveLocation"
+    },
+    {
+      "id": "undo",
+      "name": "Undo a pass",
+      "description": "Bring back a candidate you passed on within the last 24 hours.",
+      "implemented_in": "app",
+      "limits": { "window_hours": 24 }
+    },
+    {
+      "id": "interest_with_note",
+      "name": "Interest with a note",
+      "description": "Say why you're interested when you show interest. Every note goes through message moderation.",
+      "implemented_in": "app + lib/moderation.mjs",
+      "limits": { "max_length": 300 }
+    },
+    {
+      "id": "read_receipts",
+      "name": "Read receipts",
+      "description": "Shown in a conversation only when both people turned them on.",
+      "implemented_in": "app"
+    },
+    {
+      "id": "pause",
+      "name": "Pause / snooze",
+      "description": "Hide yourself from matching without losing your conversations.",
+      "implemented_in": "lib/rank.mjs (matching_status: paused)"
+    },
+    {
+      "id": "verified_badge",
+      "name": "Verified badge and verified-only matching",
+      "description": "ID + liveness verification is free, and anyone can choose to match only with verified people.",
+      "implemented_in": "lib/match.mjs, lib/trust.mjs"
+    },
+    {
+      "id": "voice_calls",
+      "name": "In-app voice calls",
+      "description": "Call a match without sharing a phone number. Both people must opt in, and only after enough messages.",
+      "implemented_in": "app",
+      "limits": { "requires_mutual_opt_in": true, "allowed_after_messages": 10 }
+    },
+    {
+      "id": "date_safety",
+      "name": "Date safety tools",
+      "description": "Share your date plan with a trusted contact and set a check-in timer that alerts them if you don't respond.",
+      "implemented_in": "app"
+    },
+    {
+      "id": "retake_questionnaire",
+      "name": "Update answers any time",
+      "description": "Change any answer or preference whenever you want; matches update the next day.",
+      "implemented_in": "app"
+    },
+    {
+      "id": "priority_safety_support",
+      "name": "Safety support for everyone",
+      "description": "Reports are handled by severity, never by what someone pays.",
+      "implemented_in": "lib/trust.mjs (escalate_immediately)"
+    }
+  ],
+  "not_offered": [
+    {
+      "id": "paid_visibility",
+      "examples": ["boosts", "spotlight", "priority placement"],
+      "reason": "Paying to be ranked higher breaks best-first ranking; everyone is ranked only by match quality."
+    },
+    {
+      "id": "scarcity_currency",
+      "examples": ["limited super-likes", "roses", "paid likes"],
+      "reason": "Manufactured scarcity drives engagement, not better matches. Interest with a note is free."
+    },
+    {
+      "id": "swipe_feed",
+      "examples": ["unlimited swiping", "swipe limits"],
+      "reason": "There is no feed: a few strong candidates a day, only those that are at least good."
+    },
+    {
+      "id": "photo_features",
+      "examples": [
+        "profile photos",
+        "photo verification selfies shown to others",
+        "sending pictures"
+      ],
+      "reason": "The app is text-only to prevent unsolicited explicit images and photo-first judgement."
+    },
+    {
+      "id": "video_calls",
+      "examples": ["in-app video calls"],
+      "reason": "Deferred: live video can expose people to the same abuse the no-pictures rule prevents. Can be reconsidered with mutual opt-in and moderation tooling."
+    },
+    {
+      "id": "profile_view_analytics",
+      "examples": ["who viewed your profile", "view counts"],
+      "reason": "Encourages checking back for attention rather than talking to matches."
+    }
+  ]
+}

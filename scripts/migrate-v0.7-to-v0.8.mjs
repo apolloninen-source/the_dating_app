@@ -1197,7 +1197,8 @@ function migrate(v07) {
         'sessions_or_return_visits',
         'swipes_or_profile_views',
         'messages_sent',
-        'notification_opens'
+        'notification_opens',
+        'ad_impressions'
       ],
       outcome_signals: [
         'both_confirm_together_at_3_months',
