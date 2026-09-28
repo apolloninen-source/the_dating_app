@@ -45,6 +45,7 @@ lib/validate.mjs                 catalog, dealbreaker and profile validation
 lib/moderation.mjs               pre-delivery message checks (ToS violations only)
 lib/trust.mjs                    account trust signals: photo check, mass messaging, reports
 lib/calibration.mjs              opt-in, de-identified outcome records for improving the matcher
+lib/retention.mjs                15-day message deletion, including backups (per-day key destruction)
 lib/ads.mjs                      daily ad cap, video viability, contextual ad requests
 scripts/migrate-v0.7-to-v0.8.mjs the v0.7 -> v0.8 migration (see CHANGELOG.md)
 scripts/extract-i18n.mjs         regenerates i18n/en.json
@@ -239,6 +240,9 @@ no identity verification: people stay anonymous to the service and to each other
 - **Improving the matcher** (`lib/calibration.mjs`): only when both people in a couple opt in,
   their answers and the relationship outcome are stored **de-identified**: no ids, age,
   location, photos, texts or messages, and never sensitive or legally risky answers.
+- **Messages disappear after 15 days**, permanently: each day's messages are encrypted with a
+  key that is destroyed after 15 days, so backups become unreadable too. Only messages in an
+  open report or waiting for review are kept, and only until the case is closed.
 - **Deletion**: deleting the account deletes everything; a couple leaving together is deleted too.
 
 ## Safety

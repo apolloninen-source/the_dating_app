@@ -60,7 +60,7 @@
   },
   "retention": {
     "account": "Deleted completely when the person deletes the account or both people in a couple leave together.",
-    "messages": "Kept only while the conversation exists; deleted with the conversation or the account.",
+    "messages": "Deleted permanently 15 days after sending (messaging-policy retention), including from backups via per-day key destruction; reported or held messages only until the case is closed.",
     "reports": "Only the reported messages and the decision, deleted after the case is closed and any legal hold has ended.",
     "first_message_hashes": "24 hours.",
     "strikes": "90 days (messaging-policy strikes.decay_days).",

@@ -41,6 +41,14 @@
     "allowed_after_messages": 10
   },
   "max_length": 2000,
+  "retention": {
+    "message_days": 15,
+    "deletion": "Permanent. Messages are encrypted with a per-day key that is destroyed after message_days, so copies in backups become unreadable too (crypto-shredding).",
+    "exceptions": {
+      "reported": "Copied into the report case (encrypted separately) at the moment it is reported, so destroying the day key does not affect the case; deleted when the case is closed and any legal hold ends.",
+      "held_for_review": "Kept until reviewed; deleted when rejected, or delivered and then kept for message_days."
+    }
+  },
   "explicit_talk": {
     "requires_mutual_opt_in": true,
     "note": "Both people must switch on explicit talk for the conversation before sexual language is delivered. Image requests stay blocked either way because images are not allowed."

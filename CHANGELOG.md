@@ -63,6 +63,10 @@ Everything below is applied by `scripts/migrate-v0.7-to-v0.8.mjs` to
 
 ### Added
 
+- **Messages deleted permanently after 15 days** (`lib/retention.mjs`, messaging-policy
+  `retention`), including from backups via per-day key destruction; reported or held messages
+  are kept only until the case is closed.
+
 - **Anonymous by design** (`data/privacy.v0.8.json`, `lib/calibration.mjs`): no identity
   verification and no data beyond what abuse prevention and matching need. Government-ID
   verification is replaced by a live photo check (selfie compared with the profile photo and
