@@ -32,6 +32,8 @@ data/profile.schema.json         JSON Schema for a profile: basics, answers, pre
 data/messaging-policy.v0.8.json  no-images rule, message rules, account-trust limits, report reasons
 data/region-policy.example.json  per-country rules (min age, hidden fields, disabled questions); example only
 data/features.v0.8.json          free features, and features deliberately not offered (with reasons)
+data/lifecycle-policy.v0.8.json  conversations, after-date check-in, relationship flow, launch density
+data/moderation-decisions.v0.8.json  DSA decision types, terms grounds, redress and complaint rules
 data/privacy.v0.8.json           data inventory: purpose of every field, what is never collected, retention
 data/ads-policy.v0.8.json        ad caps, placements, contextual-only targeting, prohibited categories
 i18n/en.json                     English source strings for translators (generated)
@@ -46,6 +48,12 @@ lib/moderation.mjs               pre-delivery message checks (ToS violations onl
 lib/trust.mjs                    account trust signals: photo check, mass messaging, reports
 lib/calibration.mjs              opt-in, de-identified outcome records for improving the matcher
 lib/retention.mjs                15-day message deletion, including backups (per-day key destruction)
+lib/conversations.mjs            closing kindly, one reply reminder, auto-close after inactivity
+lib/relationship.mjs             "we're together" confirmation, grace period, after-date check-in
+lib/candidates.mjs               sound database prefilter, "why am I seeing nobody?", area waitlist
+lib/questionnaire.mjs            adaptive next questions and progress
+lib/decisions.mjs                DSA statements of reasons, complaints, reporter notices, misuse
+lib/account-data.mjs             GDPR export and deletion plan
 lib/ads.mjs                      daily ad cap, video viability, contextual ad requests
 scripts/migrate-v0.7-to-v0.8.mjs the v0.7 -> v0.8 migration (see CHANGELOG.md)
 scripts/extract-i18n.mjs         regenerates i18n/en.json
@@ -198,6 +206,47 @@ never earns more; `ad_impressions` is on the objective's never-optimize list.
 - prohibited: dating services, adult, escort, gambling, alcohol, tobacco, drugs, weapons,
   political, religious, crypto, predatory loans, weight loss/cosmetic surgery, prescription
   medicine, job offers abroad or travel sponsorship
+
+## Conversations and relationships (`lib/conversations.mjs`, `lib/relationship.mjs`)
+
+- **No ghosting slots**: the person whose turn it is gets **one** reminder after 4 days to reply
+  or close kindly (ready-made kind closing messages); after 10 days of silence the conversation
+  closes itself, so open-conversation slots never fill with dead chats.
+- **Blocking** is two-way and permanent in ranking.
+- **Fair exposure**: nobody is shown to more than 25 people a day, and nobody with 10 unanswered
+  interests keeps being shown, so broadly compatible people aren't flooded and everyone gets
+  a fair chance.
+- **After a date**: a private check-in (met? see again? felt safe?). Answers are never shown to
+  the other person; they only suggest closing kindly, offer support and reporting, and give the
+  "met in person" outcome signal.
+- **"We're together"**: both confirm within 14 days → both hidden at once, deleted after a
+  30-day grace period unless one comes back. With calibration opt-in they get an **anonymous
+  check-in link** to report later whether they are still together, without any account.
+
+## Candidate generation and the questionnaire (`lib/candidates.mjs`, `lib/questionnaire.mjs`)
+
+- **Scale**: a database query narrows the pool with `prefilterSpec`, then only the shortlist is
+  fuzzy-scored. The prefilter is **sound**: it only drops people the matcher would certainly
+  exclude, which a test checks on a synthetic population.
+- **"Why am I seeing nobody?"**: which of your own settings exclude the most people; other
+  people's settings only as one total, and counts under 5 shown as "<5".
+- **Launch density**: below 150 active people within reach, people join the area's waitlist.
+- **Adaptive questionnaire**: after the fixed initial 60 (matching starts then), the next
+  questions are the most informative ones: strong research priors, many links, completing an
+  expectation–willingness pair, not repeating an answered scale group.
+
+## Legal: DSA and GDPR (`lib/decisions.mjs`, `lib/account-data.mjs`)
+
+- **Statement of reasons** (DSA Art. 17) for every restriction: what was restricted, the facts,
+  whether detection and decision were automated, the terms-of-service ground, and redress
+  (internal complaint, out-of-court settlement, courts). Submitted to the transparency database
+  without personal data.
+- **Complaints** (Art. 20): free, in the app, open for six months, **decided by a person**, with
+  a reasoned answer. **Reporters** get a receipt and the decision (Art. 16), without details about
+  the reported person; repeated unfounded reports lead to a warning, then a pause (Art. 23).
+- **Export** (GDPR Art. 15/20): everything held about a person as JSON; others appear only as
+  "them". **Deletion** (Art. 17): everything at once, except open report cases and complaints
+  until closed, and unlinked banned-photo hashes. Answered within 30 days.
 
 ## Profile photo and text (`data/profile-content-policy.v0.8.json`, `lib/profile-content.mjs`)
 

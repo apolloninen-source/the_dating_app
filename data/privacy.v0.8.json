@@ -29,6 +29,7 @@
     "only_photo_checked_matches": "matching",
     "incognito": "service",
     "expressed_interest_in": "service",
+    "blocked_ids": "abuse_prevention",
     "travel": "matching",
     "read_receipts": "service",
     "profile_text": "service",
@@ -67,5 +68,11 @@
     "banned_photo_hashes": "Perceptual hash only, kept to stop the same photo being reused after a ban.",
     "calibration_records": "De-identified; no link back to any account."
   },
-  "login": "Passkeys, or an email address used only for login and recovery; never shown, shared or used for anything else."
+  "login": "Passkeys, or an email address used only for login and recovery; never shown, shared or used for anything else.",
+  "data_subject_requests": {
+    "respond_within_days": 30,
+    "export": "lib/account-data.mjs exportAccountData: JSON with the profile, conversations (others shown as \"them\"), moderation decisions, complaints, reports made, strikes.",
+    "deletion": "lib/account-data.mjs deletionPlan: everything deleted at once, except open report cases and complaints until closed, and banned-photo hashes not linked to the account.",
+    "channel": "in_app"
+  }
 }

@@ -63,6 +63,17 @@ Everything below is applied by `scripts/migrate-v0.7-to-v0.8.mjs` to
 
 ### Added
 
+- **Conversations and relationships**: one reply reminder, kind closing templates, auto-close
+  after 10 days (`lib/conversations.mjs`); two-way blocking and fair-exposure caps in ranking;
+  private after-date check-in and "we're together" confirmation with a grace period
+  (`lib/relationship.mjs`); anonymous check-in links for later outcomes (`lib/calibration.mjs`).
+- **Candidate generation**: sound database prefilter, "why am I seeing nobody?" with
+  small-count protection, area waitlist (`lib/candidates.mjs`); adaptive questionnaire
+  (`lib/questionnaire.mjs`).
+- **Legal**: DSA statements of reasons, human-decided complaints, reporter notices, misuse
+  measures (`lib/decisions.mjs`, `data/moderation-decisions.v0.8.json`); GDPR export and
+  deletion plan (`lib/account-data.mjs`).
+
 - **Messages deleted permanently after 15 days** (`lib/retention.mjs`, messaging-policy
   `retention`), including from backups via per-day key destruction; reported or held messages
   are kept only until the case is closed.

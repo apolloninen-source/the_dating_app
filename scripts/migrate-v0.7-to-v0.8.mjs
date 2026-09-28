@@ -1522,6 +1522,7 @@ function migrate(v07) {
         'both_left_app_together',
         'conversation_led_to_meeting'
       ],
+      negative_outcome_signals: ['separated', 'did_not_want_to_meet_again'],
       calibration_note:
         'Research priors and weights may only be re-tuned against outcome_signals, never ' +
         'against engagement. Couples who leave together count as the best result.'
@@ -1534,6 +1535,10 @@ function migrate(v07) {
       max_active_conversations: 5,
       show_nobody_below_threshold: true,
       hide_when_status: ['paused', 'in_relationship'],
+      // Fair exposure: nobody is shown to more people a day, or kept in rotation while they
+      // already have many unanswered interests, than they could reasonably respond to.
+      max_daily_exposure: 25,
+      max_pending_incoming_interest: 10,
       note:
         'Always show the best available matches first; never hold good matches back to bring ' +
         'people back later. A few strong candidates a day, no infinite feed. When the ' +

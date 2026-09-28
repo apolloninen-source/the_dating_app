@@ -1,0 +1,45 @@
+{
+  "schema_version": "0.8.0",
+  "description": "How conversations, dates and relationships move along. Designed against ghosting and for people leaving together: conversations close kindly or automatically so open-conversation slots never fill with dead chats, check-ins after a date are private, and a couple that confirms they are together is hidden and later deleted.",
+  "conversations": {
+    "reply_reminder_after_days": 4,
+    "max_reminders": 1,
+    "auto_close_after_days": 10,
+    "reminder_note": "One reminder to the person whose turn it is: reply, or close kindly. Never more than one; this is not an engagement nudge.",
+    "closing_templates": [
+      {
+        "id": "not_a_match",
+        "text": "Thank you for the conversation. I don't think we're the right match, and I wish you the best."
+      },
+      {
+        "id": "met_someone",
+        "text": "I've started seeing someone and want to focus on that. Thank you, and good luck."
+      },
+      {
+        "id": "taking_a_break",
+        "text": "I'm taking a break from dating for now. Thank you for the conversation."
+      },
+      {
+        "id": "different_expectations",
+        "text": "I think we want different things. Thank you for being open about it."
+      }
+    ]
+  },
+  "after_date": {
+    "ask_after_hours": 24,
+    "questions": ["met", "see_again", "felt_safe"],
+    "privacy": "Answers are never shown to the other person. They only trigger actions (close kindly, offer support and reporting) and, if both opted in, a de-identified calibration signal; then they are discarded."
+  },
+  "relationship": {
+    "confirm_window_days": 14,
+    "grace_days_before_deletion": 30,
+    "offer_anonymous_checkin": true,
+    "checkin_months": [3, 12],
+    "note": "Both people confirm they are together within the window. Both are hidden at once and deleted after the grace period unless one returns to matching. If both opted in to calibration, they get one anonymous check-in link to report later whether they are still together, without an account."
+  },
+  "launch": {
+    "min_area_pool": 150,
+    "note": "Below this many active people within reach, a person joins the area's waitlist instead of seeing near-empty results. In \"why am I seeing nobody?\" counts below min_report_count are shown as \"<5\", so no individual can be singled out.",
+    "min_report_count": 5
+  }
+}

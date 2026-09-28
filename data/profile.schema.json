@@ -206,6 +206,14 @@
       "uniqueItems": true,
       "description": "Server-managed: ids of people this person has shown interest in (used by incognito)."
     },
+    "blocked_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "description": "Server-managed: people this person blocked. Blocked pairs never see each other again, in either direction."
+    },
     "travel": {
       "type": "object",
       "description": "Free feature (travel mode): match at a destination during a planned trip or move.",
