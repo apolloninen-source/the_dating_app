@@ -9,7 +9,7 @@
     {
       "id": "profile_photo_and_text",
       "name": "One profile photo and one profile text",
-      "description": "Screened before anyone sees it; the photo must match your verified face and is shown after mutual interest by default.",
+      "description": "Screened before anyone sees it; the photo must match your live photo check and is shown after mutual interest by default.",
       "implemented_in": "lib/profile-content.mjs"
     },
     {
@@ -79,9 +79,9 @@
       "implemented_in": "lib/rank.mjs (matching_status: paused)"
     },
     {
-      "id": "verified_badge",
-      "name": "Verified badge and verified-only matching",
-      "description": "ID + liveness verification is free, and anyone can choose to match only with verified people.",
+      "id": "photo_checked_badge",
+      "name": "Photo-checked badge and checked-only matching",
+      "description": "A free live photo check proves the profile photo is really you, without ID documents or any identity data; anyone can choose to match only with checked people.",
       "implemented_in": "lib/match.mjs, lib/trust.mjs"
     },
     {
@@ -148,5 +148,6 @@
       "examples": ["who viewed your profile", "view counts"],
       "reason": "Encourages checking back for attention rather than talking to matches."
     }
-  ]
+  ],
+  "privacy": "No data about users is collected beyond what abuse prevention and matching need; see privacy.v0.8.json."
 }

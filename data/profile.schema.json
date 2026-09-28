@@ -7,7 +7,7 @@
   "required": [
     "id",
     "schema_version",
-    "birth_date",
+    "birth_month",
     "gender",
     "seeking",
     "location",
@@ -16,20 +16,30 @@
   ],
   "additionalProperties": false,
   "properties": {
-    "id": { "type": "string", "minLength": 1 },
-    "schema_version": { "const": "0.8.0" },
-    "birth_date": {
+    "id": {
       "type": "string",
-      "format": "date",
-      "description": "Minimum age is 18 everywhere, higher where region-policy sets min_age."
+      "minLength": 1
+    },
+    "schema_version": {
+      "const": "0.8.0"
+    },
+    "birth_month": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$",
+      "description": "Year and month only (YYYY-MM); the exact date is never collected. Age checks assume the birthday is at the end of the month, so age is never overestimated. Minimum age is 18 everywhere, higher where region-policy sets min_age."
     },
     "gender": {
       "type": "object",
       "required": ["identity"],
       "additionalProperties": false,
       "properties": {
-        "identity": { "enum": ["woman", "man", "non_binary", "self_described"] },
-        "self_description": { "type": "string", "maxLength": 60 }
+        "identity": {
+          "enum": ["woman", "man", "non_binary", "self_described"]
+        },
+        "self_description": {
+          "type": "string",
+          "maxLength": 60
+        }
       }
     },
     "sexual_orientation": {
@@ -56,10 +66,20 @@
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-          "items": { "enum": ["woman", "man", "non_binary", "self_described"] }
+          "items": {
+            "enum": ["woman", "man", "non_binary", "self_described"]
+          }
         },
-        "age_min": { "type": "integer", "minimum": 18, "maximum": 120 },
-        "age_max": { "type": "integer", "minimum": 18, "maximum": 120 }
+        "age_min": {
+          "type": "integer",
+          "minimum": 18,
+          "maximum": 120
+        },
+        "age_max": {
+          "type": "integer",
+          "minimum": 18,
+          "maximum": 120
+        }
       }
     },
     "location": {
@@ -72,24 +92,44 @@
           "pattern": "^[A-Z]{2}$",
           "description": "ISO 3166-1 alpha-2."
         },
-        "region": { "type": "string" },
-        "city": { "type": "string" },
+        "region": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
         "lat": {
           "type": "number",
           "minimum": -90,
           "maximum": 90,
           "description": "Coarse only: store rounded to 2 decimals (about 1 km) to protect location privacy."
         },
-        "lng": { "type": "number", "minimum": -180, "maximum": 180 },
-        "timezone": { "type": "string", "description": "IANA time zone, e.g. Europe/Helsinki." }
+        "lng": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "timezone": {
+          "type": "string",
+          "description": "IANA time zone, e.g. Europe/Helsinki."
+        }
       }
     },
-    "max_distance_km": { "type": "integer", "minimum": 1, "maximum": 20000 },
-    "open_to_long_distance": { "type": "boolean" },
+    "max_distance_km": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 20000
+    },
+    "open_to_long_distance": {
+      "type": "boolean"
+    },
     "countries_open": {
       "type": "array",
       "uniqueItems": true,
-      "items": { "type": "string", "pattern": "^[A-Z]{2}$" },
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z]{2}$"
+      },
       "description": "Other countries the person would date in or move to; empty means home country only unless open_to_long_distance."
     },
     "languages": {
@@ -105,7 +145,9 @@
             "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$",
             "description": "BCP 47 language tag."
           },
-          "proficiency": { "enum": ["native", "fluent", "conversational", "basic"] }
+          "proficiency": {
+            "enum": ["native", "fluent", "conversational", "basic"]
+          }
         }
       }
     },
@@ -114,7 +156,9 @@
       "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$",
       "description": "BCP 47 tag for the app language."
     },
-    "units": { "enum": ["metric", "imperial"] },
+    "units": {
+      "enum": ["metric", "imperial"]
+    },
     "relationship_status": {
       "enum": [
         "single",
@@ -124,38 +168,31 @@
         "in_ethically_non_monogamous_relationship"
       ]
     },
-    "mode": { "enum": ["safe", "curious"] },
+    "mode": {
+      "enum": ["safe", "curious"]
+    },
     "matching_status": {
       "enum": ["active", "paused", "in_relationship"],
       "description": "in_relationship is set when both people confirm they are together; both are then hidden from matching. Leaving together is the app's success outcome."
     },
-    "verification": {
+    "photo_check": {
       "type": "object",
-      "description": "Set by the server from the verification vendor, never by the client. No ID image or selfie is stored.",
+      "description": "Server-managed result of the live photo check (anti-catfishing and age). The check selfie is compared with the profile photo, used for an age estimate, and deleted immediately; only this result is stored. No ID documents, names, phone numbers or face templates are ever collected.",
+      "required": ["status"],
       "additionalProperties": false,
       "properties": {
-        "identity": {
-          "type": "object",
-          "required": ["status"],
-          "additionalProperties": false,
-          "properties": {
-            "status": { "enum": ["unverified", "pending", "verified", "failed"] },
-            "method": { "enum": ["government_id_with_liveness"] },
-            "provider": { "type": "string" },
-            "verified_at": { "type": "string", "format": "date-time" },
-            "age_verified": { "type": "boolean" },
-            "document_hash": {
-              "type": "string",
-              "description": "Salted hash of the document number, for one account per person."
-            }
-          }
+        "status": {
+          "enum": ["unchecked", "pending", "passed", "failed"]
         },
-        "phone_verified": { "type": "boolean" }
+        "checked_at": {
+          "type": "string",
+          "format": "date-time"
+        }
       }
     },
-    "only_verified_matches": {
+    "only_photo_checked_matches": {
       "type": "boolean",
-      "description": "Only show and match with identity-verified people."
+      "description": "Only show and match with people who passed the live photo check."
     },
     "incognito": {
       "type": "boolean",
@@ -163,7 +200,9 @@
     },
     "expressed_interest_in": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "uniqueItems": true,
       "description": "Server-managed: ids of people this person has shown interest in (used by incognito)."
     },
@@ -178,15 +217,36 @@
           "required": ["country"],
           "additionalProperties": false,
           "properties": {
-            "country": { "type": "string", "pattern": "^[A-Z]{2}$" },
-            "city": { "type": "string" },
-            "lat": { "type": "number", "minimum": -90, "maximum": 90 },
-            "lng": { "type": "number", "minimum": -180, "maximum": 180 },
-            "timezone": { "type": "string" }
+            "country": {
+              "type": "string",
+              "pattern": "^[A-Z]{2}$"
+            },
+            "city": {
+              "type": "string"
+            },
+            "lat": {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "lng": {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "timezone": {
+              "type": "string"
+            }
           }
         },
-        "from": { "type": "string", "format": "date" },
-        "to": { "type": "string", "format": "date" }
+        "from": {
+          "type": "string",
+          "format": "date"
+        },
+        "to": {
+          "type": "string",
+          "format": "date"
+        }
       }
     },
     "read_receipts": {
@@ -207,22 +267,35 @@
         "status": {
           "enum": [
             "pending_screening",
-            "pending_verification",
+            "pending_photo_check",
             "hold_for_review",
             "approved",
             "rejected"
           ]
         },
-        "storage_key": { "type": "string" },
-        "width": { "type": "integer" },
-        "height": { "type": "integer" },
-        "approved_at": { "type": "string", "format": "date-time" }
+        "storage_key": {
+          "type": "string"
+        },
+        "width": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "approved_at": {
+          "type": "string",
+          "format": "date-time"
+        }
       }
     },
     "ratings": {
       "type": "object",
       "description": "trait id -> self rating on rating_scale (1-10).",
-      "additionalProperties": { "type": "integer", "minimum": 1, "maximum": 10 }
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10
+      }
     },
     "preferences": {
       "type": "object",
@@ -232,10 +305,24 @@
         "required": ["importance"],
         "additionalProperties": false,
         "properties": {
-          "importance": { "type": "integer", "minimum": 0, "maximum": 3 },
-          "desired": { "type": "integer", "minimum": 1, "maximum": 10 },
-          "mandatory": { "type": "boolean" },
-          "tolerance": { "type": "integer", "minimum": 1, "maximum": 9 }
+          "importance": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          },
+          "desired": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "mandatory": {
+            "type": "boolean"
+          },
+          "tolerance": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9
+          }
         }
       }
     },
@@ -248,17 +335,35 @@
         "properties": {
           "self": {
             "oneOf": [
-              { "type": "string" },
-              { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1
+              }
             ]
           },
-          "accept": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+          "accept": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
           "enabled": {
             "type": "boolean",
             "description": "For language_overlap and location questions."
           },
-          "strict": { "type": "boolean" },
-          "visibility": { "enum": ["profile", "match_only", "private"] }
+          "strict": {
+            "type": "boolean"
+          },
+          "visibility": {
+            "enum": ["profile", "match_only", "private"]
+          }
         }
       }
     },
@@ -267,12 +372,26 @@
       "description": "Explicit consent per special-category class (GDPR Art. 9 and equivalents). Answers in a class without consent must not be stored.",
       "additionalProperties": false,
       "properties": {
-        "religion": { "$ref": "#/$defs/consent" },
-        "sex_life": { "$ref": "#/$defs/consent" },
-        "political": { "$ref": "#/$defs/consent" },
-        "ethnic": { "$ref": "#/$defs/consent" },
-        "health": { "$ref": "#/$defs/consent" }
+        "religion": {
+          "$ref": "#/$defs/consent"
+        },
+        "sex_life": {
+          "$ref": "#/$defs/consent"
+        },
+        "political": {
+          "$ref": "#/$defs/consent"
+        },
+        "ethnic": {
+          "$ref": "#/$defs/consent"
+        },
+        "health": {
+          "$ref": "#/$defs/consent"
+        }
       }
+    },
+    "calibration_opt_in": {
+      "type": "boolean",
+      "description": "Opt-in: when both people in a couple opted in, their answers may be stored de-identified with the relationship outcome to improve the matcher (lib/calibration.mjs). Default off."
     }
   },
   "$defs": {
@@ -281,9 +400,17 @@
       "required": ["granted_at", "policy_version"],
       "additionalProperties": false,
       "properties": {
-        "granted_at": { "type": "string", "format": "date-time" },
-        "policy_version": { "type": "string" },
-        "withdrawn_at": { "type": "string", "format": "date-time" }
+        "granted_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "policy_version": {
+          "type": "string"
+        },
+        "withdrawn_at": {
+          "type": "string",
+          "format": "date-time"
+        }
       }
     }
   }

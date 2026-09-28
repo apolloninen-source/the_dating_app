@@ -22,7 +22,7 @@ function person(overrides = {}) {
   return {
     id: 'p',
     schema_version: '0.8.0',
-    birth_date: '1995-05-01',
+    birth_month: '1995-05',
     gender: { identity: 'woman' },
     seeking: { genders: ['man', 'woman'], age_min: 25, age_max: 45 },
     location: { country: 'FI', timezone: 'Europe/Helsinki', lat: 60.17, lng: 24.94 },
@@ -34,7 +34,7 @@ function person(overrides = {}) {
     ratings: {},
     preferences: {},
     dealbreakers: {},
-    verification: { identity: { status: 'verified' } },
+    photo_check: { status: 'passed' },
     ...overrides
   };
 }
@@ -210,7 +210,7 @@ describe('matching', () => {
     );
   });
 
-  it('softens age and distance edges but keeps gender and 18+ crisp', () => {
+  it('softens age and distance edges but keeps gender, 18+ and photo check crisp', () => {
     const viewer = person({ seeking: { genders: ['woman'], age_min: 32, age_max: 40 } });
     const oneYearYounger = score(viewer, person({ id: 'y' }));
     expect(oneYearYounger.excluded).toBe(false);
@@ -219,16 +219,16 @@ describe('matching', () => {
     const far = person({
       id: 'x',
       gender: { identity: 'man' },
-      birth_date: '2004-01-01',
+      birth_month: '2004-01',
       location: { country: 'FI', timezone: 'UTC', lat: 65, lng: 25.5 }
     });
     expect(score(viewer, far).reasons).toEqual(
       expect.arrayContaining(['gender_not_sought', 'age_range', 'dealbreaker:location'])
     );
 
-    const verifiedOnly = person({ only_verified_matches: true });
-    const unverified = person({ id: 'u', verification: { identity: { status: 'pending' } } });
-    expect(score(verifiedOnly, unverified).reasons).toContain('candidate_unverified');
+    const checkedOnly = person({ only_photo_checked_matches: true });
+    const unchecked = person({ id: 'u', photo_check: { status: 'pending' } });
+    expect(score(checkedOnly, unchecked).reasons).toContain('candidate_not_photo_checked');
   });
 });
 
@@ -289,7 +289,7 @@ describe('profile validation', () => {
         .map((t) => [t.id, { importance: 2, mandatory: true }])
     );
     const p = person({
-      birth_date: '2007-06-01',
+      birth_month: '2007-06',
       location: { country: 'XB', timezone: 'UTC' },
       seeking: { genders: ['man'], age_min: 20, age_max: 30 },
       preferences: prefs
@@ -372,19 +372,19 @@ describe('account trust', () => {
     id: 'a',
     created_at: '2026-09-27T00:00:00Z',
     location: { country: 'FI' },
-    verification: { identity: { status: 'verified' } }
+    photo_check: { status: 'passed' }
   };
 
-  it('lets a verified, well-behaved account message', () => {
-    expect(canStartConversation(policy, account, { ip_countries: ['FI'] }, NOW).allowed).toBe(true);
+  it('lets a photo-checked, well-behaved account message', () => {
+    expect(canStartConversation(policy, account, {}, NOW).allowed).toBe(true);
   });
 
-  it('requires verification from unverified or location-mismatched accounts', () => {
-    const unverified = { ...account, verification: { identity: { status: 'pending' } } };
-    expect(canStartConversation(policy, unverified, {}, NOW).reasons).toContain(
-      'require_verification'
+  it('requires a photo check from unchecked or location-mismatched accounts', () => {
+    const unchecked = { ...account, photo_check: { status: 'pending' } };
+    expect(canStartConversation(policy, unchecked, {}, NOW).reasons).toContain(
+      'require_photo_check'
     );
-    const r = accountRiskSignals(policy, account, { ip_countries: ['XZ'] }, NOW);
+    const r = accountRiskSignals(policy, account, { signin_country_mismatch: true }, NOW);
     expect(r.flags.map((f) => f.id)).toContain('location_mismatch');
   });
 
@@ -402,11 +402,11 @@ describe('account trust', () => {
     );
   });
 
-  it('suspends immediately on trafficking, underage or duplicate-identity signals', () => {
+  it('suspends immediately on trafficking or underage reports, and on reused banned photos', () => {
     const r = accountRiskSignals(
       policy,
       account,
-      { open_reports: [{ reason: 'trafficking_or_exploitation' }], accounts_with_same_document: 2 },
+      { open_reports: [{ reason: 'trafficking_or_exploitation' }], banned_photo_match: true },
       NOW
     );
     expect(r.level).toBe('high');

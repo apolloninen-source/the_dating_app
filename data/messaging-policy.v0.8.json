@@ -156,12 +156,12 @@
     }
   ],
   "account_trust": {
-    "messaging_requires_verification": true,
-    "verification_method": "government_id_with_liveness",
-    "verification_note": "Handled by a verification vendor. The ID image and liveness selfie are used only for the check, never shown to users, and deleted after the vendor retention window; the app stores status, date, provider and a salted hash of the document number for one-account-per-person.",
+    "messaging_requires_photo_check": true,
+    "photo_check": "Live selfie with a random pose prompt, compared with the profile photo and used for an age estimate, then deleted immediately. Only passed/failed and the date are stored. No identity documents, names, phone numbers or face templates are collected.",
+    "location_mismatch": "Computed at sign-in from the connection's country and discarded; only the resulting flag is kept.",
+    "ban_evasion": "A banned account's profile photo is kept only as a perceptual hash, so the same photo cannot be reused; nothing identifies the person.",
     "first_messages_per_day": 20,
     "identical_first_messages_threshold": 5,
-    "max_accounts_per_device": 1,
     "new_account_days": 7,
     "new_account_first_messages_per_day": 5,
     "report_reasons": [

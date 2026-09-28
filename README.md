@@ -32,6 +32,7 @@ data/profile.schema.json         JSON Schema for a profile: basics, answers, pre
 data/messaging-policy.v0.8.json  no-images rule, message rules, account-trust limits, report reasons
 data/region-policy.example.json  per-country rules (min age, hidden fields, disabled questions); example only
 data/features.v0.8.json          free features, and features deliberately not offered (with reasons)
+data/privacy.v0.8.json           data inventory: purpose of every field, what is never collected, retention
 data/ads-policy.v0.8.json        ad caps, placements, contextual-only targeting, prohibited categories
 i18n/en.json                     English source strings for translators (generated)
 source/core_traits_v0.7.json     the v0.7 input, kept for provenance
@@ -42,7 +43,8 @@ lib/rank.mjs                     daily ranking for lasting relationships (best f
 lib/response-quality.mjs         contradiction, social-desirability and straight-lining flags
 lib/validate.mjs                 catalog, dealbreaker and profile validation
 lib/moderation.mjs               pre-delivery message checks (ToS violations only)
-lib/trust.mjs                    account trust signals: verification, mass messaging, reports
+lib/trust.mjs                    account trust signals: photo check, mass messaging, reports
+lib/calibration.mjs              opt-in, de-identified outcome records for improving the matcher
 lib/ads.mjs                      daily ad cap, video viability, contextual ad requests
 scripts/migrate-v0.7-to-v0.8.mjs the v0.7 -> v0.8 migration (see CHANGELOG.md)
 scripts/extract-i18n.mjs         regenerates i18n/en.json
@@ -62,10 +64,12 @@ npm run migrate     # regenerate the catalog and i18n/en.json from source/
 
 ## Onboarding flow
 
-1. **Profile basics** (`profile.schema.json`): age (18+, higher where region policy says so),
-   gender, who they seek, location (country + coarse coordinates), languages, UI locale.
-2. **Identity verification**: government ID + liveness check through a vendor. Required to
-   message. The images go only to the vendor and are never shown or kept by the app.
+1. **Profile basics** (`profile.schema.json`): birth month (18+, higher where region policy says
+   so), gender, who they seek, location (country + coarse coordinates), languages, UI locale.
+   No name, phone number or ID.
+2. **Live photo check**: a selfie with a random pose prompt, compared with the profile photo and
+   used for an age estimate, then deleted immediately. Only passed/failed is stored. Required to
+   message.
 3. **Dealbreakers** (`dealbreakers.v0.8.json`): relationship goal and structure, children,
    smoking, alcohol, drugs, religion, diet, pets, politics, shared language, location, and
    who pays (first dates, and shared costs later on).
@@ -129,7 +133,7 @@ Matching uses **fuzzy logic**: no crisp cut-offs, everything is a degree in [0, 
 
 For viewer → candidate:
 
-1. **Crisp gates** (legal or identity facts only): gender sought, 18+, verified-only.
+1. **Crisp gates** (legal or safety facts only): gender sought, 18+, photo-checked-only.
 2. **Fuzzy constraints**, each a satisfaction degree:
    - age range and distance fade out over a margin (2 years, 50 % of the distance)
    - dealbreakers: strictness = degree to which the viewer's linked hard-constraint rating is
@@ -165,7 +169,7 @@ there are no paid tiers:
   preferences · **why you matched** (`explainMatch`: shared strengths, friction, unmet limits)
 - **incognito** (only people you showed interest in see you) · **travel mode** (match at a
   destination for set dates) · undo a pass (24 h) · interest with a note (moderated)
-- read receipts (mutual) · pause · verified badge and verified-only matching · in-app voice
+- read receipts (mutual) · pause · photo-checked badge and checked-only matching · in-app voice
   calls (mutual opt-in) · date safety tools (share plan, check-in timer) · update answers any
   time · safety support by severity, never by payment
 
@@ -186,7 +190,7 @@ never earns more; `ad_impressions` is on the objective's never-optimize list.
   battery, not with reduced motion, not during a call; ≤ 30 s, skippable after 5 s, muted,
   at least 10 minutes apart
 - only at natural breaks (after the daily candidates, after a questionnaire block, footers);
-  never in onboarding, verification, consent, conversations, the match moment, reports, safety
+  never in onboarding, the photo check, consent, conversations, the match moment, reports, safety
   tools or the in-a-relationship farewell
 - **contextual only**: the same ad for anyone with the same country, language and placement;
   no profile answers, matches or messages are ever used; no tracking SDKs
@@ -201,10 +205,10 @@ else until it passes the checks:
 
 - **Photo**: JPEG, PNG or WebP up to 5 MB; all metadata (including GPS location) stripped and the
   image re-encoded server-side. Screening rejects nudity (with a strike) and violence, requires
-  **exactly one face that matches the person's verified ID face** (the main catfishing guard),
-  escalates a possibly under-18 face to trust-and-safety immediately, and sends borderline
-  results and text-in-image to human review. Until identity verification is done, the photo
-  waits (`pending_verification`).
+  **exactly one face that matches the live photo check** (the main catfishing guard, with no
+  identity involved), escalates a possibly under-18 face to trust-and-safety immediately, and
+  sends borderline results and text-in-image to human review. Until the photo check is done,
+  the photo waits (`pending_photo_check`).
 - **Visibility**: by default the photo is shown **only after mutual interest**, so matching and
   first impressions stay trait-first. Set `photo.visibility` to `with_daily_candidates` to show it
   on candidate cards instead.
@@ -217,8 +221,25 @@ Start as a responsive web app: no app-store fees or review cycles, and the same 
 iOS and Android apps later (Apple and Google both require moderation, reporting and blocking for
 user content, which this design already has). Cheapest photo storage today is object storage with
 no download fees (for example Cloudflare R2) and direct browser uploads to a signed URL, then
-server-side metadata stripping and screening before the photo is marked approved. The per-user
-cost that matters most is identity verification; budget for it first.
+server-side metadata stripping and screening before the photo is marked approved. Log in with
+passkeys (or an email used only for login and recovery); no analytics or tracking scripts.
+
+## Privacy: anonymous by design (`data/privacy.v0.8.json`)
+
+**No data about users is collected beyond what abuse prevention and matching need.** There is
+no identity verification: people stay anonymous to the service and to each other.
+
+- **Never collected**: real names, ID documents, phone numbers, exact birth dates (birth month
+  only), precise or continuous location, face templates or check selfies, device fingerprints,
+  stored IP addresses, contacts, third-party analytics or tracking, advertising profiles.
+- **Every profile field declares its purpose** (matching, abuse prevention, service, consent
+  record, calibration); the tests fail if a field is added without one.
+- **Transient only**: the check selfie, the sign-in country and photo metadata are used on the
+  spot and discarded.
+- **Improving the matcher** (`lib/calibration.mjs`): only when both people in a couple opt in,
+  their answers and the relationship outcome are stored **de-identified**: no ids, age,
+  location, photos, texts or messages, and never sensitive or legally risky answers.
+- **Deletion**: deleting the account deletes everything; a couple leaving together is deleted too.
 
 ## Safety
 
@@ -234,11 +255,13 @@ cost that matters most is identity verification; budget for it first.
     traffickers moving people off the platform quickly
   - evasions (spaced letters, l33t, accents, zero-width characters) are normalized first
   - 3 active strikes suspend messaging; 5 trigger an account review
-- **Catfishing / scams** (`lib/trust.mjs`): verified identity required to message; one account
-  per person (salted document hash); a flag when the declared country doesn't match where the
-  person connects from; limits on first messages per day (stricter for new accounts); a flag
-  for the same opener sent to many people.
-- **Trafficking / exploitation**: ID-based age checks; exploitation language held for review;
+- **Catfishing / scams** (`lib/trust.mjs`): a passed live photo check is required to message;
+  a banned person's photo can't be reused (perceptual hash only); a flag when the declared
+  country doesn't match where the person connects from (computed at sign-in, the country itself
+  is not kept); limits on first messages per day (stricter for new accounts); a flag for the
+  same opener sent to many people.
+- **Trafficking / exploitation**: age estimated from the live check selfie, and possibly
+  under-18 photos escalated; exploitation language held for review;
   reports for `underage`, `trafficking_or_exploitation` or threats suspend the account
   immediately pending review; region policy lists local hotlines in the report flow.
 - **Sensitive data**: religion, sex life/orientation, politics, ethnicity and health answers

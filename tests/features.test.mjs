@@ -15,7 +15,7 @@ const at = (minutes) => new Date(NOW.getTime() + minutes * 60_000);
 function person(overrides = {}) {
   return {
     id: 'p',
-    birth_date: '1995-05-01',
+    birth_month: '1995-05',
     gender: { identity: 'woman' },
     seeking: { genders: ['man', 'woman'], age_min: 25, age_max: 45 },
     location: { country: 'FI', timezone: 'Europe/Helsinki', lat: 60.17, lng: 24.94 },
@@ -27,7 +27,7 @@ function person(overrides = {}) {
     ratings: {},
     preferences: {},
     dealbreakers: {},
-    verification: { identity: { status: 'verified' } },
+    photo_check: { status: 'passed' },
     ...overrides
   };
 }

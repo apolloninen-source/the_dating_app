@@ -26,7 +26,7 @@ describe('one profile photo', () => {
     expect(policy.photo.strip_metadata).toBe(true);
   });
 
-  it('approves a clean photo of the verified person', () => {
+  it('approves a clean photo of the photo-checked person', () => {
     expect(decide()).toEqual({ decision: 'approve', reasons: [], strike: false, escalate: false });
   });
 
@@ -38,15 +38,15 @@ describe('one profile photo', () => {
     });
   });
 
-  it('needs exactly one face, and it must be the verified person (catfishing)', () => {
+  it('needs exactly one face, and it must match the live photo check (catfishing)', () => {
     expect(decide({ face_count: 0 }).reasons).toContain('needs_exactly_one_face');
     expect(decide({ face_count: 2 }).decision).toBe('reject');
     expect(decide({ face_match: 0.3 })).toMatchObject({
       decision: 'reject',
-      reasons: ['does_not_match_verified_face']
+      reasons: ['does_not_match_photo_check']
     });
     expect(decide({ face_match: 0.75 }).decision).toBe('hold_for_review');
-    expect(decide({ face_match: null }).decision).toBe('pending_verification');
+    expect(decide({ face_match: null }).decision).toBe('pending_photo_check');
   });
 
   it('never publishes a possible minor and escalates it', () => {

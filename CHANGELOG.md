@@ -63,9 +63,17 @@ Everything below is applied by `scripts/migrate-v0.7-to-v0.8.mjs` to
 
 ### Added
 
+- **Anonymous by design** (`data/privacy.v0.8.json`, `lib/calibration.mjs`): no identity
+  verification and no data beyond what abuse prevention and matching need. Government-ID
+  verification is replaced by a live photo check (selfie compared with the profile photo and
+  used for an age estimate, then deleted; only passed/failed is kept). Birth month instead of
+  birth date. No phone numbers, device fingerprints or stored IP addresses; bans use perceptual
+  photo hashes. Every profile field declares its purpose, enforced by tests. Matcher
+  improvement uses opt-in, de-identified outcome records only.
+
 - **One profile photo and one profile text** (`data/profile-content-policy.v0.8.json`,
   `lib/profile-content.mjs`): the photo is metadata-stripped and screened (nudity, violence,
-  exactly one face matching the verified ID face, possible minors escalated) and shown after
+  exactly one face matching the live photo check, possible minors escalated) and shown after
   mutual interest by default; the text is moderated like a first message to a stranger.
   Pictures in chat remain forbidden. Web-first platform notes in the README.
 

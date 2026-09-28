@@ -31,7 +31,7 @@
     "text": ["daily_candidates_footer", "settings_footer"],
     "never": [
       "onboarding",
-      "verification",
+      "photo_check",
       "dealbreakers",
       "consent",
       "conversation",
