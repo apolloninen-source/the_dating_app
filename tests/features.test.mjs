@@ -154,3 +154,53 @@ describe('ads: two videos and one text ad per day, then nothing', () => {
     expect(ads.targeting.uses_profile_data).toBe(false);
   });
 });
+
+describe('social expectations of a partner', () => {
+  it('pairs every expectation with the willingness items that fulfil it', () => {
+    const section = catalog.traits.filter((t) => t.block === 'social_expectations');
+    expect(section.length).toBeGreaterThanOrEqual(30);
+    for (const t of section) {
+      expect(t.fulfilled_by.length + t.fulfills.length).toBeGreaterThan(0);
+    }
+    const block = catalog.questionnaire.blocks.find((b) => b.id === 'social_expectations');
+    expect(block.size).toBe(section.length);
+  });
+
+  it('checks the candidate’s willingness against the viewer’s expectation, one-sided', () => {
+    const viewer = person({ ratings: { expects_family_participation: 8 } });
+    const willing = person({ id: 'w', ratings: { joins_partner_family: 10 } });
+    const unwilling = person({ id: 'u', ratings: { joins_partner_family: 2 } });
+    const run = (c) => directionalScore(catalog, dealbreakers, viewer, c, { now: NOW });
+    expect(run(willing).parts.implicit).toBe(1);
+    expect(run(unwilling).parts.implicit).toBeLessThan(0.5);
+
+    const why = explainMatch(catalog, dealbreakers, viewer, unwilling, { now: NOW });
+    expect(why.expectations_to_discuss.map((e) => e.id)).toEqual(['expects_family_participation']);
+    expect(
+      explainMatch(catalog, dealbreakers, viewer, willing, { now: NOW }).expectations_to_discuss
+    ).toEqual([]);
+  });
+
+  it('matches who-pays answers by compatibility, neither traditional nor progressive by default', () => {
+    const viewer = (self, extra = {}) =>
+      person({ dealbreakers: { date_payment: { self, ...extra } } });
+    const candidate = (self) => person({ id: 'c', dealbreakers: { date_payment: { self } } });
+    const satisfaction = (v, c) =>
+      directionalScore(catalog, dealbreakers, v, c, { now: NOW }).parts.constraint_satisfaction;
+
+    expect(satisfaction(viewer('split_evenly'), candidate('take_turns'))).toBe(1);
+    expect(satisfaction(viewer('traditional_roles'), candidate('traditional_roles'))).toBe(1);
+    expect(satisfaction(viewer('flexible'), candidate('traditional_roles'))).toBe(1);
+    // An incompatible answer is a soft mismatch unless the viewer makes it strict.
+    expect(satisfaction(viewer('split_evenly'), candidate('traditional_roles'))).toBeCloseTo(0.7);
+    expect(
+      directionalScore(
+        catalog,
+        dealbreakers,
+        viewer('split_evenly', { strict: true }),
+        candidate('traditional_roles'),
+        { now: NOW }
+      ).reasons
+    ).toContain('dealbreaker:date_payment');
+  });
+});

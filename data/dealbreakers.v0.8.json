@@ -1,6 +1,6 @@
 {
   "schema_version": "0.8.0",
-  "description": "Categorical dealbreaker questions. Each person answers `self` and may set `accept` (the partner answers they accept). A filter is strict when the person marks it strict or when their rating on the gating hard-constraint trait reaches matching_config.constraint_gate.strict_at; otherwise a mismatch is a soft penalty. `prefer_not_to_say` and unanswered count as unknown: strict filters exclude unknowns, soft filters penalize them.",
+  "description": "Categorical dealbreaker and social-expectation questions. Each person answers `self` and may set `accept` (the partner answers they accept). Strictness is fuzzy: 1 when the person marks the question strict, otherwise the degree to which their linked hard-constraint rating is high, and at least matching_config.fuzzy.baseline_strictness; a mismatch lowers the constraint satisfaction by that degree. Questions with `compatibility` use it as a soft default `accept` when the person set none. `prefer_not_to_say` and unanswered count as mostly unknown (fuzzy.unknown_mismatch).",
   "question_types": {
     "single_choice": "Exactly one option for `self`; `accept` is a list of option ids.",
     "multi_choice": "One or more options for `self`; passes when any of them is in `accept`.",
@@ -246,6 +246,63 @@
       "allow_prefer_not_to_say": true,
       "visibility_default": "match_only",
       "special_category": "political"
+    },
+    {
+      "id": "date_payment",
+      "i18n_key": "dealbreaker.date_payment",
+      "section": "social_expectations",
+      "question": "Who do you expect to pay on the first dates?",
+      "type": "single_choice",
+      "options": [
+        { "id": "inviter_pays", "label": "Whoever asked the other out" },
+        { "id": "traditional_roles", "label": "Traditional roles, for example the man pays" },
+        { "id": "split_evenly", "label": "We split the bill" },
+        { "id": "take_turns", "label": "We take turns" },
+        { "id": "higher_earner_pays", "label": "Whoever earns more" },
+        { "id": "flexible", "label": "Flexible, we'll figure it out" }
+      ],
+      "compatibility": {
+        "inviter_pays": ["inviter_pays", "take_turns", "flexible"],
+        "traditional_roles": ["traditional_roles", "flexible"],
+        "split_evenly": ["split_evenly", "take_turns", "flexible"],
+        "take_turns": ["take_turns", "inviter_pays", "split_evenly", "flexible"],
+        "higher_earner_pays": ["higher_earner_pays", "flexible"],
+        "flexible": [
+          "inviter_pays",
+          "traditional_roles",
+          "split_evenly",
+          "take_turns",
+          "higher_earner_pays",
+          "flexible"
+        ]
+      },
+      "allow_prefer_not_to_say": false,
+      "visibility_default": "match_only",
+      "special_category": null
+    },
+    {
+      "id": "shared_costs",
+      "i18n_key": "dealbreaker.shared_costs",
+      "section": "social_expectations",
+      "question": "How should a couple share costs once they are serious or living together?",
+      "type": "single_choice",
+      "options": [
+        { "id": "split_evenly", "label": "Split evenly" },
+        { "id": "proportional_to_income", "label": "In proportion to income" },
+        { "id": "pooled", "label": "Pool everything together" },
+        { "id": "one_provider", "label": "Traditional: one partner is the main provider" },
+        { "id": "flexible", "label": "Flexible, we'll figure it out" }
+      ],
+      "compatibility": {
+        "split_evenly": ["split_evenly", "proportional_to_income", "flexible"],
+        "proportional_to_income": ["proportional_to_income", "split_evenly", "pooled", "flexible"],
+        "pooled": ["pooled", "proportional_to_income", "flexible"],
+        "one_provider": ["one_provider", "flexible"],
+        "flexible": ["split_evenly", "proportional_to_income", "pooled", "one_provider", "flexible"]
+      },
+      "allow_prefer_not_to_say": false,
+      "visibility_default": "match_only",
+      "special_category": null
     },
     {
       "id": "shared_language",

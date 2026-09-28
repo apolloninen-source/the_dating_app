@@ -1,7 +1,7 @@
 {
   "schema_version": "0.8.0",
-  "version": "0.8-beta-core-234",
-  "description": "234 first-person items. First 60 = initial blind questionnaire (balanced across the 11 original personality domains). Refining items unlock after the initial block; expanded relationship-core items cover goals, family, lifestyle, values and culture. Categorical dealbreakers live in dealbreakers.v0.8.json and profile basics in profile.schema.json. Mate-preference step follows the self block.",
+  "version": "0.8-beta-core-264",
+  "description": "264 first-person items. First 60 = initial blind questionnaire (balanced across the 11 original personality domains). Refining items unlock after the initial block; social-expectation items pair what a person expects of a partner with what they are willing to do; expanded relationship-core items cover goals, family, lifestyle, values and culture. Categorical dealbreakers and social expectation choices (such as who pays) live in dealbreakers.v0.8.json and profile basics in profile.schema.json. Mate-preference step follows the self block.",
   "source_language": "en",
   "rating_scale": {
     "min": 1,
@@ -58,6 +58,7 @@
     "allowed_divergence_range": [1, 9],
     "default_divergence_tolerance": 4,
     "implicit_weight": 0.35,
+    "expectation_weight": 1.2,
     "fuzzy": {
       "rating_sets": {
         "low": [1, 1, 3, 5.5],
@@ -120,14 +121,21 @@
         "required": true
       },
       {
-        "id": "refining",
+        "id": "social_expectations",
         "order": 4,
+        "size": 30,
+        "available_after": "initial",
+        "recommended": true
+      },
+      {
+        "id": "refining",
+        "order": 5,
         "size": 81,
         "available_after": "initial"
       },
       {
         "id": "expanded_relationship_core",
-        "order": 5,
+        "order": 6,
         "size": 93,
         "available_after": "initial"
       }
@@ -166,6 +174,7 @@
     "love_languages",
     "attraction",
     "relationship_scenarios",
+    "social_expectations",
     "lifestyle",
     "habits_health",
     "financial_life",
@@ -286,6 +295,12 @@
       "label": "Relationship scenarios",
       "kind": "relationship",
       "i18n_key": "domain.relationship_scenarios"
+    },
+    {
+      "id": "social_expectations",
+      "label": "Social expectations of a partner",
+      "kind": "relationship",
+      "i18n_key": "domain.social_expectations"
     },
     {
       "id": "lifestyle",
@@ -541,8 +556,9 @@
     }
   ],
   "counts": {
-    "total": 234,
+    "total": 264,
     "initial": 60,
+    "social_expectations": 30,
     "refining": 81,
     "expanded_relationship_core": 93
   },
@@ -570,7 +586,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["quick_to_anger", "highly_reactive", "easily_upset"],
-      "inconsistent_with": ["quick_to_anger"]
+      "inconsistent_with": ["quick_to_anger"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "emotionally_steady",
@@ -595,7 +613,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["highly_reactive", "easily_upset", "ruminates"],
-      "inconsistent_with": ["highly_reactive"]
+      "inconsistent_with": ["highly_reactive"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "highly_reactive",
@@ -620,7 +640,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["emotionally_steady", "calm_under_pressure"],
-      "inconsistent_with": ["emotionally_steady"]
+      "inconsistent_with": ["emotionally_steady"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "easily_upset",
@@ -650,7 +672,9 @@
         "critical_of_partner",
         "sarcastic_when_upset"
       ],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "quick_to_anger",
@@ -675,7 +699,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["calm_under_pressure", "patient"],
-      "inconsistent_with": ["calm_under_pressure"]
+      "inconsistent_with": ["calm_under_pressure"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "optimistic",
@@ -700,7 +726,9 @@
       },
       "seed_complements": ["realistic_cautious"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "reliable_follow_through",
@@ -725,7 +753,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["procrastinates"],
-      "inconsistent_with": ["promises_slip"]
+      "inconsistent_with": ["promises_slip"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "organized_planner",
@@ -750,7 +780,9 @@
       },
       "seed_complements": ["spontaneous_unstructured"],
       "seed_conflicts": [],
-      "inconsistent_with": ["spontaneous_unstructured"]
+      "inconsistent_with": ["spontaneous_unstructured"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "spontaneous_unstructured",
@@ -775,7 +807,9 @@
       },
       "seed_complements": ["organized_planner"],
       "seed_conflicts": [],
-      "inconsistent_with": ["organized_planner"]
+      "inconsistent_with": ["organized_planner"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "detail_oriented",
@@ -800,7 +834,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "disciplined",
@@ -825,7 +861,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["procrastinates"],
-      "inconsistent_with": ["procrastinates"]
+      "inconsistent_with": ["procrastinates"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "ambitious",
@@ -850,7 +888,9 @@
       },
       "seed_complements": ["content_with_enough"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "warm_and_affectionate",
@@ -875,7 +915,9 @@
       },
       "seed_complements": ["emotionally_reserved"],
       "seed_conflicts": ["emotionally_distant"],
-      "inconsistent_with": ["emotionally_distant"]
+      "inconsistent_with": ["emotionally_distant"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "empathetic",
@@ -900,7 +942,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "supportive",
@@ -925,7 +969,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["emotionally_distant"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "emotionally_reserved",
@@ -950,7 +996,9 @@
       },
       "seed_complements": ["warm_and_affectionate"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "compassionate",
@@ -975,7 +1023,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "trusting",
@@ -1000,7 +1050,9 @@
       },
       "seed_complements": ["guarded_skeptical"],
       "seed_conflicts": [],
-      "inconsistent_with": ["guarded_skeptical"]
+      "inconsistent_with": ["guarded_skeptical"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "assertive",
@@ -1025,7 +1077,9 @@
       },
       "seed_complements": ["accommodating"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "accommodating",
@@ -1050,7 +1104,9 @@
       },
       "seed_complements": ["assertive"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "clear_boundaries",
@@ -1075,7 +1131,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["over_explains"]
+      "inconsistent_with": ["over_explains"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "dominant_in_decisions",
@@ -1100,7 +1158,9 @@
       },
       "seed_complements": ["prefers_to_follow", "defers_to_others"],
       "seed_conflicts": ["dominant_in_decisions"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "prefers_to_follow",
@@ -1125,7 +1185,9 @@
       },
       "seed_complements": ["dominant_in_decisions"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "says_no_easily",
@@ -1150,7 +1212,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["over_explains"]
+      "inconsistent_with": ["over_explains"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "direct_communicator",
@@ -1175,7 +1239,9 @@
       },
       "seed_complements": ["diplomatic_softener"],
       "seed_conflicts": ["withdraws_under_stress"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "diplomatic_softener",
@@ -1200,7 +1266,9 @@
       },
       "seed_complements": ["direct_communicator"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "conflict_avoidant",
@@ -1225,7 +1293,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "patient",
@@ -1250,7 +1320,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["quick_to_anger"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "forgiving",
@@ -1275,7 +1347,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["keeps_score"],
-      "inconsistent_with": ["holds_grudges"]
+      "inconsistent_with": ["holds_grudges"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "raises_issues_early",
@@ -1300,7 +1374,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["withdraws_under_stress"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "honest_direct",
@@ -1325,7 +1401,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["bends_truth_for_harmony"]
+      "inconsistent_with": ["bends_truth_for_harmony"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "principled",
@@ -1350,7 +1428,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "fair_minded",
@@ -1375,7 +1455,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "loyal",
@@ -1400,7 +1482,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "transparent",
@@ -1425,7 +1509,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "self_reliant",
@@ -1450,7 +1536,9 @@
       },
       "seed_complements": ["enjoys_interdependence", "merges_easily"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "enjoys_interdependence",
@@ -1475,7 +1563,9 @@
       },
       "seed_complements": ["self_reliant"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "needs_personal_space",
@@ -1499,8 +1589,16 @@
         "suggested_range": [2, 6]
       },
       "seed_complements": [],
-      "seed_conflicts": ["checks_in_often", "merges_easily", "needs_reassurance"],
-      "inconsistent_with": []
+      "seed_conflicts": [
+        "checks_in_often",
+        "merges_easily",
+        "needs_reassurance",
+        "expects_couple_time",
+        "expects_digital_openness"
+      ],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "relationship_centered",
@@ -1525,7 +1623,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "maintains_separate_worlds",
@@ -1549,8 +1649,10 @@
         "suggested_range": [2, 6]
       },
       "seed_complements": [],
-      "seed_conflicts": ["jealous_possessive"],
-      "inconsistent_with": []
+      "seed_conflicts": ["jealous_possessive", "expects_couple_time"],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "energized_by_people",
@@ -1575,7 +1677,9 @@
       },
       "seed_complements": ["needs_solitude"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "needs_solitude",
@@ -1600,7 +1704,9 @@
       },
       "seed_complements": ["energized_by_people"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "comfortable_in_groups",
@@ -1625,7 +1731,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "prefers_deep_one_on_one",
@@ -1650,7 +1758,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "initiates_plans",
@@ -1675,7 +1785,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "curious_explorer",
@@ -1700,7 +1812,9 @@
       },
       "seed_complements": ["prefers_familiarity", "prefers_known_methods"],
       "seed_conflicts": [],
-      "inconsistent_with": ["prefers_familiarity"]
+      "inconsistent_with": ["prefers_familiarity"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "prefers_familiarity",
@@ -1725,7 +1839,9 @@
       },
       "seed_complements": ["curious_explorer"],
       "seed_conflicts": [],
-      "inconsistent_with": ["curious_explorer"]
+      "inconsistent_with": ["curious_explorer"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "intellectually_curious",
@@ -1750,7 +1866,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "open_to_change",
@@ -1775,7 +1893,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "open_to_feedback",
@@ -1800,7 +1920,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "playful",
@@ -1825,7 +1947,9 @@
       },
       "seed_complements": ["serious_minded", "prefers_serious_tone"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "humorous",
@@ -1850,7 +1974,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "serious_minded",
@@ -1875,7 +2001,9 @@
       },
       "seed_complements": ["playful"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "brings_levity",
@@ -1900,7 +2028,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "dry_humor",
@@ -1925,7 +2055,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["takes_things_literally"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "meaning_seeking",
@@ -1950,7 +2082,9 @@
       },
       "seed_complements": ["present_focused", "experience_first"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "present_focused",
@@ -1975,7 +2109,9 @@
       },
       "seed_complements": ["meaning_seeking"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "mortality_aware",
@@ -2000,7 +2136,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "spiritually_oriented",
@@ -2025,7 +2163,9 @@
       },
       "seed_complements": ["secular_practical"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "secular_practical",
@@ -2050,7 +2190,819 @@
       },
       "seed_complements": ["spiritually_oriented"],
       "seed_conflicts": ["shared_religious_practice"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
+    },
+    {
+      "id": "expects_family_participation",
+      "i18n_key": "trait.expects_family_participation",
+      "definition": "I expect a partner to take part in my family gatherings and traditions.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["joins_partner_family"],
+      "fulfills": []
+    },
+    {
+      "id": "joins_partner_family",
+      "i18n_key": "trait.joins_partner_family",
+      "definition": "I am happy to take part regularly in a partner's family gatherings and traditions.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_family_participation", "expects_holidays_together"]
+    },
+    {
+      "id": "expects_holidays_together",
+      "i18n_key": "trait.expects_holidays_together",
+      "definition": "I expect major holidays and celebrations to be spent together, including with family.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["joins_partner_family", "attends_events_as_couple"],
+      "fulfills": []
+    },
+    {
+      "id": "joins_partner_friends",
+      "i18n_key": "trait.joins_partner_friends",
+      "definition": "I enjoy spending regular time with a partner's friends.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["partner_social_integration", "expects_hospitality"]
+    },
+    {
+      "id": "expects_events_together",
+      "i18n_key": "trait.expects_events_together",
+      "definition": "I expect us to go to social events, such as weddings and parties, together as a couple.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["attends_events_as_couple"],
+      "fulfills": []
+    },
+    {
+      "id": "attends_events_as_couple",
+      "i18n_key": "trait.attends_events_as_couple",
+      "definition": "I like going to social events together with a partner rather than separately.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_holidays_together", "expects_events_together"]
+    },
+    {
+      "id": "expects_stay_close_at_events",
+      "i18n_key": "trait.expects_stay_close_at_events",
+      "definition": "At social events I expect a partner to stay close to me rather than mingle on their own.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["stays_close_at_events"],
+      "fulfills": []
+    },
+    {
+      "id": "stays_close_at_events",
+      "i18n_key": "trait.stays_close_at_events",
+      "definition": "At social events I like to stay close to my partner.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 0.9,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_stay_close_at_events"]
+    },
+    {
+      "id": "expects_public_affection",
+      "i18n_key": "trait.expects_public_affection",
+      "definition": "I expect a partner to show affection in public, such as holding hands.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["comfortable_public_affection"],
+      "fulfills": []
+    },
+    {
+      "id": "comfortable_public_affection",
+      "i18n_key": "trait.comfortable_public_affection",
+      "definition": "I am comfortable showing affection in public.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_public_affection"]
+    },
+    {
+      "id": "expects_public_acknowledgement",
+      "i18n_key": "trait.expects_public_acknowledgement",
+      "definition": "I expect a partner to openly acknowledge our relationship to friends and family, and online.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["introduces_partner_openly", "shares_relationship_publicly"],
+      "fulfills": []
+    },
+    {
+      "id": "expects_early_introductions",
+      "i18n_key": "trait.expects_early_introductions",
+      "definition": "I expect to meet a partner's family and close friends within the first few months.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["introduces_partner_openly"],
+      "fulfills": []
+    },
+    {
+      "id": "introduces_partner_openly",
+      "i18n_key": "trait.introduces_partner_openly",
+      "definition": "I introduce a partner to the important people in my life early on.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_public_acknowledgement", "expects_early_introductions"]
+    },
+    {
+      "id": "expects_limited_ex_contact",
+      "i18n_key": "trait.expects_limited_ex_contact",
+      "definition": "I expect a partner to keep little or no contact with former partners.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["limits_ex_contact"],
+      "fulfills": []
+    },
+    {
+      "id": "limits_ex_contact",
+      "i18n_key": "trait.limits_ex_contact",
+      "definition": "I am comfortable keeping little or no contact with former partners.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_limited_ex_contact"]
+    },
+    {
+      "id": "expects_friendship_boundaries",
+      "i18n_key": "trait.expects_friendship_boundaries",
+      "definition": "I expect a partner to avoid close one-on-one friendships with people they could be attracted to.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["adjusts_close_friendships"],
+      "fulfills": []
+    },
+    {
+      "id": "adjusts_close_friendships",
+      "i18n_key": "trait.adjusts_close_friendships",
+      "definition": "I am willing to adjust close one-on-one friendships if they make a partner uncomfortable.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_friendship_boundaries"]
+    },
+    {
+      "id": "expects_couple_time",
+      "i18n_key": "trait.expects_couple_time",
+      "definition": "I expect a partner to spend most evenings and weekends with me rather than out without me.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["needs_personal_space", "maintains_separate_worlds"],
+      "inconsistent_with": [],
+      "fulfilled_by": ["prefers_couple_time"],
+      "fulfills": []
+    },
+    {
+      "id": "prefers_couple_time",
+      "i18n_key": "trait.prefers_couple_time",
+      "definition": "I prefer to spend most of my free time with my partner.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_couple_time"]
+    },
+    {
+      "id": "expects_daily_contact",
+      "i18n_key": "trait.expects_daily_contact",
+      "definition": "I expect a partner to stay in touch during the day with messages or calls.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["checks_in_often"],
+      "fulfills": []
+    },
+    {
+      "id": "expects_digital_openness",
+      "i18n_key": "trait.expects_digital_openness",
+      "definition": "I expect a partner to be open about their phone, messages and whereabouts if I ask.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "mixed",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": ["needs_personal_space"],
+      "inconsistent_with": [],
+      "fulfilled_by": ["open_about_phone"],
+      "fulfills": []
+    },
+    {
+      "id": "open_about_phone",
+      "i18n_key": "trait.open_about_phone",
+      "definition": "I am comfortable being open with a partner about my phone, messages and whereabouts.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_digital_openness"]
+    },
+    {
+      "id": "expects_courtship",
+      "i18n_key": "trait.expects_courtship",
+      "definition": "I expect to be courted: a partner who asks me out, plans dates and makes an effort to win me over.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["enjoys_courting"],
+      "fulfills": []
+    },
+    {
+      "id": "enjoys_courting",
+      "i18n_key": "trait.enjoys_courting",
+      "definition": "I enjoy courting a partner: asking them out, planning dates and making an effort to win them over.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_courtship"]
+    },
+    {
+      "id": "expects_hospitality",
+      "i18n_key": "trait.expects_hospitality",
+      "definition": "I expect a partner to be welcoming to my friends and family in our home.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["host_frequently", "joins_partner_friends"],
+      "fulfills": []
+    },
+    {
+      "id": "expects_respect_for_customs",
+      "i18n_key": "trait.expects_respect_for_customs",
+      "definition": "I expect a partner to respect and follow the customs and manners that matter in my family or culture.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["adapts_to_customs"],
+      "fulfills": []
+    },
+    {
+      "id": "adapts_to_customs",
+      "i18n_key": "trait.adapts_to_customs",
+      "definition": "I am happy to learn and follow the customs and manners that matter to a partner's family or culture.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "positive",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_respect_for_customs"]
+    },
+    {
+      "id": "expects_public_support",
+      "i18n_key": "trait.expects_public_support",
+      "definition": "I expect a partner to stand by me in front of others and to raise criticism in private.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["supports_partner_publicly"],
+      "fulfills": []
+    },
+    {
+      "id": "supports_partner_publicly",
+      "i18n_key": "trait.supports_partner_publicly",
+      "definition": "I stand by a partner in front of others and raise disagreements in private.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "positive",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1.2,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 3,
+        "suggested_range": [1, 5]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_public_support"]
+    },
+    {
+      "id": "expects_occasions_marked",
+      "i18n_key": "trait.expects_occasions_marked",
+      "definition": "I expect birthdays, anniversaries and other occasions to be marked with gifts or gestures.",
+      "domain_internal": "social_expectations",
+      "block": "social_expectations",
+      "matching_role": "score",
+      "valence": "neutral",
+      "scale_group": null,
+      "keying": "forward",
+      "partner_effect": null,
+      "special_category": null,
+      "weights": {
+        "research_prior": 1,
+        "similarity_weight": 1.3,
+        "complementarity_weight": 0.2
+      },
+      "divergence": {
+        "default_tolerance": 4,
+        "suggested_range": [2, 6]
+      },
+      "seed_complements": [],
+      "seed_conflicts": [],
+      "inconsistent_with": [],
+      "fulfilled_by": ["thoughtful_gestures"],
+      "fulfills": []
     },
     {
       "id": "realistic_cautious",
@@ -2075,7 +3027,9 @@
       },
       "seed_complements": ["optimistic"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "recovers_quickly",
@@ -2100,7 +3054,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["ruminates"],
-      "inconsistent_with": ["ruminates", "hard_to_calm_down"]
+      "inconsistent_with": ["ruminates", "hard_to_calm_down"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "ruminates",
@@ -2125,7 +3081,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["recovers_quickly", "emotionally_steady"],
-      "inconsistent_with": ["recovers_quickly"]
+      "inconsistent_with": ["recovers_quickly"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "emotionally_self_aware",
@@ -2150,7 +3108,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "content_with_enough",
@@ -2175,7 +3135,9 @@
       },
       "seed_complements": ["ambitious"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "deadline_driven",
@@ -2200,7 +3162,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "procrastinates",
@@ -2225,7 +3189,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["disciplined", "reliable_follow_through"],
-      "inconsistent_with": ["disciplined"]
+      "inconsistent_with": ["disciplined"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "systems_oriented",
@@ -2250,7 +3216,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "guarded_skeptical",
@@ -2275,7 +3243,9 @@
       },
       "seed_complements": ["trusting"],
       "seed_conflicts": [],
-      "inconsistent_with": ["trusting"]
+      "inconsistent_with": ["trusting"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "physically_affectionate",
@@ -2300,7 +3270,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "listens_deeply",
@@ -2325,7 +3297,9 @@
       },
       "seed_complements": ["talkative"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "emotionally_distant",
@@ -2350,7 +3324,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["warm_and_affectionate", "supportive", "needs_reassurance"],
-      "inconsistent_with": ["warm_and_affectionate"]
+      "inconsistent_with": ["warm_and_affectionate"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "conflict_engaged",
@@ -2375,7 +3351,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "defers_to_others",
@@ -2400,7 +3378,9 @@
       },
       "seed_complements": ["dominant_in_decisions"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "protective_of_time",
@@ -2425,7 +3405,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "over_explains",
@@ -2450,7 +3432,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["says_no_easily", "clear_boundaries"]
+      "inconsistent_with": ["says_no_easily", "clear_boundaries"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "withdraws_under_stress",
@@ -2475,7 +3459,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["direct_communicator", "raises_issues_early", "fears_abandonment"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "apologizes_readily",
@@ -2500,7 +3486,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "keeps_score",
@@ -2525,7 +3513,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["forgiving"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "seeks_clarity",
@@ -2550,7 +3540,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "keeps_promises",
@@ -2575,7 +3567,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "situational_ethics",
@@ -2600,7 +3594,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "values_loyalty_highly",
@@ -2625,7 +3621,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "challenges_unfairness",
@@ -2650,7 +3648,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "private_about_values",
@@ -2675,7 +3675,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "checks_in_often",
@@ -2700,7 +3702,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["needs_personal_space"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_daily_contact"]
     },
     {
       "id": "shared_decision_maker",
@@ -2725,7 +3729,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "self_sufficient_emotionally",
@@ -2750,7 +3756,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "merges_easily",
@@ -2775,7 +3783,9 @@
       },
       "seed_complements": ["self_reliant"],
       "seed_conflicts": ["needs_personal_space"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "enjoys_solo_time",
@@ -2800,7 +3810,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "talkative",
@@ -2825,7 +3837,9 @@
       },
       "seed_complements": ["listens_deeply"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "selective_social",
@@ -2850,7 +3864,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "enjoys_hosting",
@@ -2875,7 +3891,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "low_key_presence",
@@ -2900,7 +3918,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "recharges_alone",
@@ -2925,7 +3945,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "prefers_known_methods",
@@ -2950,7 +3972,9 @@
       },
       "seed_complements": ["curious_explorer"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "aesthetically_sensitive",
@@ -2975,7 +3999,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "idea_oriented",
@@ -3000,7 +4026,9 @@
       },
       "seed_complements": ["practical_thinker"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "practical_thinker",
@@ -3025,7 +4053,9 @@
       },
       "seed_complements": ["idea_oriented"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "loves_learning",
@@ -3050,7 +4080,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "prefers_serious_tone",
@@ -3075,7 +4107,9 @@
       },
       "seed_complements": ["playful"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "spontaneous_fun",
@@ -3100,7 +4134,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "teases_affectionately",
@@ -3125,7 +4161,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["takes_things_literally"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "laughs_easily",
@@ -3150,7 +4188,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "takes_things_literally",
@@ -3175,7 +4215,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["teases_affectionately", "dry_humor", "sarcastic_when_upset"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "experience_first",
@@ -3200,7 +4242,9 @@
       },
       "seed_complements": ["meaning_seeking"],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "savoring_the_moment",
@@ -3225,7 +4269,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "adventure_oriented",
@@ -3250,7 +4296,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "embodied_living",
@@ -3275,7 +4323,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "light_on_planning",
@@ -3300,7 +4350,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "needs_reassurance",
@@ -3325,7 +4377,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["needs_personal_space", "emotionally_distant"],
-      "inconsistent_with": ["secure_in_partner"]
+      "inconsistent_with": ["secure_in_partner"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "fears_abandonment",
@@ -3350,7 +4404,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["withdraws_under_stress"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "secure_in_partner",
@@ -3375,7 +4431,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["needs_reassurance"]
+      "inconsistent_with": ["needs_reassurance"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "jealous_possessive",
@@ -3400,7 +4458,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["maintains_separate_worlds", "open_relationship_receptive"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "comfortable_depending",
@@ -3425,7 +4485,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "critical_of_partner",
@@ -3450,7 +4512,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["easily_upset"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "sarcastic_when_upset",
@@ -3475,7 +4539,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["easily_upset", "takes_things_literally"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "compromise_oriented",
@@ -3500,7 +4566,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["stubborn"]
+      "inconsistent_with": ["stubborn"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "stubborn",
@@ -3525,7 +4593,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["stubborn"],
-      "inconsistent_with": ["compromise_oriented"]
+      "inconsistent_with": ["compromise_oriented"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "holds_grudges",
@@ -3550,7 +4620,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["forgiving"]
+      "inconsistent_with": ["forgiving"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "expresses_appreciation",
@@ -3575,7 +4647,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "generous",
@@ -3600,7 +4674,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "thoughtful_gestures",
@@ -3625,7 +4701,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_occasions_marked"]
     },
     {
       "id": "shows_vulnerability",
@@ -3650,7 +4728,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["keeps_things_to_self"]
+      "inconsistent_with": ["keeps_things_to_self"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "keeps_things_to_self",
@@ -3675,7 +4755,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["shows_vulnerability"]
+      "inconsistent_with": ["shows_vulnerability"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "humble",
@@ -3700,7 +4782,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["enjoys_status"]
+      "inconsistent_with": ["enjoys_status"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "enjoys_status",
@@ -3725,7 +4809,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["humble"]
+      "inconsistent_with": ["humble"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "bends_truth_for_harmony",
@@ -3750,7 +4836,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["honest_direct"]
+      "inconsistent_with": ["honest_direct"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "self_confident",
@@ -3775,7 +4863,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["self_conscious"]
+      "inconsistent_with": ["self_conscious"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "self_conscious",
@@ -3800,7 +4890,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["self_confident"]
+      "inconsistent_with": ["self_confident"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "anxious_worrier",
@@ -3825,7 +4917,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "hard_to_calm_down",
@@ -3850,7 +4944,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["recovers_quickly"]
+      "inconsistent_with": ["recovers_quickly"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "impulsive",
@@ -3875,7 +4971,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["saver"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "decisive",
@@ -3900,7 +4998,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "punctual",
@@ -3925,7 +5025,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "promises_slip",
@@ -3950,7 +5052,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": ["reliable_follow_through"]
+      "inconsistent_with": ["reliable_follow_through"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "competitive",
@@ -3975,7 +5079,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["competitive"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "creative",
@@ -4000,7 +5106,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "unconventional",
@@ -4025,7 +5133,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "validity_never_irritated",
@@ -4050,7 +5160,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "validity_never_lied",
@@ -4075,7 +5187,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "relationship_intent_long_term",
@@ -4100,7 +5214,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["relationship_intent_casual"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "relationship_intent_marriage",
@@ -4125,7 +5241,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["relationship_intent_casual"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "relationship_intent_casual",
@@ -4150,7 +5268,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["relationship_intent_long_term", "relationship_intent_marriage"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "exclusivity_important",
@@ -4175,7 +5295,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["open_relationship_receptive"],
-      "inconsistent_with": ["open_relationship_receptive"]
+      "inconsistent_with": ["open_relationship_receptive"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "open_relationship_receptive",
@@ -4204,7 +5326,9 @@
         "exclusivity_important",
         "monogamy_sexual_expectation"
       ],
-      "inconsistent_with": ["exclusivity_important"]
+      "inconsistent_with": ["exclusivity_important"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "slow_relationship_pace",
@@ -4229,7 +5353,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["fast_relationship_pace"],
-      "inconsistent_with": ["fast_relationship_pace"]
+      "inconsistent_with": ["fast_relationship_pace"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "fast_relationship_pace",
@@ -4254,7 +5380,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["slow_relationship_pace"],
-      "inconsistent_with": ["slow_relationship_pace"]
+      "inconsistent_with": ["slow_relationship_pace"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "wants_children",
@@ -4279,7 +5407,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["does_not_want_children"],
-      "inconsistent_with": ["does_not_want_children"]
+      "inconsistent_with": ["does_not_want_children"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "does_not_want_children",
@@ -4304,7 +5434,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["wants_children", "large_family", "parenthood_high_priority"],
-      "inconsistent_with": ["wants_children"]
+      "inconsistent_with": ["wants_children"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "open_to_adoption",
@@ -4329,7 +5461,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "open_to_partner_children",
@@ -4354,7 +5488,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "large_family",
@@ -4379,7 +5515,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["does_not_want_children"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "parenthood_high_priority",
@@ -4404,7 +5542,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["does_not_want_children"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "extended_family_involved",
@@ -4429,7 +5569,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "sex_high_importance",
@@ -4454,7 +5596,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "physical_affection_high",
@@ -4479,7 +5623,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "romance_high",
@@ -4504,7 +5650,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "high_sexual_frequency",
@@ -4529,7 +5677,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "sexual_openness",
@@ -4554,7 +5704,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "monogamy_sexual_expectation",
@@ -4579,7 +5731,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["open_relationship_receptive"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "sexual_chemistry_essential",
@@ -4604,7 +5758,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "early_riser",
@@ -4629,7 +5785,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["night_owl"],
-      "inconsistent_with": ["night_owl"]
+      "inconsistent_with": ["night_owl"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "night_owl",
@@ -4654,7 +5812,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["early_riser"],
-      "inconsistent_with": ["early_riser"]
+      "inconsistent_with": ["early_riser"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "homebody",
@@ -4679,7 +5839,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["social_lifestyle"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "social_lifestyle",
@@ -4704,7 +5866,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["homebody"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "travel_oriented",
@@ -4729,7 +5893,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "rooted_lifestyle",
@@ -4754,7 +5920,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["international_life_open"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "urban_lifestyle",
@@ -4779,7 +5947,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["rural_lifestyle"],
-      "inconsistent_with": ["rural_lifestyle"]
+      "inconsistent_with": ["rural_lifestyle"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "rural_lifestyle",
@@ -4804,7 +5974,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["urban_lifestyle"],
-      "inconsistent_with": ["urban_lifestyle"]
+      "inconsistent_with": ["urban_lifestyle"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "spontaneous_lifestyle",
@@ -4829,7 +6001,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["structured_lifestyle"],
-      "inconsistent_with": ["structured_lifestyle"]
+      "inconsistent_with": ["structured_lifestyle"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "structured_lifestyle",
@@ -4854,7 +6028,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["spontaneous_lifestyle"],
-      "inconsistent_with": ["spontaneous_lifestyle"]
+      "inconsistent_with": ["spontaneous_lifestyle"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "active_lifestyle",
@@ -4879,7 +6055,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "financial_security_priority",
@@ -4904,7 +6082,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "saver",
@@ -4929,7 +6109,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["impulsive", "spender"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "spender",
@@ -4954,7 +6136,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["saver"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "career_priority",
@@ -4979,7 +6163,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["work_life_balance"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "work_life_balance",
@@ -5004,7 +6190,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["career_priority"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "financial_independence",
@@ -5029,7 +6217,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["shared_finances"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "shared_finances",
@@ -5054,7 +6244,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["financial_independence"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "financial_risk_tolerance",
@@ -5079,7 +6271,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "religious_practice_important",
@@ -5104,7 +6298,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "shared_worldview_important",
@@ -5129,7 +6325,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "shared_religious_practice",
@@ -5154,7 +6352,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["secular_practical"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "metaphysical_openness",
@@ -5179,7 +6379,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "worldview_tolerance",
@@ -5204,7 +6406,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "willing_to_relocate",
@@ -5229,7 +6433,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["geographic_rootedness"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "geographic_rootedness",
@@ -5254,7 +6460,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["willing_to_relocate"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "long_distance_tolerant",
@@ -5279,7 +6487,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "international_life_open",
@@ -5304,7 +6514,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["rooted_lifestyle"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "family_proximity_important",
@@ -5329,7 +6541,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "friendship_central",
@@ -5354,7 +6568,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "partner_social_integration",
@@ -5379,7 +6595,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["private_couple"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": ["joins_partner_friends"],
+      "fulfills": []
     },
     {
       "id": "private_couple",
@@ -5404,7 +6622,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["partner_social_integration", "shares_relationship_publicly"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "host_frequently",
@@ -5429,7 +6649,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_hospitality"]
     },
     {
       "id": "family_obligations_high",
@@ -5454,7 +6676,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "physical_attraction_essential",
@@ -5479,7 +6703,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "intellectual_attraction",
@@ -5504,7 +6730,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "emotional_attraction",
@@ -5529,7 +6757,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "voice_mannerisms_attraction",
@@ -5554,7 +6784,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "children_non_negotiable",
@@ -5580,6 +6812,8 @@
       "seed_complements": [],
       "seed_conflicts": [],
       "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": [],
       "constraint": {
         "gates": ["children_want", "children_have"],
         "amplifies_domains": ["family_children"]
@@ -5609,6 +6843,8 @@
       "seed_complements": [],
       "seed_conflicts": [],
       "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": [],
       "constraint": {
         "gates": ["relationship_structure"],
         "amplifies_domains": ["relationship_objective"]
@@ -5638,6 +6874,8 @@
       "seed_complements": [],
       "seed_conflicts": [],
       "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": [],
       "constraint": {
         "gates": ["religion", "religious_practice_level"],
         "amplifies_domains": ["worldview_religion"]
@@ -5667,6 +6905,8 @@
       "seed_complements": [],
       "seed_conflicts": [],
       "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": [],
       "constraint": {
         "gates": ["location"],
         "amplifies_domains": ["geography_mobility"]
@@ -5696,6 +6936,8 @@
       "seed_complements": [],
       "seed_conflicts": [],
       "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": [],
       "constraint": {
         "gates": ["smoking", "alcohol", "cannabis", "recreational_drugs", "diet", "pets_have"],
         "amplifies_domains": ["lifestyle", "habits_health"]
@@ -5725,6 +6967,8 @@
       "seed_complements": [],
       "seed_conflicts": [],
       "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": [],
       "constraint": {
         "gates": [],
         "amplifies_domains": ["sexual_romantic_compatibility"]
@@ -5753,7 +6997,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "caregiving_reciprocity",
@@ -5778,7 +7024,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "career_tradeoffs",
@@ -5803,7 +7051,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "financial_crisis_teamwork",
@@ -5828,7 +7078,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "partner_change_tolerance",
@@ -5853,7 +7105,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "aging_family_support",
@@ -5878,7 +7132,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "sacrifice_for_relationship",
@@ -5903,7 +7159,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "repair_after_conflict",
@@ -5928,7 +7186,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "needs_words_of_affirmation",
@@ -5953,7 +7213,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "needs_quality_time",
@@ -5978,7 +7240,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["high_screen_time"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "values_acts_of_service",
@@ -6003,7 +7267,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "values_gifts",
@@ -6028,7 +7294,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "tidy_home",
@@ -6053,7 +7321,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "health_conscious",
@@ -6078,7 +7348,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "wants_pets",
@@ -6103,7 +7375,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "high_screen_time",
@@ -6128,7 +7402,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["needs_quality_time"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "shares_relationship_publicly",
@@ -6153,7 +7429,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["private_couple"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": ["expects_public_acknowledgement"]
     },
     {
       "id": "materialistic_lifestyle",
@@ -6178,7 +7456,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "politically_engaged",
@@ -6203,7 +7483,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "traditional_values",
@@ -6228,7 +7510,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["progressive_values"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "progressive_values",
@@ -6253,7 +7537,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["traditional_values"],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "shared_politics_important",
@@ -6278,7 +7564,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "egalitarian_roles",
@@ -6303,7 +7591,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["traditional_gender_roles"],
-      "inconsistent_with": ["traditional_gender_roles"]
+      "inconsistent_with": ["traditional_gender_roles"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "traditional_gender_roles",
@@ -6328,7 +7618,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": ["egalitarian_roles"],
-      "inconsistent_with": ["egalitarian_roles"]
+      "inconsistent_with": ["egalitarian_roles"],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "cultural_heritage_important",
@@ -6353,7 +7645,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "open_to_intercultural",
@@ -6378,7 +7672,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "family_approval_important",
@@ -6403,7 +7699,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     },
     {
       "id": "multilingual_household_open",
@@ -6428,7 +7726,9 @@
       },
       "seed_complements": [],
       "seed_conflicts": [],
-      "inconsistent_with": []
+      "inconsistent_with": [],
+      "fulfilled_by": [],
+      "fulfills": []
     }
   ]
 }

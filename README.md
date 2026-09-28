@@ -12,7 +12,7 @@ they are most likely to build something lasting with, and it gets out of the way
 | -------------------- | ---------------------------------- | ----------------------------------------------------- |
 | Optimizes for        | engagement: sessions, swipes, time | lasting relationships; engagement is never optimized  |
 | Discovery            | endless feed                       | a few strong candidates a day, only "good" or better  |
-| Basis for a match    | photos, snap judgement             | 234 trait items, values, dealbreakers, preferences    |
+| Basis for a match    | photos, snap judgement             | 264 items: traits, values, social expectations        |
 | Best matches         | rationed to bring people back      | always shown first                                    |
 | Many open chats      | encouraged                         | capped, to focus on the people you're talking to      |
 | Success              | the user keeps coming back         | the couple leaves together and is hidden from matching |
@@ -26,7 +26,7 @@ the app will be built on. Everything is plain Node 22 ES modules with no runtime
 ## Layout
 
 ```
-data/traits.v0.8.json            trait catalog, 234 items (generated from source/ by the migration)
+data/traits.v0.8.json            trait catalog, 264 items (generated from source/ by the migration)
 data/dealbreakers.v0.8.json      categorical dealbreaker questions (global option lists)
 data/profile.schema.json         JSON Schema for a profile: basics, answers, preferences, consents
 data/messaging-policy.v0.8.json  no-images rule, message rules, account-trust limits, report reasons
@@ -67,11 +67,42 @@ npm run migrate     # regenerate the catalog and i18n/en.json from source/
 2. **Identity verification**: government ID + liveness check through a vendor. Required to
    message. The images go only to the vendor and are never shown or kept by the app.
 3. **Dealbreakers** (`dealbreakers.v0.8.json`): relationship goal and structure, children,
-   smoking, alcohol, drugs, religion, diet, pets, politics, shared language, location.
+   smoking, alcohol, drugs, religion, diet, pets, politics, shared language, location, and
+   who pays (first dates, and shared costs later on).
 4. **Initial 60** blind personality items, balanced across 11 domains.
 5. **Mate preferences**: up to 25 items, importance 0–3, optional desired score and
    tolerance, at most 10 mandatory.
-6. **Refining** and **relationship-core** items, available after the initial block.
+6. **Social expectations of a partner** (30 items, recommended right after): what you expect
+   a partner to do socially, paired with what you are willing to do yourself.
+7. **Refining** and **relationship-core** items, available after the initial block.
+
+## Social expectations of a partner
+
+Unmet social expectations are a classic reason relationships end, so they get their own
+section. Every **expectation** is paired with the **willingness** items that fulfil it:
+
+| Area                        | I expect a partner to…                                    | I am willing to…                                   |
+| --------------------------- | --------------------------------------------------------- | -------------------------------------------------- |
+| Family                      | take part in my family gatherings; spend holidays together | take part in a partner's family gatherings          |
+| Friends and home            | become part of my social world; welcome my people at home | spend time with a partner's friends; host           |
+| Events                      | go to weddings and parties with me; stay close there       | go to events as a couple; stay close                |
+| Affection and acknowledgement | show affection in public; acknowledge us openly; introduce me early | show affection in public; introduce a partner early; share publicly |
+| Exes and friendships        | keep little contact with exes; avoid close attraction-risk friendships | limit ex contact; adjust close friendships    |
+| Time and contact            | spend most free time with me; stay in touch during the day; be open about phone and whereabouts | prefer couple time; check in often; be open about my phone |
+| Courtship                   | court me                                                   | court a partner                                     |
+| Customs and loyalty         | respect my family's customs; back me up in public; mark occasions | adapt to a partner's customs; back a partner up; make thoughtful gestures |
+
+The matcher checks the candidate's willingness against the viewer's expectation, **one-sided**
+(more willing than expected is never penalized), weighted by how strongly the viewer holds the
+expectation (`matching_config.expectation_weight`). Expectations a candidate may not meet show
+up in "why you matched" as **things to talk about early**, not as hidden penalties.
+
+**Who pays** is a categorical choice, not a conservative–progressive scale: the inviter pays,
+traditional roles, split, take turns, the higher earner pays, or flexible (and, later on:
+split evenly, in proportion to income, pooled, one main provider, or flexible). Each question
+has a symmetric **compatibility table**: traditional matches traditional, split matches split or
+take turns, flexible matches everyone. Unless someone sets their own accepted answers, the table
+is a soft default; they can also make it strict. The app takes no side.
 
 ## What the algorithm optimizes
 

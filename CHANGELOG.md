@@ -63,6 +63,15 @@ Everything below is applied by `scripts/migrate-v0.7-to-v0.8.mjs` to
 
 ### Added
 
+- **Social expectations of a partner** (new `social_expectations` block and domain, 30 items):
+  expectations (family, friends, events, affection in public, acknowledgement, exes, close
+  friendships, couple time, daily contact, phone openness, courtship, hospitality, customs,
+  public support, occasions) paired with willingness items via `fulfilled_by` / `fulfills`.
+  The matcher checks willingness against expectation, one-sided, weighted by how strongly it is
+  held; unmet expectations appear in `explainMatch` as `expectations_to_discuss`.
+- **Who pays** (`date_payment`, `shared_costs` in `dealbreakers.v0.8.json`): categorical
+  questions with symmetric compatibility tables used as a soft default; the app takes no side.
+
 - **Free features, no paid tiers** (`data/features.v0.8.json`): match explanations
   (`explainMatch`), incognito, travel mode, and the other features dating apps commonly sell,
   plus a list of features deliberately not offered (paid visibility, scarcity currencies,
@@ -79,7 +88,7 @@ Everything below is applied by `scripts/migrate-v0.7-to-v0.8.mjs` to
   sets, satisfaction degrees combined by algebraic AND with one α-cut, conflicts accumulated by
   probabilistic OR with mode hedges, and linguistic match labels. See `matching_config.fuzzy`.
 
-- **51 new items** (183 → 234), including:
+- **81 new items** (183 → 264), including:
   - attachment anxiety (`needs_reassurance`, `fears_abandonment`, `secure_in_partner`)
   - jealousy / possessiveness
   - the criticism and contempt horsemen (`critical_of_partner`, `sarcastic_when_upset`)
@@ -90,6 +99,7 @@ Everything below is applied by `scripts/migrate-v0.7-to-v0.8.mjs` to
   - reverse-keyed items for honesty, follow-through, forgiveness and recovery
   - two social-desirability check items
   - love languages
+  - social expectations of a partner, paired with willingness (see above)
   - tidiness, health habits, pets, screen time, public couple, materialism
   - political engagement, traditional vs progressive values, gender roles
   - cultural heritage, intercultural openness, family approval, multilingual household

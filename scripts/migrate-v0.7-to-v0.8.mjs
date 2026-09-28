@@ -35,6 +35,7 @@ const DOMAINS = [
   ['love_languages', 'Love languages', 'relationship'],
   ['attraction', 'Attraction', 'relationship'],
   ['relationship_scenarios', 'Relationship scenarios', 'relationship'],
+  ['social_expectations', 'Social expectations of a partner', 'relationship'],
   ['lifestyle', 'Lifestyle', 'lifestyle'],
   ['habits_health', 'Habits & home', 'lifestyle'],
   ['financial_life', 'Financial life', 'lifestyle'],
@@ -701,6 +702,279 @@ const NEW_TRAITS = [
     'neutral',
     0.8,
     5
+  ],
+  // Social expectations of a partner: each expectation is paired with the willingness items that
+  // fulfil it (FULFILMENT below), so the matcher can check what one person expects against what
+  // the other is willing to do.
+  [
+    'expects_family_participation',
+    'I expect a partner to take part in my family gatherings and traditions.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.2,
+    3
+  ],
+  [
+    'joins_partner_family',
+    "I am happy to take part regularly in a partner's family gatherings and traditions.",
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.2,
+    3
+  ],
+  [
+    'expects_holidays_together',
+    'I expect major holidays and celebrations to be spent together, including with family.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.1,
+    3
+  ],
+  [
+    'joins_partner_friends',
+    "I enjoy spending regular time with a partner's friends.",
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.1,
+    3
+  ],
+  [
+    'expects_events_together',
+    'I expect us to go to social events, such as weddings and parties, together as a couple.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.0,
+    4
+  ],
+  [
+    'attends_events_as_couple',
+    'I like going to social events together with a partner rather than separately.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.0,
+    4
+  ],
+  [
+    'expects_stay_close_at_events',
+    'At social events I expect a partner to stay close to me rather than mingle on their own.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    0.9,
+    4
+  ],
+  [
+    'stays_close_at_events',
+    'At social events I like to stay close to my partner.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    0.9,
+    4
+  ],
+  [
+    'expects_public_affection',
+    'I expect a partner to show affection in public, such as holding hands.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.0,
+    4
+  ],
+  [
+    'comfortable_public_affection',
+    'I am comfortable showing affection in public.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.0,
+    4
+  ],
+  [
+    'expects_public_acknowledgement',
+    'I expect a partner to openly acknowledge our relationship to friends and family, and online.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.1,
+    3
+  ],
+  [
+    'expects_early_introductions',
+    "I expect to meet a partner's family and close friends within the first few months.",
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.0,
+    4
+  ],
+  [
+    'introduces_partner_openly',
+    'I introduce a partner to the important people in my life early on.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.0,
+    4
+  ],
+  [
+    'expects_limited_ex_contact',
+    'I expect a partner to keep little or no contact with former partners.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.1,
+    3
+  ],
+  [
+    'limits_ex_contact',
+    'I am comfortable keeping little or no contact with former partners.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.1,
+    3
+  ],
+  [
+    'expects_friendship_boundaries',
+    'I expect a partner to avoid close one-on-one friendships with people they could be attracted to.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.1,
+    3
+  ],
+  [
+    'adjusts_close_friendships',
+    'I am willing to adjust close one-on-one friendships if they make a partner uncomfortable.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.1,
+    3
+  ],
+  [
+    'expects_couple_time',
+    'I expect a partner to spend most evenings and weekends with me rather than out without me.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.2,
+    3
+  ],
+  [
+    'prefers_couple_time',
+    'I prefer to spend most of my free time with my partner.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.2,
+    3
+  ],
+  [
+    'expects_daily_contact',
+    'I expect a partner to stay in touch during the day with messages or calls.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.1,
+    3
+  ],
+  [
+    'expects_digital_openness',
+    'I expect a partner to be open about their phone, messages and whereabouts if I ask.',
+    'social_expectations',
+    'social_expectations',
+    'mixed',
+    1.1,
+    3
+  ],
+  [
+    'open_about_phone',
+    'I am comfortable being open with a partner about my phone, messages and whereabouts.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.1,
+    3
+  ],
+  [
+    'expects_courtship',
+    'I expect to be courted: a partner who asks me out, plans dates and makes an effort to win me over.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.0,
+    4
+  ],
+  [
+    'enjoys_courting',
+    'I enjoy courting a partner: asking them out, planning dates and making an effort to win them over.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.0,
+    4
+  ],
+  [
+    'expects_hospitality',
+    'I expect a partner to be welcoming to my friends and family in our home.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.0,
+    4
+  ],
+  [
+    'expects_respect_for_customs',
+    'I expect a partner to respect and follow the customs and manners that matter in my family or culture.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.2,
+    3
+  ],
+  [
+    'adapts_to_customs',
+    "I am happy to learn and follow the customs and manners that matter to a partner's family or culture.",
+    'social_expectations',
+    'social_expectations',
+    'positive',
+    1.2,
+    3
+  ],
+  [
+    'expects_public_support',
+    'I expect a partner to stand by me in front of others and to raise criticism in private.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.2,
+    3
+  ],
+  [
+    'supports_partner_publicly',
+    'I stand by a partner in front of others and raise disagreements in private.',
+    'social_expectations',
+    'social_expectations',
+    'positive',
+    1.2,
+    3
+  ],
+  [
+    'expects_occasions_marked',
+    'I expect birthdays, anniversaries and other occasions to be marked with gifts or gestures.',
+    'social_expectations',
+    'social_expectations',
+    'neutral',
+    1.0,
+    4
   ]
 ];
 
@@ -895,6 +1169,32 @@ const PARTNER_EFFECT = {
 // Links. Stored undirected here, written to BOTH traits so the catalog is symmetric.
 // Complement: A high on x tends to fit B high on y. Conflict: A high on x with B high on y tends
 // to cause friction. A self-link (x, x) means "both partners high on x" is the friction.
+// Expectation -> willingness items that fulfil it. Written as `fulfilled_by` on the expectation
+// and `fulfills` on each willingness item. One-sided: a partner more willing than expected is fine.
+const FULFILMENT = [
+  ['expects_family_participation', 'joins_partner_family'],
+  ['expects_holidays_together', 'joins_partner_family'],
+  ['expects_holidays_together', 'attends_events_as_couple'],
+  ['partner_social_integration', 'joins_partner_friends'],
+  ['expects_events_together', 'attends_events_as_couple'],
+  ['expects_stay_close_at_events', 'stays_close_at_events'],
+  ['expects_public_affection', 'comfortable_public_affection'],
+  ['expects_public_acknowledgement', 'introduces_partner_openly'],
+  ['expects_public_acknowledgement', 'shares_relationship_publicly'],
+  ['expects_early_introductions', 'introduces_partner_openly'],
+  ['expects_limited_ex_contact', 'limits_ex_contact'],
+  ['expects_friendship_boundaries', 'adjusts_close_friendships'],
+  ['expects_couple_time', 'prefers_couple_time'],
+  ['expects_daily_contact', 'checks_in_often'],
+  ['expects_digital_openness', 'open_about_phone'],
+  ['expects_courtship', 'enjoys_courting'],
+  ['expects_hospitality', 'host_frequently'],
+  ['expects_hospitality', 'joins_partner_friends'],
+  ['expects_respect_for_customs', 'adapts_to_customs'],
+  ['expects_public_support', 'supports_partner_publicly'],
+  ['expects_occasions_marked', 'thoughtful_gestures']
+];
+
 const COMPLEMENTS = [
   ['organized_planner', 'spontaneous_unstructured'],
   ['assertive', 'accommodating'],
@@ -973,7 +1273,10 @@ const CONFLICTS = [
   ['shared_religious_practice', 'secular_practical'],
   ['traditional_values', 'progressive_values'],
   ['traditional_gender_roles', 'egalitarian_roles'],
-  ['high_screen_time', 'needs_quality_time']
+  ['high_screen_time', 'needs_quality_time'],
+  ['expects_couple_time', 'needs_personal_space'],
+  ['expects_couple_time', 'maintains_separate_worlds'],
+  ['expects_digital_openness', 'needs_personal_space']
 ];
 
 // Intra-person contradictions: one person rating both items very high suggests careless or
@@ -1085,10 +1388,19 @@ function migrate(v07) {
     t.seed_complements = [];
     t.seed_conflicts = [];
     t.inconsistent_with = [];
+    t.fulfilled_by = [];
+    t.fulfills = [];
   }
   for (const [a, b] of COMPLEMENTS) addLink(byId, 'seed_complements', a, b);
   for (const [a, b] of CONFLICTS) addLink(byId, 'seed_conflicts', a, b);
   for (const [a, b] of INCONSISTENT) addLink(byId, 'inconsistent_with', a, b);
+  for (const [expectation, willingness] of FULFILMENT) {
+    const e = byId.get(expectation);
+    const w = byId.get(willingness);
+    if (!e || !w) throw new Error(`fulfilment references unknown ${expectation} / ${willingness}`);
+    e.fulfilled_by.push(willingness);
+    w.fulfills.push(expectation);
+  }
 
   const groupOf = new Map();
   for (const [groupId, , , members] of SCALE_GROUPS) {
@@ -1150,11 +1462,13 @@ function migrate(v07) {
       seed_complements: t.seed_complements,
       seed_conflicts: t.seed_conflicts,
       inconsistent_with: t.inconsistent_with,
+      fulfilled_by: t.fulfilled_by,
+      fulfills: t.fulfills,
       ...(gate ? { constraint: gate } : {})
     };
   });
 
-  const blockOrder = ['initial', 'refining', 'expanded_relationship_core'];
+  const blockOrder = ['initial', 'social_expectations', 'refining', 'expanded_relationship_core'];
   result.sort((a, b) => blockOrder.indexOf(a.block) - blockOrder.indexOf(b.block));
 
   const counts = Object.fromEntries(
@@ -1167,8 +1481,10 @@ function migrate(v07) {
     description:
       `${result.length} first-person items. First ${counts.initial} = initial blind ` +
       'questionnaire (balanced across the 11 original personality domains). Refining items ' +
-      'unlock after the initial block; expanded relationship-core items cover goals, family, ' +
-      'lifestyle, values and culture. Categorical dealbreakers live in dealbreakers.v0.8.json ' +
+      'unlock after the initial block; social-expectation items pair what a person expects of ' +
+      'a partner with what they are willing to do; expanded relationship-core items cover ' +
+      'goals, family, lifestyle, values and culture. Categorical dealbreakers and social ' +
+      'expectation choices (such as who pays) live in dealbreakers.v0.8.json ' +
       'and profile basics in profile.schema.json. Mate-preference step follows the self block.',
     source_language: 'en',
     rating_scale: {
@@ -1228,6 +1544,9 @@ function migrate(v07) {
       allowed_divergence_range: v07.matching_config.allowed_divergence_range,
       default_divergence_tolerance: v07.matching_config.default_divergence_tolerance,
       implicit_weight: 0.35,
+      // Weight of "does the candidate's willingness meet the viewer's expectation" per item,
+      // scaled by how strongly the viewer holds the expectation.
+      expectation_weight: 1.2,
       // Fuzzy logic replaces every crisp cut-off: ratings belong to low/medium/high by degree,
       // constraints return a satisfaction degree, and the product of all constraint degrees is
       // compared with one alpha-cut instead of each rule excluding on its own.
@@ -1264,10 +1583,17 @@ function migrate(v07) {
         { id: 'dealbreakers', order: 1, source: 'dealbreakers.v0.8.json', required: true },
         { id: 'initial', order: 2, size: counts.initial, blind: true, required: true },
         { id: 'mate_preference', order: 3, required: true },
-        { id: 'refining', order: 4, size: counts.refining, available_after: 'initial' },
+        {
+          id: 'social_expectations',
+          order: 4,
+          size: counts.social_expectations,
+          available_after: 'initial',
+          recommended: true
+        },
+        { id: 'refining', order: 5, size: counts.refining, available_after: 'initial' },
         {
           id: 'expanded_relationship_core',
-          order: 5,
+          order: 6,
           size: counts.expanded_relationship_core,
           available_after: 'initial'
         }
